@@ -9,11 +9,12 @@
 
 * {
   font-family: 'Pretendard-Regular';
-  
+
   box-sizing: border-box;
 
   /* input 태그에 Focus On시 경계선 생기는 것 */
   outline: none;
+  
 }
 
 html {

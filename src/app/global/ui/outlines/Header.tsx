@@ -12,7 +12,7 @@ import sizes from '../../styles/sizes'
 import logo from '../../assets/images/logo2.png'
 import useUser from '../../hooks/useUser'
 
-const { white, primary, light, dark } = colors
+const { white, primary, secondary, light, dark } = colors
 const { medium, big } = sizes
 
 // scss 문법
@@ -54,11 +54,11 @@ const StyledHeader = styled.header`
 const StyledForm = styled.form`
   width: 350px;
   display: flex;
-  border: 3px solid ${dark};
+  border: 3px solid ${secondary};
 
   button {
     width: 45px;
-    background: ${dark};
+    background: ${secondary};
     color: ${white};
     border: 0;
     cursor: pointer;
@@ -88,10 +88,12 @@ const StyledMenu = styled.nav`
       font-size: ${medium};
       padding: 0 40px;
       line-height: 50px;
+      transition: all 0.4s;
 
       &:hover,
       &.on {
-        background: ${dark};
+        color: ${primary};
+        background: ${light};
       }
     }
   }
