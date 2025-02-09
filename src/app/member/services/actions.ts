@@ -124,6 +124,7 @@ export const processJoin = async (params, formData: FormData) => {
  */
 export const processLogin = async (params, formData: FormData) => {
   const redirectUrl = params?.redirectUrl ?? '/'
+  console.log('redirectUrl', redirectUrl)
 
   let errors = {}
 
@@ -212,8 +213,17 @@ export const getUserInfo = async () => {
       const result = await res.json()
 
       return result.success && result.data
-    } 
+    }
   } catch (err) {
     // cookie.delete('token')
+  }
+}
+
+export const findProcess = async (params, formData: FormData) => {
+  const res = await apiRequest('/member/find/password', 'POST', formData)
+  if (res.status === 204) {
+    console.log('보내기성공')
+  } else {
+    console.log('보내기실패')
   }
 }
