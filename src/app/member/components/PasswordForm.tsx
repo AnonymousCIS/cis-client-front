@@ -11,6 +11,7 @@ const PasswordForm = ({ actionState, onChange, form, mode }) => {
     <>
       {mode === true ? ( // 비밀번호 찾기 후 이메일로 넘기기 mode true
         <StyledForm action={formAction} autoComplete="off">
+          <Input
             type="text"
             name="name"
             onChange={onChange}
