@@ -11,9 +11,14 @@ const PasswordForm = ({ actionState, onChange, form, mode }) => {
     <>
       {mode === true ? ( // 비밀번호 찾기 후 이메일로 넘기기 mode true
         <StyledForm action={formAction} autoComplete="off">
+          <input
+            type="hidden"
+            name="origin"
+            defaultValue={form?.origin ?? ''}
+          />
           <Input
             type="text"
-            name="name"
+            name="userName"
             onChange={onChange}
             placeholder="이름"
             color="dark"
@@ -27,7 +32,9 @@ const PasswordForm = ({ actionState, onChange, form, mode }) => {
             color="dark"
             value={form?.phoneNumber ?? ''}
           ></Input>
-          <BigButton type="submit">이메일로 받기</BigButton>
+          <BigButton type="submit" disabled={isPending} color="primary">
+            이메일로 받기
+          </BigButton>
         </StyledForm>
       ) : (
         // 비밀번호 변경 mode false
@@ -48,7 +55,9 @@ const PasswordForm = ({ actionState, onChange, form, mode }) => {
             color="dark"
             value={form?.confirmPassword ?? ''}
           ></Input>
-          <BigButton type="submit">비밀번호 변경</BigButton>
+          <BigButton type="submit" disabled={isPending} color="primary">
+            비밀번호 변경
+          </BigButton>
         </StyledForm>
       )}
     </>

@@ -2,7 +2,7 @@
 import React, { useState, useCallback, useActionState } from 'react'
 import { useSearchParams } from 'next/navigation'
 import PasswordForm from '../components/PasswordForm'
-import { findProcess } from '../services/actions'
+import { processFind } from '../services/actions'
 
 type Props = {
   redirectUrl?: string
@@ -11,8 +11,10 @@ type Props = {
 const FindContainer = ({ redirectUrl }: Props) => {
   const searchParams = useSearchParams()
   const params = { redirectUrl: redirectUrl ?? searchParams.get('redirectUrl') }
-  const actionState = useActionState(findProcess, params)
-  const [form, setForm] = useState<{ username?: string; phone?: string }>({})
+  const actionState = useActionState(processFind, params)
+  const [form, setForm] = useState<{ userName?: string; phoneNumber?: string }>(
+    {},
+  )
 
   const onChange = useCallback((e) => {
     setForm((form) => ({ ...form, [e.target.name]: e.target.value }))
