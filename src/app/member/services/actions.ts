@@ -1,6 +1,6 @@
 'use server'
 
-import { redirect } from 'next/navigation'
+import { redirect, RedirectType } from 'next/navigation'
 import { format } from 'date-fns'
 import { cookies } from 'next/headers'
 import apiRequest from '@/app/global/libs/apiRequest'
@@ -203,7 +203,7 @@ export const processLogin = async (params, formData: FormData) => {
   revalidatePath('/', 'layout')
 
   // 로그인 성공시 이동
-  redirect(redirectUrl)
+  redirect(redirectUrl, RedirectType.replace)
 }
 
 /**
