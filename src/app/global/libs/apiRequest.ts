@@ -12,7 +12,7 @@ export default async function apiRequest(url, method = 'GET', body) {
 
   const options = { method }
 
-  if (token.value && token.value?.trim()) {
+  if (token && token.value && token.value?.trim()) {
     headers = {
       Authorization: `Bearer ${token.value}`,
     }

@@ -13,7 +13,6 @@ const LoginContainer = ({ redirectUrl }: Props) => {
   const params = { redirectUrl: redirectUrl ?? searchParams.get('redirectUrl') }
   const actionState = useActionState(processLogin, params)
   const [form, setForm] = useState<{ email?: string; password?: string }>({})
-
   const onChange = useCallback((e) => {
     setForm((form) => ({ ...form, [e.target.name]: e.target.value }))
   }, [])
