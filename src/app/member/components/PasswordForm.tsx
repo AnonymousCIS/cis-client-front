@@ -2,8 +2,13 @@ import React from 'react'
 import styled from 'styled-components'
 import { Input } from '@/app/global/components/FormComponents'
 import { BigButton } from '@/app/global/components/Buttons'
+import Messages from '@/app/global/components/Messages'
 
-const StyledForm = styled.form``
+const StyledForm = styled.form`
+  Input + Input {
+    margin-bottom: 5px;
+  }
+`
 
 const PasswordForm = ({ actionState, onChange, form, mode }) => {
   const [errors, formAction, isPending] = actionState
@@ -11,19 +16,15 @@ const PasswordForm = ({ actionState, onChange, form, mode }) => {
     <>
       {mode === true ? ( // 비밀번호 찾기 후 이메일로 넘기기 mode true
         <StyledForm action={formAction} autoComplete="off">
-          <input
-            type="hidden"
-            name="origin"
-            defaultValue={form?.origin ?? ''}
-          />
           <Input
             type="text"
-            name="userName"
+            name="name"
             onChange={onChange}
             placeholder="이름"
             color="dark"
-            value={form?.userName ?? ''}
-          ></Input>
+            value={form?.name ?? ''}
+          />
+          <Messages color="danger">{errors?.name}</Messages>
           <Input
             type="text"
             name="phoneNumber"
@@ -31,14 +32,16 @@ const PasswordForm = ({ actionState, onChange, form, mode }) => {
             placeholder="휴대폰번호"
             color="dark"
             value={form?.phoneNumber ?? ''}
-          ></Input>
+          />
+          <Messages color="danger">{errors?.phoneNumber}</Messages>
           <BigButton type="submit" disabled={isPending} color="primary">
             이메일로 받기
           </BigButton>
+          <Messages color="danger">{errors?.global}</Messages>
         </StyledForm>
       ) : (
         // 비밀번호 변경 mode false
-        <StyledForm>
+        <StyledForm action={formAction} autoComplete="off">
           <Input
             type="password"
             name="password"
@@ -47,6 +50,7 @@ const PasswordForm = ({ actionState, onChange, form, mode }) => {
             color="dark"
             value={form?.password ?? ''}
           ></Input>
+          <Messages color="danger">{errors?.password}</Messages>
           <Input
             type="password"
             name="confirmPassword"
@@ -55,9 +59,11 @@ const PasswordForm = ({ actionState, onChange, form, mode }) => {
             color="dark"
             value={form?.confirmPassword ?? ''}
           ></Input>
+          <Messages color="danger">{errors?.confirmPassword}</Messages>
           <BigButton type="submit" disabled={isPending} color="primary">
             비밀번호 변경
           </BigButton>
+          <Messages color="danger">{errors?.misMatch}</Messages>
         </StyledForm>
       )}
     </>

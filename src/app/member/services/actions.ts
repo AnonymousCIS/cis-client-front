@@ -5,6 +5,7 @@ import { format } from 'date-fns'
 import { cookies } from 'next/headers'
 import apiRequest from '@/app/global/libs/apiRequest'
 import { revalidatePath } from 'next/cache'
+import { headers } from 'next/headers'
 
 /**
  * 회원 가입 처리
@@ -16,8 +17,6 @@ export const processJoin = async (params, formData: FormData) => {
   // 검증 실패시의 메세지 등
 
   const redirectUrl = params?.redirectUrl ?? '/member/login'
-
-  console.log('redirectUrl', redirectUrl)
 
   const form: any = {
     optionalTerms: [],
@@ -97,17 +96,17 @@ export const processJoin = async (params, formData: FormData) => {
   }
   /* Server 요청 처리 S */
   if (!hasErrors) {
-    const apiUrl = process.env.API_URL + '/member/join'
+    // const apiUrl = process.env.API_URL + '/member/join'
 
     try {
-      const res = await fetch(apiUrl, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(form),
-      })
-
+      // const res = await fetch(apiUrl, {
+      //   method: 'POST',
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //   },
+      //   body: JSON.stringify(form),
+      // })
+      const res = await apiRequest('/member/join', 'POST', form)
       if (res.status !== 201) {
         // 검증 실패시
         const result = await res.json()
@@ -133,8 +132,8 @@ export const processJoin = async (params, formData: FormData) => {
  */
 export const processLogin = async (params, formData: FormData) => {
   const redirectUrl = params?.redirectUrl ?? '/'
-  console.log('redirectUrl', redirectUrl)
 
+  const form = {}
   let errors = {}
 
   let hasErrors = false
@@ -161,16 +160,17 @@ export const processLogin = async (params, formData: FormData) => {
   /* Server 요청 처리 S */
   if (!hasErrors) {
     const apiUrl = process.env.API_URL + '/member/login'
-
     try {
-      const res = await fetch(apiUrl, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, password }),
-      })
-
+      // const res = await fetch(apiUrl, {
+      //   method: 'POST',
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //   },
+      //   body: JSON.stringify({ email, password }),
+      // })
+      form.email = email
+      form.password = password
+      const res = await apiRequest('/member/login', 'POST', form)
       const result = await res.json()
 
       if (res.status === 200 && result.success) {
@@ -196,7 +196,6 @@ export const processLogin = async (params, formData: FormData) => {
     }
   }
   /* Server 요청 처리 E */
-
   if (hasErrors) return errors
 
   // 캐시 비우기
@@ -228,23 +227,34 @@ export const getUserInfo = async () => {
   }
 }
 
+/**
+ * 회원한 비밀번호 이메일로 URL 보내기
+ * @param params
+ * @param formData
+ * @returns
+ */
 export const processFind = async (params, formData: FormData) => {
-  const redirectUrl = params?.redirectUrl ?? '/member/password/find'
-  console.log('redirectUrl', redirectUrl)
+  const redirectUrl = '/member/password/find?done=true'
+  const _headers = await headers()
 
   let errors = {}
-
   let hasErrors = false
+  const form = {}
+  const name = formData.get('name')
+  const phoneNumber = formData.get('phoneNumber')
+  const origin = _headers.get('x-current-origin') + '/member/password/change'
+  formData.set('origin', origin)
+
+  for (const [k, v] of formData.entries()) {
+    if (k.includes('$ACTION')) continue
+    form[k] = v
+  }
 
   /* 필수 항목 검증 S */
 
-  const name = formData.get('userName')
-  const phoneNumber = formData.get('phoneNumber')
-  formData.set('origin', redirectUrl)
-  const origin = formData.get('origin')
   if (!name || !name.trim()) {
-    errors.username = errors.email ?? []
-    errors.username.push('이름을 입력하세요.')
+    errors.name = errors.name ?? []
+    errors.name.push('이름을 입력하세요.')
     hasErrors = true
   }
   if (!phoneNumber || !phoneNumber.trim()) {
@@ -252,30 +262,23 @@ export const processFind = async (params, formData: FormData) => {
     errors.phoneNumber.push('휴대폰번호를 입력하세요.')
     hasErrors = true
   }
-
   /* 필수 항목 검증 E */
 
   if (!hasErrors) {
-    const apiUrl = process.env.API_URL + '/member/password/find'
-    console.log('apiUrl', apiUrl)
-    console.log('origin', origin)
-
     try {
-      const res = await fetch(apiUrl, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ name, phoneNumber, origin }),
-      })
+      // const res = await fetch(apiUrl, {
+      //   method: 'POST',
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //   },
+      //   body: JSON.stringify({ name, phoneNumber, origin }),
+      // })
+      const res = await apiRequest('/member/password/find', 'POST', form)
       const result = await res.status
-      console.log(result)
-      if (result === 204) {
-        console.log('성공')
-      } else {
-        // errors = result.message
+      if (result !== 204) {
+        errors.global = errors.global ?? []
+        errors.global.push('이름 또는 휴대포번호가 잘못되었습니다.')
         hasErrors = true
-        console.log('실패')
       }
     } catch (err) {
       console.error(err)
@@ -283,4 +286,143 @@ export const processFind = async (params, formData: FormData) => {
   }
 
   if (hasErrors) return errors
+
+  redirect(redirectUrl)
+}
+
+/**
+ * 비밀번호 변경
+ * @param params
+ * @param formData
+ * @returns
+ */
+export const processChange = async (params, formData: FormData) => {
+  let errors = {}
+
+  let hasErrors = false
+  const form = {}
+
+  /* 필수 항목 검증 S */
+  formData.set('token', params.token)
+
+  for (const [k, v] of formData.entries()) {
+    if (k.includes('$ACTION')) continue
+    form[k] = v
+  }
+
+  const password = formData.get('password')
+  const confirmPassword = formData.get('confirmPassword')
+  if (!password || !password.trim()) {
+    errors.password = errors.password ?? []
+    errors.password.push('비밀번호를 입력하세요.')
+    hasErrors = true
+  }
+  if (!confirmPassword || !confirmPassword.trim()) {
+    errors.confirmPassword = errors.confirmPassword ?? []
+    errors.confirmPassword.push('비밀번호를 확인하세요.')
+    hasErrors = true
+  }
+
+  if (password !== confirmPassword) {
+    errors.misMatch = errors.misMatch ?? []
+    errors.misMatch.push('비밀번호가 다릅니다.')
+    hasErrors = true
+  }
+
+  /* 필수 항목 검증 E */
+
+  if (!hasErrors) {
+    try {
+      const res = await apiRequest('/member/password/change', 'PATCH', form)
+      const result = await res.status
+      if (result === 204) {
+      } else {
+        // errors = result.message
+        hasErrors = true
+      }
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  if (hasErrors) return errors
+
+  redirect('/member/login')
+}
+
+/**
+ * 토큰 확인인
+ * @param token
+ * @returns
+ */
+export const validateToken = async (token) => {
+  const res = await apiRequest(`/member/password/validate/token/${token}`)
+
+  if (res.status !== 200) {
+    const result = await res.json()
+    return result.message
+  }
+}
+
+/**
+ * 회원정보 수정
+ * @param params
+ * @param formData
+ * @returns
+ */
+export const editProcess = async (params, formData: FormData) => {
+  let errors = {}
+  let hasErrors = false
+  const form: any = {
+    optionalTerms: [],
+  }
+  for (let [k, v] of formData.entries()) {
+    if (k.includes('$ACTION')) continue
+    if (k === 'optionalTerms') {
+      form.optionalTerms.push(v)
+      continue
+    }
+    form[k] = v
+  }
+
+  /* 필수 항목 검증 S*/
+
+  // 주소 항목 검증
+  if (
+    !form.zipCode ||
+    !form.zipCode?.trim() ||
+    !form.address ||
+    !form.address?.trim()
+  ) {
+    // 주소 항목 누락
+
+    errors.address = errors.address ?? []
+    errors.address.push('주소를 입력하세요.')
+
+    hasErrors = true
+  }
+
+  /* 필수 항목 검증 E*/
+
+  if (form?.password && form?.password !== form?.confirmPassword) {
+    errors.confirmPassword = errors.confirmPassword ?? []
+    errors.confirmPassword.push('비밀번호가 일치하지 않습니다.')
+    hasErrors = true
+  }
+  if (!hasErrors) {
+    try {
+      const res = await apiRequest(`/member/edit`, 'PATCH', form)
+      const result = await res.status
+      if (result !== 200) {
+        const result = await res.json()
+        errors = result.message
+      }
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  if (hasErrors) return errors
+
+  redirect('/')
 }

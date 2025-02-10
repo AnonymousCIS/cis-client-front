@@ -38,9 +38,6 @@ const Messages = ({ children, color }) => {
 
   // 값이 없을 경우
   if (messages.length === 0) return <></>
-
-  console.log('messages', messages)
-
   return messages.map((message, i) => (
     <Message key={message + '_' + i} color={color}>
       {message}

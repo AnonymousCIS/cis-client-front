@@ -4,7 +4,11 @@ import { Input } from '@/app/global/components/FormComponents'
 import { BigButton } from '@/app/global/components/Buttons'
 import Messages from '@/app/global/components/Messages'
 
-const StyledForm = styled.form``
+const StyledForm = styled.form`
+  Input + Input {
+    margin-bottom: 5px;
+  }
+`
 
 const LoginForm = ({ actionState, onChange, form }) => {
   const [errors, formAction, isPending] = actionState
