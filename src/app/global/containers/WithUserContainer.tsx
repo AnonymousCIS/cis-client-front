@@ -8,7 +8,7 @@ import { MainContentBox } from '../components/ContentBox'
 import { MainTitle } from '../components/StyledTitle'
 import { usePathname, useSearchParams } from 'next/navigation'
 
-export default function withUserContainer(UserContainer) {
+export default function WithUserContainer(UserContainer) {
   // 로그인 상태일때만 가능한 컨테이너 = UserContainer
 
   const { isLogin } = useUser()

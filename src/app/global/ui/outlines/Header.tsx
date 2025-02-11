@@ -12,7 +12,7 @@ import sizes from '../../styles/sizes'
 import logo from '../../assets/images/logo2.png'
 import useUser from '../../hooks/useUser'
 
-const { white, primary, secondary, light, dark, info } = colors
+const { white, primary, secondary, light, dark } = colors
 const { medium, big } = sizes
 
 // scss 문법
@@ -61,7 +61,7 @@ const StyledForm = styled.form`
   border: 3px solid ${secondary};
 
   margin-right: 400px;
-   button {
+  button {
     width: 45px;
     background: ${secondary};
     color: ${white};

@@ -11,16 +11,16 @@ import { processChange } from '../services/actions'
 import Messages from '@/app/global/components/Messages'
 import { validateToken } from '../services/actions'
 
-type Props = {
-  redirectUrl?: string
-}
+// type Props = {
+//   redirectUrl?: string
+// }
 
 const initialValue = {
   password: '',
   confirmPassword: '',
 }
 
-const FindContainer = ({ redirectUrl }: Props) => {
+const FindContainer = (/* { redirectUrl }: Props */) => {
   const searchParams = useSearchParams()
   const token = searchParams.get('token')
   const params = {

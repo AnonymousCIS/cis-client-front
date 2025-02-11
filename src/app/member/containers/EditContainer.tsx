@@ -6,7 +6,7 @@ import useUser from '@/app/global/hooks/useUser'
 
 const JoinContainer = () => {
   const { userInfo } = useUser()
-  const actionState = useActionState(editProcess)
+  const actionState = useActionState(editProcess, undefined)
   const [form, setForm] = useState({
     email: userInfo?.email,
     zipCode: userInfo?.zipCode,
