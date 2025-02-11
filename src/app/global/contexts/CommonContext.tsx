@@ -6,7 +6,7 @@ import { Helmet, HelmetProvider } from 'react-helmet-async'
 import { setDefaultLocale } from 'react-datepicker'
 import { ko } from 'date-fns/locale'
 
-setDefaultLocale(ko)
+setDefaultLocale(ko.code)
 
 type ContextType = {
   state?: { title?: string }

@@ -1,8 +1,13 @@
 'use server'
 
 import { cookies } from 'next/headers'
+import type { RequestInit } from 'next/dist/server/web/spec-extension/request'
 
-export default async function apiRequest(url, method = 'GET', body) {
+export default async function apiRequest(
+  url: string,
+  method: string = 'GET',
+  body?: FormData | string,
+) {
   const apiUrl = /^http[s]?/.test(url) ? url : process.env.API_URL + url
 
   const cookie = await cookies()
@@ -10,24 +15,26 @@ export default async function apiRequest(url, method = 'GET', body) {
 
   let headers = null
 
-  const options = { method }
+  const options: RequestInit = {
+    method,
+  }
 
   if (token && token.value && token.value?.trim()) {
     headers = {
       Authorization: `Bearer ${token.value}`,
     }
   }
-
+  let _body: string | null = null
   if (['POST', 'PATCH', 'PUT'].includes(method.toUpperCase()) && body) {
     if (!(body instanceof FormData)) {
       headers = headers ?? {}
 
       headers['Content-Type'] = 'application/json'
 
-      body = JSON.stringify(body)
+      _body = JSON.stringify(body)
     }
 
-    options.body = body
+    options.body = _body
   }
 
   if (headers) options.headers = headers
