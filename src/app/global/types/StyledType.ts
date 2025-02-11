@@ -1,5 +1,5 @@
 export type CommonType = {
-  children?: React.ReactNode | string[]
+  children?: React.ReactNode | string[] | string
   width?: number | string
   height?: number | string
   color?: string | undefined
@@ -7,5 +7,12 @@ export type CommonType = {
   max?: number
   type?: string | undefined
   disabled?: boolean | undefined
-  praceholder?: string
+  placeholder?: string
+  name?: string
+  value?: string
+  className?: string
+}
+
+export type SelectType = CommonType & {
+  options?: { value: string; label: string }[]
 }
