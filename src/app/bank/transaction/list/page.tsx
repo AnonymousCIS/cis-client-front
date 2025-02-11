@@ -1,7 +1,7 @@
 import { MainTitle } from '@/app/global/components/StyledTitle'
 import { MainContentBox } from '@/app/global/components/ContentBox'
 
-const TransactionListPage = () => {
+const ListPage = () => {
   return (
     <>
       <MainContentBox max={750} min={650}>
@@ -11,4 +11,4 @@ const TransactionListPage = () => {
   )
 }
 
-export default TransactionListPage
+export default ListPage

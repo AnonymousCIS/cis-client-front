@@ -1,14 +1,14 @@
 import { MainTitle } from '@/app/global/components/StyledTitle'
 import { MainContentBox } from '@/app/global/components/ContentBox'
 
-const TransactionLoanPage = () => {
+const LoanPage = () => {
   return (
     <>
       <MainContentBox max={750} min={650}>
-        <MainTitle>대출내역목록조회</MainTitle>
+        <MainTitle></MainTitle>
       </MainContentBox>
     </>
   )
 }
 
-export default TransactionLoanPage
+export default LoanPage

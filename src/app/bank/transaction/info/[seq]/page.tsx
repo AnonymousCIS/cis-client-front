@@ -1,7 +1,7 @@
 import { MainTitle } from '@/app/global/components/StyledTitle'
 import { MainContentBox } from '@/app/global/components/ContentBox'
 
-const TransactionInfoPage = () => {
+const InfoPage = () => {
   return (
     <>
       <MainContentBox max={750} min={650}>
@@ -11,4 +11,4 @@ const TransactionInfoPage = () => {
   )
 }
 
-export default TransactionInfoPage
+export default InfoPage

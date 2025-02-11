@@ -12,7 +12,7 @@ const initialValue = {
 
 const FindContainer = () => {
   const searchParams = useSearchParams()
-  const actionState = useActionState(processFind)
+  const actionState = useActionState(processFind, undefined)
   const [form, setForm] = useState(initialValue)
   const done = searchParams.get('done') === 'true'
 
