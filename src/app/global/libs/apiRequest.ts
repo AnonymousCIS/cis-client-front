@@ -19,12 +19,14 @@ export default async function apiRequest(
     method,
   }
 
-  if (token && token.value && token.value?.trim()) {
+  if (token.value && token.value?.trim()) {
     headers = {
       Authorization: `Bearer ${token.value}`,
     }
   }
+
   let _body: string | null = null
+
   if (['POST', 'PATCH', 'PUT'].includes(method.toUpperCase()) && body) {
     if (!(body instanceof FormData)) {
       headers = headers ?? {}
