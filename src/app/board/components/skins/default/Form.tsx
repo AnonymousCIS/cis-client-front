@@ -1,13 +1,11 @@
-'use client'
-
 import React from 'react'
 import { MainContentBox } from '@/app/global/components/ContentBox'
 import { MainTitle } from '@/app/global/components/StyledTitle'
 import ReactQuill from 'react-quill-new'
-import styled from 'styled-components'
-import { CommonType } from '@/app/global/types/StyledType'
-import { MdCheckBox, MdCheckBoxOutlineBlank } from 'react-icons/md'
 import { Input, Textarea } from '@/app/global/components/FormComponents'
+import styled from 'styled-components'
+import { MdCheckBox, MdCheckBoxOutlineBlank } from 'react-icons/md'
+import { CommonType } from '@/app/global/types/StyledType'
 import { BigButton } from '@/app/global/components/Buttons'
 import Messages from '@/app/global/components/Messages'
 import useUser from '@/app/global/hooks/useUser'
@@ -31,11 +29,10 @@ const Form = ({
   onClick,
 }) => {
   const [errors, formAction, isPending] = actionState
-
+  
   const { useEditor } = board
-
-  const { isLogin, isAdmin } = useUser()
-
+  const { isLogin, isAdmin, userInfo } = useUser()
+  
   return (
     <>
       <MainContentBox max={750} min={650}>
@@ -57,7 +54,7 @@ const Form = ({
                 onChange={onChange}
                 placeholder="작성자"
               />
-
+              
               {isAdmin && (
                 <span onClick={() => onClick('notice', !Boolean(data?.notice))}>
                   {data?.notice ? <MdCheckBox /> : <MdCheckBoxOutlineBlank />}{' '}
@@ -81,7 +78,7 @@ const Form = ({
               <Messages color="danger">{errors?.guestPw}</Messages>
             </div>
           )}
-
+          
           <div className="row">
             <Input
               type="text"
@@ -91,7 +88,7 @@ const Form = ({
             />
             <Messages color="danger">{errors?.subject}</Messages>
           </div>
-
+          
           <div className="row content-row">
             {useEditor ? (
               <ReactQuill
@@ -104,12 +101,11 @@ const Form = ({
                 name="content"
                 value={data?.content ?? ''}
                 onChange={onChange}
-                placeholder="내용을 입력하세요."
+                placeholder="내용을 입력하세요"
               />
             )}
             <Messages color="danger">{errors?.content}</Messages>
           </div>
-
           <BigButton type="submit" disabled={isPending} color="primary">
             {data?.mode === 'edit' ? '수정' : '작성'}
           </BigButton>

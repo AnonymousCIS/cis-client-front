@@ -1,8 +1,6 @@
-import React from "react";
+import React from 'react'
 
 const Comment = () => {
-
-    return <h1>Default Comment</h1>
+  return <h1>default</h1>
 }
-
 export default React.memo(Comment)

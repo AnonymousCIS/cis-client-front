@@ -110,7 +110,8 @@ const Header = () => {
 
   const email = userInfo?.email
   const name = userInfo?.name
-  const adminUrl = process.env.NEXT_PUBLIC_ADMIN_URL
+  
+  const adminUrl = process.env.NEXT_PUBLUC_ADMIN_URL
 
   return (
     <StyledHeader>
@@ -132,7 +133,9 @@ const Header = () => {
                 </a>
                 {isAdmin && (
                   <a href={adminUrl} target="_blank">
-                    <GrUserAdmin className="icon-cls" /> 사이트 관리
+                    
+                    <GrUserAdmin className="icon-cls" />
+                    사이트관리
                   </a>
                 )}
                 <a href="/member/api/logout">

@@ -19,10 +19,9 @@ export const getBoard = async (bid) => {
   } catch (err) {
     console.error(err)
   }
-}
-
 /**
  * 게시글 작성 & 수정
+ *
  * @param params
  * @param formData
  */
@@ -37,19 +36,17 @@ export const updateBoard = async (params, formData: FormData) => {
       : value.toString()
 
     form[key] = _value
-  }
-
-  const { locationAfterWriting } = await getBoard(form.bid)
+  } const { locationAfterWriting } = await getBoard(form.bid)
 
   let redirectUrl = `/board/list/${form.bid}`
-
   /* 필수 항목 검증 S */
+
   const requiredFields = {
     poster: '작성자를 입력하세요',
-    subject: '제목을 입력하세요.',
-    content: '내용을 입력하세요.',
-    bid: '잘못된 접근입니다.',
-    gid: '잘못된 접근입니다.',
+    subject: '제목을 입력하세요',
+    content: '내용을 입력하세요',
+    gid: '잘못된 접근입니다',
+    bid: '잘못된 접근입니다',
   }
 
   for (const [field, msg] of Object.entries(requiredFields)) {
@@ -62,17 +59,15 @@ export const updateBoard = async (params, formData: FormData) => {
       hasErrors = true
     }
   }
+
   /* 필수 항목 검증 E */
 
   /* Server 처리 요청 S */
 
   if (!hasErrors) {
     form.status = 'ALL'
-
-    const res = await apiRequest('/board/save', 'POST')
-
+    const res = await apiRequest('/board/save', 'POST', form)
     const result = await res.json()
-
     if (res.status !== 200 || !result.success) {
       // 게시글 등록 & 수정 실패
       return result.message
@@ -83,6 +78,7 @@ export const updateBoard = async (params, formData: FormData) => {
         locationAfterWriting === 'view' ? `/board/view/${seq}` : redirectUrl
     }
   }
+  
   /* Server 처리 요청 E */
 
   if (hasErrors) return errors

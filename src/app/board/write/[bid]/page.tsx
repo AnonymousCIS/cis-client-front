@@ -10,12 +10,7 @@ type ParamType = {
 
 const WritePage = ({ params }) => {
   const { bid } = React.use<ParamType>(params)
-
-  return (
-    <>
-      <BoardFormController bid={bid} />
-    </>
-  )
+  return <BoardFormController bid={bid} />
 }
 
 export default React.memo(WritePage)

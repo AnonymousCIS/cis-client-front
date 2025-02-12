@@ -132,7 +132,10 @@ export const processJoin = async (params, formData: FormData) => {
 export const processLogin = async (params, formData: FormData) => {
   const redirectUrl = params?.redirectUrl ?? '/'
 
-  const form: any = {}
+  const form: any = {
+    email: '',
+    password: '',
+  }
   let errors: any = {}
 
   let hasErrors = false
@@ -166,8 +169,9 @@ export const processLogin = async (params, formData: FormData) => {
       //   },
       //   body: JSON.stringify({ email, password }),
       // })
-      form.email = email
-      form.password = password
+
+      form.email = formData.get('email').toString()
+      form.password = formData.get('password').toString()
       const res = await apiRequest('/member/login', 'POST', form)
       const result = await res.json()
 

@@ -1,6 +1,4 @@
-// Write & Edit 공용
-
-'use client'
+'use client
 
 import React, {
   useState,
@@ -10,9 +8,9 @@ import React, {
 } from 'react'
 import { updateBoard } from '../services/actions'
 import useSkin from '../hooks/useSkin'
+import useMainTitle from '@/app/global/hooks/useMainTitle'
 import { getBoard } from '../services/actions'
 import { notFound } from 'next/navigation'
-import useMainTitle from '@/app/global/hooks/useMainTitle'
 
 type Props = {
   bid?: string
@@ -30,16 +28,14 @@ const BoardFormController = ({ bid, seq }: Props) => {
   })
 
   const [, setTitle] = useMainTitle()
-
-  const actionState = useActionState(updateBoard, undefined)
-
   const onChange = useCallback((e) => {
     setData((data) => ({ ...data, [e.target.name]: e.target.value }))
   }, [])
-
-  const onEditorChange = useCallback((content) => {
-    setData((data) => ({ ...data, content }))
-  }, [])
+  const onEditorChange = useCallback(
+    (content) => setData((data) => ({ ...data, content })),
+    [],
+  )
+  const actionState = useActionState(updateBoard, undefined)
 
   const onClick = useCallback((field, value) => {
     setData((data) => ({ ...data, [field]: value }))
@@ -65,7 +61,7 @@ const BoardFormController = ({ bid, seq }: Props) => {
   }, [bid, setTitle])
 
   const Form = useSkin(board?.skin, 'form')
-
+  
   return (
     Form && (
       <Form
