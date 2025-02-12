@@ -132,13 +132,10 @@ export const processJoin = async (params, formData: FormData) => {
 export const processLogin = async (params, formData: FormData) => {
   const redirectUrl = params?.redirectUrl ?? '/'
 
-  console.log('유입')
-
   const form: any = {
     email: '',
     password: '',
   }
-  console.log('유입2')
   let errors: any = {}
 
   let hasErrors = false
@@ -147,7 +144,6 @@ export const processLogin = async (params, formData: FormData) => {
 
   const email = formData.get('email').toString()
   const password = formData.get('password').toString()
-  console.log('유입2')
 
   if (!email || !email.trim()) {
     errors.email = errors.email ?? []
@@ -164,7 +160,6 @@ export const processLogin = async (params, formData: FormData) => {
   /* 필수 항목 검증 E */
 
   /* Server 요청 처리 S */
-  console.log('유입2')
   if (!hasErrors) {
     try {
       // const res = await fetch(apiUrl, {
@@ -174,14 +169,11 @@ export const processLogin = async (params, formData: FormData) => {
       //   },
       //   body: JSON.stringify({ email, password }),
       // })
-      console.log('유입3')
 
       form.email = formData.get('email').toString()
       form.password = formData.get('password').toString()
-      console.log('유입4')
       const res = await apiRequest('/member/login', 'POST', form)
       const result = await res.json()
-      console.log('res', res)
 
       if (res.status === 200 && result.success) {
         // 회원 인증 성공
