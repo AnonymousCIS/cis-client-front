@@ -7,6 +7,7 @@ import { styled } from 'styled-components'
 import { RiLoginBoxLine, RiLogoutBoxLine } from 'react-icons/ri'
 import { MdContactPage } from 'react-icons/md'
 import { FaUserPlus, FaHome, FaSearch } from 'react-icons/fa'
+import { GrUserAdmin } from 'react-icons/gr'
 import colors from '../../styles/colors'
 import sizes from '../../styles/sizes'
 import logo from '../../assets/images/logo2.png'
@@ -14,6 +15,8 @@ import useUser from '../../hooks/useUser'
 
 const { white, primary, secondary, light, dark } = colors
 const { medium, big } = sizes
+
+const adminUrl = process.env.NEXT_PUBLIC_ADMIN_URL
 
 // scss 문법
 const StyledHeader = styled.header`
@@ -105,7 +108,7 @@ const StyledMenu = styled.nav`
 `
 
 const Header = () => {
-  const { userInfo, isLogin } = useUser()
+  const { userInfo, isLogin, isAdmin } = useUser()
 
   const email = userInfo?.email
   const name = userInfo?.name
@@ -128,6 +131,11 @@ const Header = () => {
                   <MdContactPage className="icon-cls" />
                   마이페이지
                 </a>
+                {isAdmin && (
+                  <a href="adminUrl" target="_blank">
+                    <GrUserAdmin className="icon-cls" /> 사이트 관리
+                  </a>
+                )}
                 <a href="/member/api/logout">
                   <RiLogoutBoxLine className="icon-cls" />
                   로그아웃
