@@ -1,4 +1,4 @@
-'use client
+'use client'
 
 import React, {
   useState,
@@ -61,7 +61,7 @@ const BoardFormController = ({ bid, seq }: Props) => {
   }, [bid, setTitle])
 
   const Form = useSkin(board?.skin, 'form')
-  
+
   return (
     Form && (
       <Form

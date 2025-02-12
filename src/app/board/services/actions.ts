@@ -19,6 +19,7 @@ export const getBoard = async (bid) => {
   } catch (err) {
     console.error(err)
   }
+}
 /**
  * 게시글 작성 & 수정
  *
@@ -36,7 +37,8 @@ export const updateBoard = async (params, formData: FormData) => {
       : value.toString()
 
     form[key] = _value
-  } const { locationAfterWriting } = await getBoard(form.bid)
+  }
+  const { locationAfterWriting } = await getBoard(form.bid)
 
   let redirectUrl = `/board/list/${form.bid}`
   /* 필수 항목 검증 S */
@@ -78,7 +80,7 @@ export const updateBoard = async (params, formData: FormData) => {
         locationAfterWriting === 'view' ? `/board/view/${seq}` : redirectUrl
     }
   }
-  
+
   /* Server 처리 요청 E */
 
   if (hasErrors) return errors
