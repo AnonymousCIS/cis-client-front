@@ -1,0 +1,12 @@
+import { NextRequest, NextResponse } from 'next/server'
+import { getBoard } from '@/app/board/services/actions'
+
+export async function GET(request: NextRequest) {
+  const bid = request.nextUrl.pathname.split('/').pop()
+
+  const board = await getBoard(bid)
+
+  console.log('board', board)
+
+  return NextResponse.json(board ?? {})
+}
