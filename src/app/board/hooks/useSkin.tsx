@@ -36,9 +36,10 @@ const GallerySkin = {
 /* gallery 스킨 E */
 
 export default function useSkin(
-  skin,
+  skin: string | undefined,
   mode: 'form' | 'view' | 'list' | 'comment',
 ) {
+  if (!skin) return
   let _skin = null
   switch (skin) {
     case 'gallery':
