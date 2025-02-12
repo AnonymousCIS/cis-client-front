@@ -13,8 +13,6 @@ export default async function apiRequest(
   const cookie = await cookies()
   const token = cookie.get('token')
 
-  console.log('token', token)
-
   let headers = null
 
   const options: RequestInit = {
