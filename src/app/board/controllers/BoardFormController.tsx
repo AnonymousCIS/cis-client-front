@@ -21,7 +21,7 @@ const BoardFormController = ({ bid, seq }: Props) => {
     mode: seq ? 'edit' : 'write',
     gid: '' + Date.now(),
   })
-  const [, setTitle] = useMainTitle(undefined)
+  const [, setTitle] = useMainTitle()
   const actionState = useActionState(updateBoard, undefined)
 
   const onChange = useCallback((e) => {
@@ -31,6 +31,8 @@ const BoardFormController = ({ bid, seq }: Props) => {
   const onEditorChange = useCallback((content) => {
     setData((data) => ({ ...data, content }))
   }, [])
+
+  const onClick = useCallback((field, value) => {})
 
   useLayoutEffect(() => {
     if (bid) {
@@ -55,6 +57,7 @@ const BoardFormController = ({ bid, seq }: Props) => {
         data={data}
         onEditorChange={onEditorChange}
         onChange={onChange}
+        onClick={onClick}
         actionState={actionState}
       />
     )
