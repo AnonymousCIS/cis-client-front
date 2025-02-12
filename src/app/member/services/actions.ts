@@ -238,14 +238,13 @@ export const getUserInfo = async () => {
  */
 export const processFind = async (params, formData: FormData) => {
   const redirectUrl = '/member/password/find?done=true'
-  const _headers = await headers()
 
   const errors: any = {}
   let hasErrors = false
   const form: any = {}
   const name = formData.get('name').toString()
   const phoneNumber = formData.get('phoneNumber').toString()
-  const origin = _headers.get('x-current-origin') + '/member/password/change'
+  const origin = process.env.NEXT_PUBLIC_URL + '/member/password/change'
   formData.set('origin', origin)
 
   for (const [k, v] of formData.entries()) {

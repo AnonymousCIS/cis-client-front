@@ -74,6 +74,19 @@ const BoardFormController = ({ bid, seq }: Props) => {
       />
     )
   )
+
+  // return Form ? (
+  //   <Form
+  //     board={board}
+  //     data={data}
+  //     onEditorChange={onEditorChange}
+  //     onChange={onChange}
+  //     onClick={onClick}
+  //     actionState={actionState}
+  //   />
+  // ) : (
+  //   notFound()
+  // )
 }
 
 export default React.memo(BoardFormController)
