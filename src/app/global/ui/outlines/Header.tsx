@@ -110,6 +110,7 @@ const Header = () => {
 
   const email = userInfo?.email
   const name = userInfo?.name
+  
   const adminUrl = process.env.NEXT_PUBLUC_ADMIN_URL
 
   return (
@@ -132,6 +133,7 @@ const Header = () => {
                 </a>
                 {isAdmin && (
                   <a href={adminUrl} target="_blank">
+                    
                     <GrUserAdmin className="icon-cls" />
                     사이트관리
                   </a>

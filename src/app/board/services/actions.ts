@@ -1,4 +1,5 @@
 'use server'
+
 import { redirect } from 'next/navigation'
 import apiRequest from '@/app/global/libs/apiRequest'
 
@@ -18,9 +19,9 @@ export const getBoard = async (bid) => {
   } catch (err) {
     console.error(err)
   }
-}
 /**
- * 게시글 작성 또는 수정
+ * 게시글 작성 & 수정
+ *
  * @param params
  * @param formData
  */
@@ -35,8 +36,7 @@ export const updateBoard = async (params, formData: FormData) => {
       : value.toString()
 
     form[key] = _value
-  }
-  const { locationAfterWriting } = await getBoard(form.bid)
+  } const { locationAfterWriting } = await getBoard(form.bid)
 
   let redirectUrl = `/board/list/${form.bid}`
   /* 필수 항목 검증 S */
@@ -52,7 +52,7 @@ export const updateBoard = async (params, formData: FormData) => {
   for (const [field, msg] of Object.entries(requiredFields)) {
     if (
       !form[field] ||
-      (typeof form[field] == 'string' && !form[field].trim())
+      (typeof form[field] === 'string' && !form[field].trim())
     ) {
       errors[field] = errors[field] ?? []
       errors[field].push(msg)
@@ -62,22 +62,24 @@ export const updateBoard = async (params, formData: FormData) => {
 
   /* 필수 항목 검증 E */
 
-  /* 서버 처리 요청 S */
+  /* Server 처리 요청 S */
 
   if (!hasErrors) {
     form.status = 'ALL'
     const res = await apiRequest('/board/save', 'POST', form)
     const result = await res.json()
     if (res.status !== 200 || !result.success) {
+      // 게시글 등록 & 수정 실패
       return result.message
     } else {
+      // 게시글 등록 & 수정 성공
       const { seq } = result.data
       redirectUrl =
         locationAfterWriting === 'view' ? `/board/view/${seq}` : redirectUrl
     }
   }
-
-  /* 서버 처리 요청 E */
+  
+  /* Server 처리 요청 E */
 
   if (hasErrors) return errors
 

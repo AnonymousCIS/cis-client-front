@@ -1,28 +1,30 @@
 'use client'
+
 import loadable from '@loadable/component'
 
-/* default 스킨 S */
-
+/* Default Skin S */
 const DefaultForm = loadable(() => import('../components/skins/default/Form'))
 const DefaultView = loadable(() => import('../components/skins/default/View'))
 const DefaultList = loadable(() => import('../components/skins/default/List'))
 const DefaultComment = loadable(
   () => import('../components/skins/default/Comment'),
 )
+
 const DefaultSkin = {
   form: DefaultForm,
   view: DefaultView,
   list: DefaultList,
   comment: DefaultComment,
 }
+/* Default Skin E */
 
-/* default 스킨 E */
-
-/* gallery 스킨 S */
-
+/* Gallery Skin S */
 const GalleryForm = loadable(() => import('../components/skins/gallery/Form'))
+
 const GalleryView = loadable(() => import('../components/skins/gallery/View'))
+
 const GalleryList = loadable(() => import('../components/skins/gallery/List'))
+
 const GalleryComment = loadable(
   () => import('../components/skins/gallery/Comment'),
 )
@@ -32,8 +34,7 @@ const GallerySkin = {
   list: GalleryList,
   comment: GalleryComment,
 }
-
-/* gallery 스킨 E */
+/* Gallery Skin E */
 
 export default function useSkin(
   skin: string | undefined,
@@ -45,6 +46,7 @@ export default function useSkin(
     case 'gallery':
       _skin = GallerySkin
       break
+      
     default:
       _skin = DefaultSkin
   }

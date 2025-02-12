@@ -1,4 +1,3 @@
-'use client'
 import React from 'react'
 import { MainContentBox } from '@/app/global/components/ContentBox'
 import { MainTitle } from '@/app/global/components/StyledTitle'
@@ -11,7 +10,15 @@ import { BigButton } from '@/app/global/components/Buttons'
 import Messages from '@/app/global/components/Messages'
 import useUser from '@/app/global/hooks/useUser'
 
-const StyledForm = styled.form<CommonType>``
+const StyledForm = styled.form<CommonType>`
+  .flex {
+    display: flex;
+
+    & > span {
+      cursor: default;
+    }
+  }
+`
 
 const Form = ({
   board,
@@ -22,20 +29,24 @@ const Form = ({
   onClick,
 }) => {
   const [errors, formAction, isPending] = actionState
+  
   const { useEditor } = board
   const { isLogin, isAdmin, userInfo } = useUser()
+  
   return (
     <>
       <MainContentBox max={750} min={650}>
         <MainTitle>{board.name}</MainTitle>
         <StyledForm action={formAction} autoComplete="off">
           <input type="hidden" name="bid" value={board?.bid ?? ''} />
-          <input type="hidden" name="gid" value={data?.gid ?? ''} />
+          <input type="hidden" name="gid" value={board?.gid ?? ''} />
+
           <Messages color="danger">{errors?.bid}</Messages>
           <Messages color="danger">{errors?.gid}</Messages>
           <Messages color="danger">{errors?.global}</Messages>
+
           <div className="row poster">
-            <div>
+            <div className="flex">
               <Input
                 type="text"
                 name="poster"
@@ -43,17 +54,20 @@ const Form = ({
                 onChange={onChange}
                 placeholder="작성자"
               />
+              
               {isAdmin && (
                 <span onClick={() => onClick('notice', !Boolean(data?.notice))}>
-                  {data?.notice ? <MdCheckBox /> : <MdCheckBoxOutlineBlank />}
-                  공지글
+                  {data?.notice ? <MdCheckBox /> : <MdCheckBoxOutlineBlank />}{' '}
+                  공지
                 </span>
               )}
             </div>
+
             <Messages color="danger">{errors?.poster}</Messages>
           </div>
+
           {((!isLogin && data?.mode === 'write') ||
-            (data && data?.mode === 'edit' && !data?.createdBy)) && (
+            (data && data.mode === 'edit' && !data.createdBy)) && (
             <div className="row">
               <Input
                 type="password"
@@ -64,6 +78,7 @@ const Form = ({
               <Messages color="danger">{errors?.guestPw}</Messages>
             </div>
           )}
+          
           <div className="row">
             <Input
               type="text"
@@ -73,6 +88,7 @@ const Form = ({
             />
             <Messages color="danger">{errors?.subject}</Messages>
           </div>
+          
           <div className="row content-row">
             {useEditor ? (
               <ReactQuill
@@ -90,12 +106,13 @@ const Form = ({
             )}
             <Messages color="danger">{errors?.content}</Messages>
           </div>
-          <BigButton type="submit" disabled={isPending}>
-            {data?.mode === 'edit' ? '수정하기' : '작성하기'}{' '}
+          <BigButton type="submit" disabled={isPending} color="primary">
+            {data?.mode === 'edit' ? '수정' : '작성'}
           </BigButton>
         </StyledForm>
       </MainContentBox>
     </>
   )
 }
+
 export default React.memo(Form)

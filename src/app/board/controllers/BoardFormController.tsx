@@ -1,4 +1,5 @@
-'use client'
+'use client
+
 import React, {
   useState,
   useLayoutEffect,
@@ -16,12 +17,16 @@ type Props = {
   seq?: number
 }
 
+// seq가 넘어오면 수정, bid는 항상 필수
 const BoardFormController = ({ bid, seq }: Props) => {
-  const [board, setBoard] = useState<any>({})
+  const [board, setBoard] = useState<any>()
+
+  // 게시글
   const [data, setData] = useState<any>({
     mode: seq ? 'edit' : 'write',
     gid: '' + Date.now(),
   })
+
   const [, setTitle] = useMainTitle()
   const onChange = useCallback((e) => {
     setData((data) => ({ ...data, [e.target.name]: e.target.value }))
@@ -38,17 +43,25 @@ const BoardFormController = ({ bid, seq }: Props) => {
 
   useLayoutEffect(() => {
     ;(async () => {
-      const _board = await getBoard(bid)
-      if (!_board) {
-        notFound()
+      if (bid) {
+        try {
+          const _board = await getBoard(bid)
+          if (!_board) {
+            notFound()
+          }
+          const title = _board.name
+          setTitle(title)
+          setBoard(_board)
+        } catch (err) {
+          console.error(err)
+          notFound()
+        }
       }
-      const title = _board.name
-      setTitle(title)
-      setBoard(_board)
     })()
   }, [bid, setTitle])
 
   const Form = useSkin(board?.skin, 'form')
+  
   return (
     Form && (
       <Form
