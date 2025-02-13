@@ -40,7 +40,9 @@ const _FileItem = ({
 
 const FileItem = styled(_FileItem)<CommonType>``
 
-const Wrapper = styled.div<CommonType>``
+const Wrapper = styled.div<CommonType>`
+  margin-top: 50px;
+`
 
 const FileItems = ({ files, isEditor, onInsertImage, onDeleteFile }: Props) => {
   return (
@@ -48,7 +50,13 @@ const FileItems = ({ files, isEditor, onInsertImage, onDeleteFile }: Props) => {
     files.length > 0 && (
       <Wrapper>
         {files.map((file) => (
-          <FileItem key={'file-item-' + file.seq} file={file} isEditor={isEditor} onInsertImage={onInsertImage} onDeleteFile={onDeleteFile}/>
+          <FileItem
+            key={'file-item-' + file.seq}
+            file={file}
+            isEditor={isEditor}
+            onInsertImage={onInsertImage}
+            onDeleteFile={onDeleteFile}
+          />
         ))}
       </Wrapper>
     )
