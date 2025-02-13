@@ -4,10 +4,10 @@ import { redirect } from 'next/navigation'
 import apiRequest from '@/app/global/libs/apiRequest'
 
 export const getMessage = async (seq) => {
-  try{
+  try {
     const res = await apiRequest(`/message/view/${seq}`)
     console.log('res', res)
-    if(res.status === 200) {
+    if (res.status === 200) {
       const result = await res.json()
       return result.success && result.data
     }
@@ -57,12 +57,12 @@ export const writeMessage = async (params, formData: FormData) => {
   if (!hasErrors) {
     const res = await apiRequest('/message/write', 'POST', form)
     const result = await res.json()
-    console.log('res', res);
+    console.log('res', res)
     console.log('result', result)
     if (res.status !== 200 || !result.success) {
       errors = result.message
       hasErrors = true
-    } 
+    }
   }
   //   server 처리 요청 E
 

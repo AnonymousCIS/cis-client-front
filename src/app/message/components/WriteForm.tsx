@@ -42,6 +42,7 @@ const StyledForm = styled.form<CommonType>`
   }
 `
 
+
 const WriteForm = ({ data, onChange, onClick, actionState }) => {
   const [ errors, formAction, isPending ] = actionState
 
@@ -58,7 +59,7 @@ const WriteForm = ({ data, onChange, onClick, actionState }) => {
                 <Input
                   type="text"
                   name="receiverEmail"
-                  value={data?.receiverEmail ?? ''}
+                  value={form?.receiverEmail ?? ''}
                   onChange={onChange}
                 />
                 <Messages color="danger">{errors?.receiverEmail}</Messages>
@@ -70,14 +71,14 @@ const WriteForm = ({ data, onChange, onClick, actionState }) => {
                 <Input
                   type="text"
                   name="subject"
-                  value={data?.subject ?? ''}
+                  value={form?.subject ?? ''}
                   onChange={onChange}
                 />
                 {isAdmin && (
                   <span
-                    onClick={() => onClick('notice', !Boolean(data?.notice))}
+                    onClick={() => onClick('notice', !Boolean(form?.notice))}
                   >
-                    {data?.notice ? <MdCheckBox /> : <MdCheckBoxOutlineBlank />}
+                    {form?.notice ? <MdCheckBox /> : <MdCheckBoxOutlineBlank />}
                     공지
                   </span>
                 )}
@@ -89,7 +90,7 @@ const WriteForm = ({ data, onChange, onClick, actionState }) => {
               <td>
                 <Textarea
                   name="content"
-                  value={data?.content ?? ''}
+                  value={form?.content ?? ''}
                   onChange={onChange}
                   placeholder="내용을 입력하세요"
                 />
