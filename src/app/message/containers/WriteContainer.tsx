@@ -12,16 +12,16 @@ const WriteContainer = () => {
   const actionState = useActionState(writeMessage, params)
 
   const onChange = useCallback((e) => {
-    setForm((form) => ({ ...form, [e.target.name]: e.target.value }))
+    setForm((data) => ({ ...data, [e.target.name]: e.target.value }))
   }, [])
 
   const onClick = useCallback((field, value) => {
-    setForm((form) => ({ ...form, [field]: value }))
+    setForm((data) => ({ ...data, [field]: value }))
   }, [])
-
+  console.log('data', form)
   return (
     <WriteForm
-      form={form}
+      data={form}
       onChange={onChange}
       onClick={onClick}
       actionState={actionState}
