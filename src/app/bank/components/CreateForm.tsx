@@ -64,17 +64,6 @@ const CreateForm = ({ actionState, onChange, form }) => {
 
       <Messages color="danger">{errors?.password}</Messages>
 
-      <Input
-        type="password"
-        name="confirmPassword"
-        value={form?.confirmPassword ?? ''}
-        onChange={onChange}
-        placeholder="계좌 비밀번호 확인"
-        color="dark"
-      />
-
-      <Messages color="danger">{errors?.confirmPassword}</Messages>
-
       <BigButton type="submit" disabled={isPending} color="primary">
         계좌등록
       </BigButton>

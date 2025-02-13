@@ -14,7 +14,6 @@ export const createProcess = async (params, formData: FormData) => {
   const requiredFields = {
     name: '이름을 입력하세요.',
     password: '비밀번호를 입력하세요',
-    confirmPassword: '비밀번호를 확인하세요',
     bankName: '은행이름을 입력하세요.',
     accountNumber: '계좌번호를 입력하세요.',
   }
@@ -34,7 +33,8 @@ export const createProcess = async (params, formData: FormData) => {
 
   if (!hasErrors) {
     try {
-      const res = await apiRequest('/bank/create')
+      const res = await apiRequest('/bank/create', 'POST', form)
+      console.log('res', res)
       if (res.status !== 200) {
         const result = await res.json()
         errors = result.message
@@ -43,6 +43,10 @@ export const createProcess = async (params, formData: FormData) => {
       console.log(err)
     }
   }
+
+  console.log('form', form)
+
+  console.log('errors', errors)
 
   if (hasErrors) return errors
 
