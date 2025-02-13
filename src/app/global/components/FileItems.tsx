@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import type { CommonType } from '../types/styledType'
+import type { CommonType } from '../types/StyledType'
 import colors from '../styles/colors'
 import sizes from '../styles/sizes'
 import { FaFileUpload } from 'react-icons/fa'
