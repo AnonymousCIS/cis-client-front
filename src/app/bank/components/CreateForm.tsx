@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import { Input } from '@/app/global/components/FormComponents'
 import { BigButton } from '@/app/global/components/Buttons'
 import Messages from '@/app/global/components/Messages'
+import useUser from '../../global/hooks/useUser'
 
 const StyledForm = styled.form`
   Input + Input {
@@ -11,8 +12,10 @@ const StyledForm = styled.form`
   }
 `
 
-const CreatForm = ({ actionState, onChange, form }) => {
+const CreateForm = ({ actionState, onChange, form }) => {
   const [errors, formAction, isPending] = actionState
+  const { userInfo } = useUser()
+  const name = userInfo?.name
 
   return (
     <StyledForm action={formAction} autoComplete="off">
@@ -41,10 +44,11 @@ const CreatForm = ({ actionState, onChange, form }) => {
       <Input
         type="text"
         name="name"
-        value={form?.name ?? ''}
+        value={form?.name ?? name}
         onChange={onChange}
         placeholder="예금주"
         color="dark"
+        readOnly
       />
 
       <Messages color="danger">{errors?.name}</Messages>
@@ -80,4 +84,4 @@ const CreatForm = ({ actionState, onChange, form }) => {
   )
 }
 
-export default React.memo(CreatForm)
+export default React.memo(CreateForm)
