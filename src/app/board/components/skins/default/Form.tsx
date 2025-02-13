@@ -1,7 +1,6 @@
 import React from 'react'
 import { MainContentBox } from '@/app/global/components/ContentBox'
 import { MainTitle } from '@/app/global/components/StyledTitle'
-import ReactQuill from 'react-quill-new'
 import { Input, Textarea } from '@/app/global/components/FormComponents'
 import styled from 'styled-components'
 import { MdCheckBox, MdCheckBoxOutlineBlank } from 'react-icons/md'
@@ -9,6 +8,7 @@ import { CommonType } from '@/app/global/types/StyledType'
 import { BigButton } from '@/app/global/components/Buttons'
 import Messages from '@/app/global/components/Messages'
 import useUser from '@/app/global/hooks/useUser'
+import Editor from '@/app/global/components/Editor'
 
 const StyledForm = styled.form<CommonType>`
   .flex {
@@ -29,17 +29,18 @@ const Form = ({
   onClick,
 }) => {
   const [errors, formAction, isPending] = actionState
-  
-  const { useEditor } = board
-  const { isLogin, isAdmin, userInfo } = useUser()
-  
+
+  const { useEditor, useEditorImage } = board
+  const { isLogin, isAdmin } = useUser()
+
   return (
     <>
-      <MainContentBox max={750} min={650}>
+      <MainContentBox max={800} min={600}>
         <MainTitle>{board.name}</MainTitle>
         <StyledForm action={formAction} autoComplete="off">
           <input type="hidden" name="bid" value={board?.bid ?? ''} />
-          <input type="hidden" name="gid" value={board?.gid ?? ''} />
+          <input type="hidden" name="gid" value={data?.gid ?? ''} />
+          <input type="hidden" name="content" value={board?.content ?? ''} />
 
           <Messages color="danger">{errors?.bid}</Messages>
           <Messages color="danger">{errors?.gid}</Messages>
@@ -54,7 +55,7 @@ const Form = ({
                 onChange={onChange}
                 placeholder="작성자"
               />
-              
+
               {isAdmin && (
                 <span onClick={() => onClick('notice', !Boolean(data?.notice))}>
                   {data?.notice ? <MdCheckBox /> : <MdCheckBoxOutlineBlank />}{' '}
@@ -74,27 +75,30 @@ const Form = ({
                 name="guestPw"
                 value={data?.guestPw ?? ''}
                 onChange={onChange}
+                placeholder="비회원 비밀번호를 입력하세요."
               />
               <Messages color="danger">{errors?.guestPw}</Messages>
             </div>
           )}
-          
+
           <div className="row">
             <Input
               type="text"
               name="subject"
               value={data?.subject ?? ''}
               onChange={onChange}
+              placeholder="제목을 입력하세요."
             />
             <Messages color="danger">{errors?.subject}</Messages>
           </div>
-          
+
           <div className="row content-row">
             {useEditor ? (
-              <ReactQuill
-                theme="snow"
-                value={data?.content ?? ''}
+              <Editor
                 onChange={onEditorChange}
+                useImage={useEditorImage}
+                gid={data?.gid}
+                location="editor"
               />
             ) : (
               <Textarea

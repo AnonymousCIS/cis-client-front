@@ -43,3 +43,14 @@ export default async function apiRequest(
 
   return fetch(apiUrl, options)
 }
+
+/**
+ * 로그인 회원 토큰 조회
+ *
+ * @returns
+ */
+export async function getToken() {
+  const cookie = await cookies()
+
+  return cookie.get('token')?.value
+}

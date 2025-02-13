@@ -65,7 +65,7 @@ export const updateBoard = async (params, formData: FormData) => {
   /* 필수 항목 검증 E */
 
   /* Server 처리 요청 S */
-
+  console.log(errors)
   if (!hasErrors) {
     form.status = 'ALL'
     const res = await apiRequest('/board/save', 'POST', form)
