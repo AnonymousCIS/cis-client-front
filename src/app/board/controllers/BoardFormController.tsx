@@ -11,6 +11,7 @@ import useSkin from '../hooks/useSkin'
 import useMainTitle from '@/app/global/hooks/useMainTitle'
 import { getBoard } from '../services/actions'
 import { notFound } from 'next/navigation'
+import useUser from '@/app/global/hooks/useUser'
 
 type Props = {
   bid?: string
@@ -19,12 +20,15 @@ type Props = {
 
 // seq가 넘어오면 수정, bid는 항상 필수
 const BoardFormController = ({ bid, seq }: Props) => {
+  const { isLogin, userInfo } = useUser()
+
   const [board, setBoard] = useState<any>()
 
   // 게시글
   const [data, setData] = useState<any>({
     mode: seq ? 'edit' : 'write',
     gid: '' + Date.now(),
+    poster: !seq && isLogin ? userInfo.name : '',
   })
 
   const [, setTitle] = useMainTitle()
