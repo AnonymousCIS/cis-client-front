@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import useUser from '@/app/global/hooks/useUser'
-import { CommonType } from '@/app/global/types/StyledType'
+import type { CommonType } from '@/app/global/types/StyledType'
 import { Input, Textarea } from '@/app/global/components/FormComponents'
 import { TableCols } from '@/app/global/components/Tables'
 import colors from '@/app/global/styles/colors'
