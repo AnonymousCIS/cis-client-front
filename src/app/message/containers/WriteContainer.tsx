@@ -1,32 +1,27 @@
-import React, {
-  useState,
-  useCallback,
-  useActionState,
-} from 'react'
-import { WriteMessage } from '../services/actions'
+'use client'
+import React, { useState, useCallback, useActionState } from 'react'
+import { writeMessage } from '../services/actions'
 import WriteForm from '../components/WriteForm'
 import { useSearchParams } from 'next/navigation'
 
 const WriteContainer = () => {
-  const [data, setData] = useState<any>({})
+  const [form, setForm] = useState({})
 
   const searchParams = useSearchParams()
-  const params = {redirectUrl: searchParams.get('redirectUrl')}
-  const actionState = useActionState(WriteMessage, params)
-
+  const params = { redirectUrl: searchParams.get('redirectUrl') }
+  const actionState = useActionState(writeMessage, params)
 
   const onChange = useCallback((e) => {
-    setData((data) => ({ ...data, [e.target.name]: e.target.value }))
+    setForm((data) => ({ ...data, [e.target.name]: e.target.value }))
   }, [])
-
 
   const onClick = useCallback((field, value) => {
-    setData((data) => ({ ...data, [field]: value }))
+    setForm((data) => ({ ...data, [field]: value }))
   }, [])
-  console.log('data', data)
+  console.log('data', form)
   return (
     <WriteForm
-      data={data}
+      data={form}
       onChange={onChange}
       onClick={onClick}
       actionState={actionState}

@@ -16,7 +16,7 @@ export const getMessage = async (seq) => {
   }
 }
 
-export const WriteMessage = async (params, formData: FormData) => {
+export const writeMessage = async (params, formData: FormData) => {
   const redirectUrl = params?.redirectUrl ?? '/message/list'
 
   const form: any = {}

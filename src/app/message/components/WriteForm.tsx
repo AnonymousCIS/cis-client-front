@@ -43,7 +43,7 @@ const StyledForm = styled.form<CommonType>`
 `
 
 const WriteForm = ({ data, onChange, onClick, actionState }) => {
-  const { errors, formAction, isPending } = actionState
+  const [ errors, formAction, isPending ] = actionState
 
   const { isAdmin } = useUser()
 
