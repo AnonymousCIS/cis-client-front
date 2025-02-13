@@ -45,11 +45,11 @@ const StyledForm = styled.form<CommonType>`
 const WriteForm = ({ data, onChange, onClick, actionState }) => {
   const { errors, formAction, isPending } = actionState
 
-  const { isLogin, isAdmin, userInfo } = useUser()
+  const { isAdmin } = useUser()
 
   return (
     <>
-      <StyledForm>
+      <StyledForm action={formAction} autoComplete="off">
         <TableCols>
           <tbody>
             <tr>
@@ -61,9 +61,8 @@ const WriteForm = ({ data, onChange, onClick, actionState }) => {
                   value={data?.receiverEmail ?? ''}
                   onChange={onChange}
                 />
+                <Messages color="danger">{errors?.receiverEmail}</Messages>
               </td>
-
-              <Messages color="danger">{errors?.receiverEmail}</Messages>
             </tr>
             <tr>
               <th>제목</th>
@@ -82,9 +81,8 @@ const WriteForm = ({ data, onChange, onClick, actionState }) => {
                     공지
                   </span>
                 )}
+                <Messages color="danger">{errors?.subject}</Messages>
               </td>
-
-              <Messages color="danger">{errors?.subject}</Messages>
             </tr>
             <tr>
               <th>내용</th>
@@ -95,9 +93,8 @@ const WriteForm = ({ data, onChange, onClick, actionState }) => {
                   onChange={onChange}
                   placeholder="내용을 입력하세요"
                 />
+                <Messages color="danger">{errors?.content}</Messages>
               </td>
-
-              <Messages color="danger">{errors?.content}</Messages>
             </tr>
           </tbody>
         </TableCols>

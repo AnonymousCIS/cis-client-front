@@ -2,22 +2,23 @@ import React, {
   useState,
   useCallback,
   useActionState,
-  useLayoutEffect,
 } from 'react'
 import { WriteMessage } from '../services/actions'
 import WriteForm from '../components/WriteForm'
+import { useSearchParams } from 'next/navigation'
 
-type Props = {
-  seq: number
-}
-const WriteContainer = ({ seq }: Props) => {
+const WriteContainer = () => {
   const [data, setData] = useState<any>({})
+
+  const searchParams = useSearchParams()
+  const params = {redirectUrl: searchParams.get('redirectUrl')}
+  const actionState = useActionState(WriteMessage, params)
+
 
   const onChange = useCallback((e) => {
     setData((data) => ({ ...data, [e.target.name]: e.target.value }))
   }, [])
 
-  const actionState = useActionState(WriteMessage, undefined)
 
   const onClick = useCallback((field, value) => {
     setData((data) => ({ ...data, [field]: value }))
