@@ -121,6 +121,9 @@ const Form = ({
             )}
             <Messages color="danger">{errors?.content}</Messages>
           </div>
+
+          {useAttachFile && <div className="row"></div>}
+
           <BigButton type="submit" disabled={isPending} color="primary">
             {data?.mode === 'edit' ? '수정' : '작성'}
           </BigButton>

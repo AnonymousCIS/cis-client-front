@@ -81,7 +81,7 @@ const Editor = ({
         }
 
         ;(async () => {
-          // const apiUrl = process.env.NEXT_PUBLIC_API_URL + `/file/upload`
+          //const apiUrl = process.env.NEXT_PUBLIC_API_URL + `/file/upload`
           const apiUrl = 'https://cis-file-service.onedu.blue/upload' // 임시
 
           const token = await getToken()
@@ -112,7 +112,7 @@ const Editor = ({
             for (let { fileUrl } of result.data) {
               fileUrl = fileUrl.replace('http:', 'https:').replace(':80', '')
               // cursor.index = 현재 있는 커서의 라인수
-              _editor.insertEmbed(cursor.index, 'image', fileUrl)
+              _editor.insertEmbed(cursor?.index ?? 0, 'image', fileUrl)
             }
             setFiles((files) => files.concat(result.data))
           }
@@ -151,12 +151,14 @@ const Editor = ({
   )
 
   const onDeleteFile = useCallback((seq) => {
-    if (!window.confirm('정말 삭제하시겠습니까?')) {
-      
+    if (!window.confirm('정말 삭제하겠습니까?')) {
+      return
     }
+
     ;(async () => {
       const deleted = await deleteFile(seq)
-      if (deleted && deleted.length > 0) {
+      if (deleted) {
+        // 삭제 성공
         setFiles((files) => files.filter((file) => file.seq !== seq))
       }
     })()
