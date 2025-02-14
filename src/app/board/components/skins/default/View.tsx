@@ -13,7 +13,7 @@ const View = ({ data }) => {
   const { subject, content } = data
 
   return (
-    <MainContentBox>
+    <MainContentBox min={1200}>
       <MainTitle>{subject}</MainTitle>
       <StyledView>
         <div
