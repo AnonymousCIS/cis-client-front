@@ -6,6 +6,7 @@ import styled from 'styled-components'
 import type { CommonType } from '../types/StyledType'
 import { getToken } from '../libs/apiRequest'
 import FileItems from './FileItems'
+import { deleteFile } from '../services/actions'
 
 const Wrapper = styled.div<CommonType>`
   padding-bottom: 50px;
@@ -113,7 +114,7 @@ const Editor = ({
               // cursor.index = 현재 있는 커서의 라인수
               _editor.insertEmbed(cursor.index, 'image', fileUrl)
             }
-            setFiles(result.data)
+            setFiles((files) => files.concat(result.data))
           }
         })()
       })
@@ -149,7 +150,17 @@ const Editor = ({
     [editor],
   )
 
-  const onDeleteFile = useCallback((seq) => {}, [])
+  const onDeleteFile = useCallback((seq) => {
+    if (!window.confirm('정말 삭제하시겠습니까?')) {
+      
+    }
+    ;(async () => {
+      const deleted = await deleteFile(seq)
+      if (deleted && deleted.length > 0) {
+        setFiles((files) => files.filter((file) => file.seq !== seq))
+      }
+    })()
+  }, [])
 
   const onEditorChange = useCallback(
     (content) => {
