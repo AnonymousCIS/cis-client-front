@@ -4,8 +4,9 @@ import React, { useState, useMemo, useRef, useCallback } from 'react'
 import ReactQuill from 'react-quill-new'
 import styled from 'styled-components'
 import type { CommonType } from '../types/StyledType'
-import { getToken } from '../libs/apiRequest'
 import FileItems from './FileItems'
+import useDelete from '../hooks/useDelete'
+import useFileUpload from '../hooks/useFileUpload'
 
 const Wrapper = styled.div<CommonType>`
   padding-bottom: 50px;
@@ -29,6 +30,7 @@ type Props = {
   useImage?: boolean
   gid?: string
   location?: string
+  files?: any[]
 }
 
 const Editor = ({
@@ -39,6 +41,7 @@ const Editor = ({
   useImage,
   gid,
   location,
+  files,
 }: Props) => {
   width = width ?? '100%'
   height = height ?? 350
@@ -48,9 +51,12 @@ const Editor = ({
 
   const editor = useRef<any>(undefined)
 
-  const [files, setFiles] = useState<any>([])
+  const [_files, setFiles] = useState<any>(files ?? [])
 
   const [_content, setContent] = useState<string>(content)
+
+  const onDeleteFile = useDelete(setFiles)
+  const processUpload = useFileUpload(setFiles, null, editor)
 
   const styles = useMemo(
     () => ({
@@ -78,44 +84,8 @@ const Editor = ({
         for (const file of files) {
           formData.append('file', file)
         }
-
-        ;(async () => {
-          // const apiUrl = process.env.NEXT_PUBLIC_API_URL + `/file/upload`
-          const apiUrl = 'https://cis-file-service.onedu.blue/upload' // 임시
-
-          const token = await getToken()
-
-          const options: RequestInit = {
-            method: 'POST',
-            body: formData,
-          }
-
-          if (token && token.trim()) {
-            options.headers = {
-              Authorization: `Bearer ${token}`,
-            }
-          }
-
-          const res = await fetch(apiUrl, options)
-          const result = await res.json()
-
-          if (
-            editor &&
-            result.success &&
-            result.data &&
-            result.data.length > 0
-          ) {
-            // Quill 객체 밖의 getEditor라는 Custom 함수
-            const _editor = editor.current.getEditor()
-            const cursor = _editor.getSelection()
-            for (let { fileUrl } of result.data) {
-              fileUrl = fileUrl.replace('http:', 'https:').replace(':80', '')
-              // cursor.index = 현재 있는 커서의 라인수
-              _editor.insertEmbed(cursor.index, 'image', fileUrl)
-            }
-            setFiles(result.data)
-          }
-        })()
+        // 업로드처리
+        processUpload(formData)
       })
     }
 
@@ -136,7 +106,7 @@ const Editor = ({
     } else {
       return {}
     }
-  }, [useImage, gid, location, editor])
+  }, [useImage, gid, location, processUpload])
 
   const onInsertImage = useCallback(
     (url) => {
@@ -149,8 +119,6 @@ const Editor = ({
     [editor],
   )
 
-  const onDeleteFile = useCallback((seq) => {}, [])
-
   const onEditorChange = useCallback(
     (content) => {
       setContent(content)
@@ -161,15 +129,6 @@ const Editor = ({
 
   return (
     <Wrapper>
-      {files && (
-        <FileItems
-          files={files}
-          isEditor={true}
-          onDeleteFile={onDeleteFile}
-          onInsertImage={onInsertImage}
-          className="file=items"
-        />
-      )}
       <ReactQuill
         ref={editor} // Dom 선택용
         theme="snow"
@@ -179,6 +138,15 @@ const Editor = ({
         modules={modules}
         placeholder="내용을 입력하세요"
       />
+      {_files && (
+        <FileItems
+          files={_files}
+          isEditor={true}
+          onDeleteFile={onDeleteFile}
+          onInsertImage={onInsertImage}
+          className="file=items"
+        />
+      )}
     </Wrapper>
   )
 }

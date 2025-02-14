@@ -6,10 +6,9 @@ import React, {
   useCallback,
   useActionState,
 } from 'react'
-import { updateBoard } from '../services/actions'
+import { updateBoard, get, getBoard } from '../services/actions'
 import useSkin from '../hooks/useSkin'
 import useMainTitle from '@/app/global/hooks/useMainTitle'
-import { getBoard } from '../services/actions'
 import { notFound } from 'next/navigation'
 import useUser from '@/app/global/hooks/useUser'
 
@@ -44,7 +43,22 @@ const BoardFormController = ({ bid, seq }: Props) => {
   const onClick = useCallback((field, value) => {
     setData((data) => ({ ...data, [field]: value }))
   }, [])
+  //게시글 수정시
+  useLayoutEffect(() => {
+    ;(async () => {
+      if (seq) {
+        const _data = await get(seq)
+        if (!_data && _data.config) {
+          return
+        }
+        _data.mode = 'edit'
+        setData(_data)
+        setBoard(_data.config)
+      }
+    })()
+  }, [seq])
 
+  //게시글 등록시
   useLayoutEffect(() => {
     ;(async () => {
       if (bid) {
@@ -63,6 +77,10 @@ const BoardFormController = ({ bid, seq }: Props) => {
       }
     })()
   }, [bid, setTitle])
+
+  // if ((bid && !board) || (seq && !data)) {
+  //   notFound()
+  // }
 
   const Form = useSkin(board?.skin, 'form')
 
