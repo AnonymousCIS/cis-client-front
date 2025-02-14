@@ -9,6 +9,7 @@ import { BigButton } from '@/app/global/components/Buttons'
 import Messages from '@/app/global/components/Messages'
 import useUser from '@/app/global/hooks/useUser'
 import Editor from '@/app/global/components/Editor'
+import FileUpload from '@/app/global/components/FileUpload'
 
 const StyledForm = styled.form<CommonType>`
   .flex {
@@ -39,11 +40,19 @@ const Form = ({
   const { useEditor, useEditorImage, useAttachFile } = board
   const { isLogin, isAdmin } = useUser()
 
+  // 콜백함수 테스트 삭제XXXX
+  // 콜백이 있으면 파일목록 노출 X
+  // const onFileUpload = (files) => console.log('files', files)
+
   return (
     <>
       <MainContentBox max={750} min={650}>
         <MainTitle>{board.name}</MainTitle>
         <StyledForm action={formAction} autoComplete="off">
+          <input type="hidden" name="mode" value={data?.mode ?? ''} />
+          {data?.mode === 'edit' && (
+            <input type="hidden" name="seq" value={data?.seq} />
+          )}
           <input type="hidden" name="bid" value={board?.bid ?? ''} />
           <input type="hidden" name="gid" value={data?.gid ?? ''} />
           <input
@@ -110,6 +119,8 @@ const Form = ({
                 useImage={useEditorImage}
                 gid={data?.gid}
                 location="editor"
+                content={data?.content || ''}
+                files={data?.editorFiles}
               />
             ) : (
               <Textarea
@@ -121,6 +132,17 @@ const Form = ({
             )}
             <Messages color="danger">{errors?.content}</Messages>
           </div>
+
+          {useAttachFile && (
+            <div className="row">
+              <FileUpload
+                gid={data?.gid}
+                location="attach"
+                files={data?.attachFiles}
+              />
+            </div>
+          )}
+
           <BigButton type="submit" disabled={isPending} color="primary">
             {data?.mode === 'edit' ? '수정' : '작성'}
           </BigButton>
