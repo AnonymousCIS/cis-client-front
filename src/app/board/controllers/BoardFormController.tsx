@@ -6,10 +6,9 @@ import React, {
   useCallback,
   useActionState,
 } from 'react'
-import { updateBoard } from '../services/actions'
+import { updateBoard, get, getBoard } from '../services/actions'
 import useSkin from '../hooks/useSkin'
 import useMainTitle from '@/app/global/hooks/useMainTitle'
-import { getBoard } from '../services/actions'
 import { notFound } from 'next/navigation'
 import useUser from '@/app/global/hooks/useUser'
 
@@ -45,24 +44,42 @@ const BoardFormController = ({ bid, seq }: Props) => {
     setData((data) => ({ ...data, [field]: value }))
   }, [])
 
+  // 게시글 수정시
+  useLayoutEffect(() => {
+    ;(async () => {
+      if (seq) {
+        const _data = await get(seq)
+        if (!_data || !_data.board) {
+          return
+        }
+
+        setData(_data)
+        setBoard(_data.board)
+      }
+    })()
+  }, [seq])
+
   useLayoutEffect(() => {
     ;(async () => {
       if (bid) {
         try {
           const _board = await getBoard(bid)
           if (!_board) {
-            notFound()
+            return
           }
           const title = _board.name
           setTitle(title)
           setBoard(_board)
         } catch (err) {
           console.error(err)
-          notFound()
         }
       }
     })()
   }, [bid, setTitle])
+
+  if ((bid && !board) || (seq && !data)) {
+    notFound()
+  }
 
   const Form = useSkin(board?.skin, 'form')
 
