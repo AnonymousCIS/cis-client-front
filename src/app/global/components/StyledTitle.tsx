@@ -8,7 +8,7 @@ import sizes from '../styles/sizes'
 import colors from '../styles/colors'
 import type { CommonType } from '../types/StyledType'
 
-const { big } = sizes
+const { medium, big } = sizes
 
 const { dark } = colors
 
@@ -40,3 +40,10 @@ export const MainTitle = styled(_MainTitle)<CommonType>`
 `
 
 export default _MainTitle
+
+export const SubTitle = styled.h2`
+  padding: 0;
+  margin: 0 0 15px;
+  font-size: ${medium};
+  color: ${dark};
+`
