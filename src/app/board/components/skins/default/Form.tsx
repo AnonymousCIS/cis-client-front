@@ -10,6 +10,7 @@ import Messages from '@/app/global/components/Messages'
 import useUser from '@/app/global/hooks/useUser'
 import Editor from '@/app/global/components/Editor'
 import FileUpload from '@/app/global/components/FileUpload'
+import { MdRadioButtonChecked, MdRadioButtonUnchecked } from 'react-icons/md'
 
 const StyledForm = styled.form<CommonType>`
   .flex {
@@ -56,10 +57,29 @@ const Form = ({
             name="content"
             value={data?.content ?? ''}
           ></input>
+          <input type="hidden" name="category" value={data?.category ?? ''} />
 
           <Messages color="danger">{errors?.bid}</Messages>
           <Messages color="danger">{errors?.gid}</Messages>
           <Messages color="danger">{errors?.global}</Messages>
+
+          {board?.categories && (
+            <div className="row">
+              {board?.categories.map((category) => (
+                <span
+                  key={'category_' + category}
+                  onClick={() => onClick('category', category)}
+                >
+                  {category === data?.category ? (
+                    <MdRadioButtonChecked />
+                  ) : (
+                    <MdRadioButtonUnchecked />
+                  )}{' '}
+                  {category}
+                </span>
+              ))}
+            </div>
+          )}
 
           <div className="row poster">
             <div className="flex">

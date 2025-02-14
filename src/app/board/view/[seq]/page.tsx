@@ -1,14 +1,10 @@
 import { MainTitle } from '@/app/global/components/StyledTitle'
 import { MainContentBox } from '@/app/global/components/ContentBox'
+import BoardViewController from '../../controllers/BoardViewController'
 
-const ViewPage = () => {
-  return (
-    <>
-      <MainContentBox max={750} min={650}>
-        <MainTitle></MainTitle>
-      </MainContentBox>
-    </>
-  )
+const ViewPage = async ({ seq }) => {
+  const { seq } = await params
+  return <BoardViewController />
 }
 
 export default ViewPage
