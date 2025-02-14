@@ -21,7 +21,7 @@ const WriteContainer = () => {
   console.log('data', form)
   return (
     <WriteForm
-      data={form}
+      form={form}
       onChange={onChange}
       onClick={onClick}
       actionState={actionState}
