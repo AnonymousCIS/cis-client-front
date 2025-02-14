@@ -3,7 +3,12 @@ import { MainContentBox } from '@/app/global/components/ContentBox'
 import { MainTitle } from '@/app/global/components/StyledTitle'
 import { Input, Textarea } from '@/app/global/components/FormComponents'
 import styled from 'styled-components'
-import { MdCheckBox, MdCheckBoxOutlineBlank } from 'react-icons/md'
+import {
+  MdCheckBox,
+  MdCheckBoxOutlineBlank,
+  MdRadioButtonChecked,
+  MdRadioButtonUnchecked,
+} from 'react-icons/md'
 import { CommonType } from '@/app/global/types/StyledType'
 import { BigButton } from '@/app/global/components/Buttons'
 import Messages from '@/app/global/components/Messages'
@@ -55,15 +60,30 @@ const Form = ({
           )}
           <input type="hidden" name="bid" value={board?.bid ?? ''} />
           <input type="hidden" name="gid" value={data?.gid ?? ''} />
-          <input
-            type="hidden"
-            name="content"
-            value={data?.content ?? ''}
-          ></input>
+          <input type="hidden" name="content" value={data?.content ?? ''} />
+          <input type="hidden" name="category" value={data?.category ?? ''} />
 
           <Messages color="danger">{errors?.bid}</Messages>
           <Messages color="danger">{errors?.gid}</Messages>
           <Messages color="danger">{errors?.global}</Messages>
+
+          {board?.categories && (
+            <div className="row">
+              {board?.categories.map((category) => (
+                <span
+                  key={'category_' + category}
+                  onClick={() => onClick('category', category)}
+                >
+                  {category === data?.category ? (
+                    <MdRadioButtonChecked />
+                  ) : (
+                    <MdRadioButtonUnchecked />
+                  )}
+                  {category}
+                </span>
+              ))}
+            </div>
+          )}
 
           <div className="row poster">
             <div className="flex">
