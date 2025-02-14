@@ -1,6 +1,6 @@
 import React from 'react'
 import { BigButton, SmallButton } from '@/app/global/components/Buttons'
-import { SubTitle } from '@/app/global/components/StyledTitle'
+import { MainTitle } from '@/app/global/components/StyledTitle'
 import { TableCols } from '@/app/global/components/Tables'
 import { CommonType } from '@/app/global/types/StyledType'
 import { FaSearch } from 'react-icons/fa'
@@ -44,7 +44,7 @@ const options = [
 const ListSearch = ({ form, onChange, onSubmit }) => {
   return (
     <StyledForm autoComplete="off" onSubmit={onSubmit}>
-      <SubTitle>검색</SubTitle>
+      <MainTitle>검색</MainTitle>
       <TableCols>
         <tbody>
           <tr>

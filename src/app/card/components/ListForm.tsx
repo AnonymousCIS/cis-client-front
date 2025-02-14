@@ -3,7 +3,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { TableRows } from '@/app/global/components/Tables'
-import { SubTitle } from '@/app/global/components/StyledTitle'
+import { MainTitle } from '@/app/global/components/StyledTitle'
 
 const StyledForm = styled.form`
   th:nth-of-type(1) {
@@ -49,7 +49,7 @@ const ListLogItem = ({ item }) => {
 const ListItem = ({ items }) => {
   return (
     <StyledForm>
-      <SubTitle>카드 목록</SubTitle>
+      <MainTitle>카드 목록</MainTitle>
       <TableRows>
         <thead>
           <tr>
