@@ -1,7 +1,6 @@
 'use client'
 import React, { useState, useCallback, useEffect } from 'react'
 import ListForm from '../components/ListForm'
-import useMenuCode from '@/app/global/hooks/useMenuCode'
 import ListSearch from '../components/ListSearch'
 import { toQueryString } from '@/app/global/libs/utils'
 import useRequest from '@/app/global/hooks/useRequest'
@@ -19,8 +18,6 @@ type SearchType = {
 }
 
 const ListSearchContainer = () => {
-  useMenuCode('ecard', 'list')
-
   // 실제 Submit할때 반영, search 변경시에만 Rerendering
   const [search, setSearch] = useState<SearchType>({})
 
