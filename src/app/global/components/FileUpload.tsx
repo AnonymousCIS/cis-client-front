@@ -3,7 +3,9 @@ import React, { useState, useCallback } from 'react'
 import styled from 'styled-components'
 import type { CommonType } from '../types/StyledType'
 import FileItems from './FileItems'
-import { deleteFile } from '../services/actions'
+import useDelete from '@/app/board/hooks/useDelete'
+import useFileUpload from '../hooks/useFileUpload'
+import { SmallButton } from './Buttons'
 
 type Props = {
   gid: string
@@ -11,7 +13,7 @@ type Props = {
   single?: boolean
   imageOnly?: boolean
   title?: string
-  callback: (files: any[]) => void
+  callback?: (files: any[]) => void
 }
 
 const Wrapper = styled.div<CommonType>``
@@ -25,27 +27,59 @@ const FileUpload = ({
   callback,
 }: Props) => {
   const [files, setFiles] = useState<any>([])
+  const onDeleteFile = useDelete(setFiles)
+  const processUpload = useFileUpload(setFiles, callback)
+  title = title ?? '파일업로드'
 
-  const onDeleteFile = useCallback((seq) => {
-    if (!window.confirm('정말 삭제하겠습니까?')) {
-      return
+  const onClick = useCallback(() => {
+    const fileEl = document.createElement('input')
+    fileEl.type = 'file'
+    if (imageOnly) {
+      // 이미지만 업로드
+      fileEl.accept = 'image/*'
     }
 
-    ;(async () => {
-      const deleted = await deleteFile(seq)
-      if (deleted) {
-        // 삭제 성공
-        setFiles((files) => files.filter((file) => file.seq !== seq))
-      }
-    })()
-  }, [])
+    if (!single) {
+      fileEl.multiple = true
+    }
 
-  const onProcessUpload = useCallback(() => {}, [])
+    fileEl.click()
+
+    fileEl.removeEventListener('change', fileUpload)
+    fileEl.addEventListener('change', fileUpload)
+
+    function fileUpload(e) {
+      const files = e.target.files
+
+      const formData = new FormData()
+      formData.append('gid', gid)
+      if (location && location.trim()) {
+        formData.append('location', location)
+      }
+
+      if (single) {
+        formData.append('single', '' + single)
+        setFiles([])
+      }
+
+      if (imageOnly) formData.append('imageOnly', '' + imageOnly)
+
+      for (const file of files) {
+        formData.append('file', file)
+      }
+
+      // 업로드 처리
+      processUpload(formData)
+    }
+  }, [imageOnly, single, gid, location, processUpload])
 
   return (
     <Wrapper>
-      {title && <div className="tit">{title}</div>}
-      {files && files.length > 0 && (
+      <SmallButton type="button" onClick={onClick}>
+        {title}
+      </SmallButton>
+
+      {!callback && files && files.length > 0 && (
         <FileItems files={files} onDeleteFile={onDeleteFile} />
       )}
     </Wrapper>

@@ -87,3 +87,10 @@ export const updateBoard = async (params, formData: FormData) => {
 
   redirect(redirectUrl)
 }
+
+/**
+ * 게시글 한개 조회
+ *
+ * @param seq
+ */
+export const get = async (seq) => {}

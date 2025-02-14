@@ -9,6 +9,7 @@ import { BigButton } from '@/app/global/components/Buttons'
 import Messages from '@/app/global/components/Messages'
 import useUser from '@/app/global/hooks/useUser'
 import Editor from '@/app/global/components/Editor'
+import FileUpload from '@/app/global/components/FileUpload'
 
 const StyledForm = styled.form<CommonType>`
   .flex {
@@ -122,7 +123,11 @@ const Form = ({
             <Messages color="danger">{errors?.content}</Messages>
           </div>
 
-          {useAttachFile && <div className="row"></div>}
+          {useAttachFile && (
+            <div className="row">
+              <FileUpload gid={data?.gid} location="attach" />
+            </div>
+          )}
 
           <BigButton type="submit" disabled={isPending} color="primary">
             {data?.mode === 'edit' ? '수정' : '작성'}
