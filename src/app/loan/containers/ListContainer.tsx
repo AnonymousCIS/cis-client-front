@@ -14,8 +14,6 @@ type SearchType = {
   skey?: string
   page?: number
   limit?: number
-  category?: string
-  bankname?: string 
 }
 
 const ListSearchContainer = () => {
@@ -27,7 +25,7 @@ const ListSearchContainer = () => {
   const qs = toQueryString(search)
 
   const { data, error, isLoading } = useRequest(
-    `/card/api/list${qs.trim() ? '?' + qs : ''}`
+    `/loan/api/list${qs.trim() ? '?' + qs : ''}`
   )
 
   const onChange = useCallback((e) => {
@@ -36,9 +34,7 @@ const ListSearchContainer = () => {
   }, [])
 
   useEffect(() => {
-    if (data && data.data) {
-      setItems(data.data.items) 
-      setPagination(data.data.pagination)
+    if (data) {
     }
   }, [data])
 

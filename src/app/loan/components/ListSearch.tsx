@@ -7,49 +7,59 @@ import { FaSearch } from 'react-icons/fa'
 import { Input, Select } from '@/app/global/components/FormComponents'
 import styled from 'styled-components'
 
+// 스타일링 수정
 const StyledForm = styled.form<CommonType>`
   margin-bottom: 35px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+
   button[type='submit'] {
     display: block;
-    margin: 15px auto 0;
+    margin: 20px auto;
   }
 
   th {
     width: 180px;
+    text-align: left;
+    padding-right: 10px;
   }
 
   .flex {
     display: flex;
+    gap: 10px; /* 선택 요소 간의 간격 추가 */
 
     select {
       margin-right: 5px;
+      width: 180px; /* Select 요소의 고정 폭 */
     }
 
-    select + input {
+    input {
       flex-grow: 1;
+    }
+  }
+
+  /* 반응형 디자인 */
+  @media (max-width: 768px) {
+    .flex {
+      flex-direction: column;
+      gap: 10px;
     }
   }
 `
 
 const options = [
   { value: 'ALL', label: '통합 검색' },
-  { value: 'CARDNAME', label: '카드이름' },
+  { value: 'CARDNAME', label: '대출이름' },
   { value: 'BANKNAME', label: '은행이름' },
   { value: 'CATEGORY', label: '카테고리' },
-  { value: 'CARDTYPE', label: '카드타입별' },
-  { value: 'CARDMAXLIMIT', label: '최대한도' },
-  { value: 'CARDMINLIMIT', label: '최소한도' },
-  { value: 'CREATEDAT', label: '날짜' },
 ]
 
 const categoryOptions = [
-  { value: 'SHOPPING', label: 'SHOPPING (온라인, 할인점, 백화점, 아울렛, 면세점 등)' },
-  { value: 'LIFE', label: 'LIFE (병원약국, 커피제과, 교통, 영화관, 주유, 통신 등)' },
-  { value: 'TRAVEL', label: 'TRAVEL (여행, 항공, 해외 등)' },
-  { value: 'LIVING', label: 'LIVING (편의점, 음식점, 교육, 배달앱, 보험, 생활비 등)' },
+  { value: 'CREDITLOAN', label: '신용대출' },
+  { value: 'MORTGAGELOAN', label: '담보대출' }
 ]
 
-// 은행 목록 추가
 const bankOptions = [
   { value: 'HANKUK', label: '한국은행' },
   { value: 'KB', label: '국민은행' },
@@ -58,7 +68,7 @@ const bankOptions = [
   { value: 'HANA', label: '하나은행' },
   { value: 'SHINHAN', label: '신한은행' },
   { value: 'KBANK', label: 'K-뱅크' },
-  { value: 'KAKAO', label: '카카오' },
+  { value: 'KAKAO', label: '카카오은행' },
   { value: 'TOSS', label: '토스' },
   { value: 'SUHYUP', label: '수협은행' },
   { value: 'BUSAN', label: '부산은행' },
@@ -73,7 +83,7 @@ const bankOptions = [
   { value: 'WOORI', label: '우리은행' },
   { value: 'SINHYUP', label: '신협은행' },
   { value: 'SAEMAEULGEUMGO', label: '새마을금고' },
-  { value: 'WOOCAEKUK', label: '우체국' },
+  { value: 'WOOCAEKUK', label: '우체국' }
 ]
 
 const ListSearch = ({ form, onChange, onSubmit }) => {
@@ -90,7 +100,6 @@ const ListSearch = ({ form, onChange, onSubmit }) => {
                 options={options}
                 selected={form?.sopt ?? 'ALL'}
                 onChange={onChange}
-                width={180}
               />
               <Input
                 type="text"
@@ -117,28 +126,13 @@ const ListSearch = ({ form, onChange, onSubmit }) => {
 
           {form?.sopt === 'BANKNAME' && (
             <tr>
-              <th>은행이름</th>
+              <th>은행 선택</th>
               <td>
                 <Select
-                  name="bankname"
+                  name="bank"
                   options={bankOptions}
-                  selected={form?.bankname ?? ''}
+                  selected={form?.bank ?? ''}
                   onChange={onChange}
-                />
-              </td>
-            </tr>
-          )}
-
-          {(form?.sopt === 'CARDMAXLIMIT' || form?.sopt === 'CARDMINLIMIT') && (
-            <tr>
-              <th>{form?.sopt === 'CARDMAXLIMIT' ? '최대한도' : '최소한도'}</th>
-              <td>
-                <Input
-                  type="number"
-                  name={form?.sopt.toLowerCase()}
-                  value={form?.[form?.sopt.toLowerCase()] ?? ''}
-                  onChange={onChange}
-                  placeholder={form?.sopt === 'CARDMAXLIMIT' ? '최대한도를 입력하세요' : '최소한도를 입력하세요'}
                 />
               </td>
             </tr>

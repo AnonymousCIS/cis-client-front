@@ -1,6 +1,7 @@
+'use server'
 import apiRequest from '@/app/global/libs/apiRequest'
 
-export const getLogInfo = async () => {
+export const getcardInfo = async () => {
   try {
     const res = await apiRequest('/card/list')
 

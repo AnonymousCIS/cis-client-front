@@ -30,17 +30,13 @@ const StyledForm = styled.form`
   }
 `
 
-const ListCardItem = ({ item }) => {
-  const { cardName, bankName, cardLimitMax, cardLimitMin, sDate, dDate, category } = item
+const ListLoanItem = ({ item }) => {
+  const { loanName, bankName, category } = item
 
   return (
     <tr>
-      <td>{cardName}</td>
+      <td>{loanName}</td>
       <td>{bankName}</td>
-      <td>{cardLimitMax}</td>
-      <td>{cardLimitMin}</td>
-      <td>{sDate}</td>
-      <td>{dDate}</td>
       <td>{category}</td>
     </tr>
   )
@@ -49,27 +45,24 @@ const ListCardItem = ({ item }) => {
 const ListItem = ({ items }) => {
   return (
     <StyledForm>
-      <h2>카드 목록</h2>
+      <h2>대출 목록</h2>
       <TableRows>
         <thead>
           <tr>
-            <th>카드명</th>
+            <th>대출명</th>
             <th>은행명</th>
-            <th>최대한도</th>
-            <th>최소한도</th>
-            <th>시작날짜</th>
-            <th>만료일자</th>
+            <th>종류</th>
           </tr>
         </thead>
         <tbody>
           {items && items.length > 0 ? (
-            items.map((card) => (
-              <ListCardItem key={'cards_' + card.seq} item={card} />
+            items.map((loan) => (
+              <ListLoanItem key={'loan_' + loan.seq} item={loan} />
             ))
           ) : (
             <tr>
-              <td colSpan={6} className="no-data">
-                카드가 없습니다.
+              <td colSpan={3} className="no-data">
+                알맞는 대출상품이 없습니다.
               </td>
             </tr>
           )}

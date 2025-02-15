@@ -6,7 +6,7 @@ export async function GET(request: NextRequest) {
   const qs = request.nextUrl.searchParams.toString()
 
   // 항상 쿼리 문자열을 처리
-  const apiUrl = `${process.env.API_URL}/card/list${qs ? '?' + qs : ''}`
+  const apiUrl = `${process.env.API_URL}/loan/list${qs ? '?' + qs : ''}`
 
   try {
     const res = await apiRequest(apiUrl)
@@ -14,7 +14,8 @@ export async function GET(request: NextRequest) {
     if (res.status === 200) {
       const result = await res.json()
       return NextResponse.json(result)
-    } else {
+    } 
+    else {
       // API 호출 실패시 처리
       return NextResponse.json({ success: false, message: 'API 호출 실패' })
     }
