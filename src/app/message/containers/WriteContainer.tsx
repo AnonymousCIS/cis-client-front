@@ -18,7 +18,6 @@ const WriteContainer = () => {
   const onClick = useCallback((field, value) => {
     setForm((data) => ({ ...data, [field]: value }))
   }, [])
-  console.log('data', form)
   return (
     <WriteForm
       form={form}
