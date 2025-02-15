@@ -9,6 +9,8 @@ import { MdCheckBox, MdCheckBoxOutlineBlank } from 'react-icons/md'
 import Messages from '@/app/global/components/Messages'
 import { BigButton } from '@/app/global/components/Buttons'
 import Editor from '@/app/global/components/Editor'
+import FileUpload from '@/app/global/components/FileUpload'
+
 const { primary, white } = colors
 
 const StyledForm = styled.form<CommonType>`
@@ -42,7 +44,14 @@ const StyledForm = styled.form<CommonType>`
   }
 `
 
-const WriteForm = ({ form, onChange, onClick, onEditor, onEditorImage,actionState }) => {
+const WriteForm = ({
+  form,
+  onChange,
+  onClick,
+  onEditor,
+  onEditorImage,
+  actionState,
+}) => {
   console.log('form', form)
   const [errors, formAction, isPending] = actionState
 
@@ -99,6 +108,18 @@ const WriteForm = ({ form, onChange, onClick, onEditor, onEditorImage,actionStat
                   files={form?.editorFiles}
                 />
                 <Messages color="danger">{errors?.content}</Messages>
+              </td>
+            </tr>
+            <tr>
+              <th>첨부 파일</th>
+              <td>
+                <div className="row">
+                  <FileUpload
+                    gid={form?.gid}
+                    location="attach"
+                    files={form?.attachFiles}
+                  />
+                </div>
               </td>
             </tr>
           </tbody>
