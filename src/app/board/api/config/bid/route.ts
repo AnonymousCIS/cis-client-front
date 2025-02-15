@@ -6,7 +6,5 @@ export async function GET(request: NextRequest) {
 
   const board = await getBoard(bid)
 
-  console.log('board', board)
-
   return NextResponse.json(board ?? {})
 }

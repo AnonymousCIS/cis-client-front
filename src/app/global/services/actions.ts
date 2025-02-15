@@ -19,6 +19,4 @@ export const deleteFile = async (seq) => {
     // 삭제된 파일 정보 목록
     return result.data
   }
-
-  console.error(result.message)
 }

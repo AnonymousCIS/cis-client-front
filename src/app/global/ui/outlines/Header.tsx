@@ -111,9 +111,7 @@ const Header = () => {
   const email = userInfo?.email
   const name = userInfo?.name
 
-  const adminUrl = process.env.NEXT_PUBLUC_ADMIN_URL
-
-  console.log('adminUrl', adminUrl)
+  const adminUrl = 'http://localhost:3100'
 
   return (
     <StyledHeader>
