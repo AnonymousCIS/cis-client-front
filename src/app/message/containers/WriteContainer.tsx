@@ -9,7 +9,12 @@ const WriteContainer = () => {
 
   const searchParams = useSearchParams()
   const params = { redirectUrl: searchParams.get('redirectUrl') }
+
   const actionState = useActionState(writeMessage, params)
+
+  const onEditor = useCallback(() => setForm(true), [])
+
+  const onEditorImage = useCallback(() => setForm(true), [])
 
   const onChange = useCallback((e) => {
     setForm((data) => ({ ...data, [e.target.name]: e.target.value }))
@@ -24,6 +29,8 @@ const WriteContainer = () => {
       form={form}
       onChange={onChange}
       onClick={onClick}
+      onEditor={onEditor}
+      onEditorImage={onEditorImage}
       actionState={actionState}
     />
   )
