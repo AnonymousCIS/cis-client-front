@@ -7,8 +7,8 @@ import { TableCols } from '@/app/global/components/Tables'
 import colors from '@/app/global/styles/colors'
 import { MdCheckBox, MdCheckBoxOutlineBlank } from 'react-icons/md'
 import Messages from '@/app/global/components/Messages'
-import ReactQuill from 'react-quill-new'
 import { BigButton } from '@/app/global/components/Buttons'
+import Editor from '@/app/global/components/Editor'
 const { primary, white } = colors
 
 const StyledForm = styled.form<CommonType>`
@@ -42,7 +42,8 @@ const StyledForm = styled.form<CommonType>`
   }
 `
 
-const WriteForm = ({ form, onChange, onClick, actionState }) => {
+const WriteForm = ({ form, onChange, onClick, onEditor, onEditorImage,actionState }) => {
+  console.log('form', form)
   const [errors, formAction, isPending] = actionState
 
   const { isAdmin } = useUser()
@@ -60,18 +61,20 @@ const WriteForm = ({ form, onChange, onClick, actionState }) => {
                   name="receiverEmail"
                   value={form?.receiverEmail ?? ''}
                   onChange={onChange}
+                  placeholder="받는 사람 이메일"
                 />
                 <Messages color="danger">{errors?.receiverEmail}</Messages>
               </td>
             </tr>
             <tr>
               <th>제목</th>
-              <td className="flex">
+              <td>
                 <Input
                   type="text"
                   name="subject"
                   value={form?.subject ?? ''}
                   onChange={onChange}
+                  placeholder="제목"
                 />
                 {isAdmin && (
                   <span
@@ -87,11 +90,13 @@ const WriteForm = ({ form, onChange, onClick, actionState }) => {
             <tr>
               <th>내용</th>
               <td>
-                <Textarea
-                  name="content"
-                  value={form?.content ?? ''}
-                  onChange={onChange}
-                  placeholder="내용을 입력하세요"
+                <Editor
+                  onChange={onEditor}
+                  useImage={onEditorImage}
+                  gid={form?.gid}
+                  location="editor"
+                  content={form?.content || ''}
+                  files={form?.editorFiles}
                 />
                 <Messages color="danger">{errors?.content}</Messages>
               </td>
