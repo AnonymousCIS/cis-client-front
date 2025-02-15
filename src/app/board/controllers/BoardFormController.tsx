@@ -79,7 +79,7 @@ const BoardFormController = ({ bid, seq }: Props) => {
     })()
   }, [bid, setTitle])
 
-  if ((bid && !board) || (seq && !data)) notFound()
+  // if ((bid && !board) || (seq && !data)) notFound()
 
   const Form = useSkin(board?.skin, 'form')
 
