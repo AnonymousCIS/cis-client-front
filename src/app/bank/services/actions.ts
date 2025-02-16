@@ -49,15 +49,14 @@ export const createProcess = async (params, formData: FormData) => {
   redirect('/')
 }
 
-export const CardTransaction = async (params, formData: FormData) => {
-  const form: any = {}
+export const CardTransaction = async (form: any) => {
   let errors: any = {}
   let hasErrors = false
 
-  for (const [key, value] of formData.entries()) {
-    if (key.includes('$ACTION')) continue
-    form[key] = value
-  }
+  // for (const [key, value] of formData.entries()) {
+  //   if (key.includes('$ACTION')) continue
+  //   form[key] = value
+  // }
 
   // 검증 S
 
@@ -65,9 +64,7 @@ export const CardTransaction = async (params, formData: FormData) => {
     errors.annualFee = errors.annualFee ?? []
     errors.annualFee.push('연회비를 입력하세요.')
     hasErrors = true
-  }
-
-  if (form.annualFee < 1000 || form.annualFee > 30000) {
+  } else if (form.annualFee < 1000 || form.annualFee > 30000) {
     errors.annualFee = errors.annualFee ?? []
     errors.annualFee.push(
       `연회비는 1000 ~ 30000원 사이를 입력해주세요. 현재 입력한 연회비: ${form.annualFee}`,
@@ -80,71 +77,82 @@ export const CardTransaction = async (params, formData: FormData) => {
     errors.cardType.push('카드타입을 입력하세요.')
     hasErrors = true
   }
-  console.log('form', form)
-  console.log('errors', errors)
+  // console.log('form', form)
+  // console.log('errors', errors)
 
-  // 검증 E
+  // // 검증 E
 
-  // 서버 요청 S
+  // // 서버 요청 S
 
   if (!hasErrors) {
     try {
       const res = await apiRequest('/bank/transaction/card', 'POST', form)
-
+      const result = await res.json()
       console.log('res', res)
+      console.log('result', result)
 
-      if (res.status !== 201) {
+      if (res.status !== 200) {
         // 검증 실패시
-        const result = await res.json()
-        errors = result.message
         console.log('result', result)
+        errors = result.message
+        return errors
       }
+      return result.data
     } catch (err) {
       console.error(err)
     }
   }
+
+  return errors
   // 서버 요청 E
 }
 
-export const LoanTransaction = async (params, formData: FormData) => {
-  const form: any = {}
+export const LoanTransaction = async (form: any) => {
   let errors: any = {}
   let hasErrors = false
 
-  for (const [key, value] of formData.entries()) {
-    if (key.includes('$ACTION')) continue
-    form[key] = value
-  }
+  // for (const [key, value] of formData.entries()) {
+  //   if (key.includes('$ACTION')) continue
+  //   form[key] = value
+  // }
 
   // 검증 S
 
   if (!form.category) {
     errors.category = errors.category ?? []
-    errors.category.push('카드타입을 입력하세요.')
+    errors.category.push('대출타입을 입력하세요.')
     hasErrors = true
   }
-  console.log('form', form)
-  console.log('errors', errors)
 
-  // 검증 E
+  // console.log('form', form)
+  // console.log('errors', errors)
 
-  // 서버 요청 S
+  // // 검증 E
+
+  // // 서버 요청 S
 
   if (!hasErrors) {
     try {
       const res = await apiRequest('/bank/transaction/loan', 'POST', form)
-
+      const result = await res.json()
       console.log('res', res)
 
-      if (res.status !== 201) {
+      if (res.status !== 200) {
         // 검증 실패시
-        const result = await res.json()
         errors = result.message
         console.log('result', result)
+        return errors
       }
+      return result.data
     } catch (err) {
       console.error(err)
     }
   }
+
+  return errors
   // 서버 요청 E
+}
+
+export const CardCreate = async (form) => {
+  console.log('form', form)
 }

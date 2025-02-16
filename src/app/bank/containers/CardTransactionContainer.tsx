@@ -1,7 +1,8 @@
 'use client'
-import React, { useState, useActionState, useCallback } from 'react'
+import React, { useState, useCallback } from 'react'
 import { CardTransaction } from '../services/actions'
 import CardTransactionForm from '../components/CardTransactionForm'
+import CardRunForm from '../components/CardForm'
 
 const TransactionContainer = () => {
   // 1. 자신의 계좌를 통틀어서 해야함
@@ -13,31 +14,41 @@ const TransactionContainer = () => {
    * 이렇게만 있으면 될듯...?
    * 이부분들이 계좌 연동.
    */
-  const [form, setForm] = useState({})
-
-  const actionState = useActionState(CardTransaction, undefined)
-  // if (title === 'card') actionState
-  // // 여기에 Card action 넣어주면 될듯
-  // else actionState = useActionState(LoanTransaction, undefined)
+  const [form, setForm] = useState<any>({})
+  const [errors, setErrors] = useState<any>({})
 
   const onChange = useCallback((e) => {
     setForm((form) => ({ ...form, [e.target.name]: e.target.value }))
   }, [])
 
   // 내 카드추천목록들.
-  const [item, setItem] = useState({})
+  const [item, setItem] = useState()
 
-  // const itemChagne = useCallback((item) => {
-  //   setItem()
-  // })
+  const onClick = useCallback(() => {
+    ;(async () => {
+      const res = await CardTransaction(form)
+      if (res.annualFee) {
+        setErrors(res)
+      } else if (res.cardType) {
+        setErrors(res)
+      } else {
+        setErrors(null)
+      }
+      const _res = JSON.parse(res)
+      setItem(_res)
+      console.log('_res', _res)
+    })()
+  }, [form])
 
   return (
     <>
       <CardTransactionForm
         form={form}
-        actionState={actionState}
         onChange={onChange}
+        onClick={onClick}
+        errors={errors}
       />
+      {item !== undefined ? <CardRunForm item={item} /> : <></>}
     </>
   )
 }
