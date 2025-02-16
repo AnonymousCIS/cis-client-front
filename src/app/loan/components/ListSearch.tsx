@@ -46,20 +46,18 @@ const StyledForm = styled.form<CommonType>`
     }
   }
 `
+
 const options = [
   { value: 'ALL', label: '통합 검색' },
   { value: 'CARDNAME', label: '대출이름' },
   { value: 'BANKNAME', label: '은행이름' },
   { value: 'CATEGORY', label: '대출 카테고리' },
   { value: 'LIMIT', label: '최대 한도' },
+  { value: 'loanDescription', label: '대출 설명' },
   { value: 'interestRate', label: '금리' },
   { value: 'repaymentYear', label: '상환년도' },
   { value: 'isOpen', label: '사용 가능 여부' },
-]
-
-const categoryOptions = [
-  { value: 'CREDITLOAN', label: '신용대출' },
-  { value: 'MORTGAGELOAN', label: '담보대출' }
+  
 ]
 
 const ListSearch = ({ form, onChange, onSubmit }) => {
@@ -85,74 +83,6 @@ const ListSearch = ({ form, onChange, onSubmit }) => {
               />
             </td>
           </tr>
-          {form?.sopt === 'CATEGORY' && (
-            <tr>
-              <th>카테고리</th>
-              <td>
-                <Select
-                  name="category"
-                  options={categoryOptions}
-                  selected={form?.category ?? ''}
-                  onChange={onChange}
-                />
-              </td>
-            </tr>
-          )}
-          {form?.sopt === 'LIMIT' && (
-            <tr>
-              <th>최대 한도</th>
-              <td>
-                <Input
-                  type="number"
-                  name="limit"
-                  value={form?.limit ?? ''}
-                  onChange={onChange}
-                  placeholder="최대 한도를 입력하세요"
-                />
-              </td>
-            </tr>
-          )}
-          {form?.sopt === 'interestRate' && (
-            <tr>
-              <th>금리</th>
-              <td>
-                <Input
-                  type="number"
-                  name="interestRate"
-                  value={form?.interestRate ?? ''}
-                  onChange={onChange}
-                  placeholder="금리를 입력하세요"
-                />
-              </td>
-            </tr>
-          )}
-          {form?.sopt === 'repaymentYear' && (
-            <tr>
-              <th>상환년도</th>
-              <td>
-                <Input
-                  type="number"
-                  name="repaymentYear"
-                  value={form?.repaymentYear ?? ''}
-                  onChange={onChange}
-                  placeholder="상환년도를 입력하세요"
-                />
-              </td>
-            </tr>
-          )}
-          {form?.sopt === 'isOpen' && (
-            <tr>
-              <th>사용 가능 여부</th>
-              <td>
-                <Select
-                  name="isOpen"
-                  options={[{ value: 'true', label: '가능' }, { value: 'false', label: '불가능' }]}
-                  selected={form?.isOpen ?? ''}
-                  onChange={onChange}
-                />
-              </td>
-            </tr>
-          )}
         </tbody>
       </TableCols>
       <BigButton type="submit" color="primary" width={250}>

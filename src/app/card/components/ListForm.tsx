@@ -14,15 +14,21 @@ const StyledForm = styled.form`
   }
 
   th:nth-of-type(3) {
-    width: 200px;
+    width: 300px;
   }
 
   th:nth-of-type(4) {
-    width: 300px;
+    width: 150px;
   }
 
   th:nth-of-type(5) {
     width: 150px;
+  }
+  th:nth-of-type(6) {
+    width: 200px;
+  }
+   th:nth-of-type(7) {
+    width: 200px;
   }
 
   td {
@@ -31,12 +37,13 @@ const StyledForm = styled.form`
 `
 
 const ListCardItem = ({ item }) => {
-  const { cardName, bankName, cardLimitMax, cardLimitMin, sDate, dDate, category } = item
+  const { cardName, bankName, cardLimitMax, cardLimitMin, sDate, dDate, category, cardDescription } = item
 
   return (
     <tr>
       <td>{cardName}</td>
       <td>{bankName}</td>
+      <td>{cardDescription}</td>
       <td>{cardLimitMax}</td>
       <td>{cardLimitMin}</td>
       <td>{sDate}</td>
@@ -55,6 +62,7 @@ const ListItem = ({ items }) => {
           <tr>
             <th>카드명</th>
             <th>은행명</th>
+            <th>카드 설명</th>
             <th>최대한도</th>
             <th>최소한도</th>
             <th>시작날짜</th>

@@ -18,7 +18,7 @@ const StyledForm = styled.form`
   }
 
   th:nth-of-type(4) {
-    width: 300px;
+    width: 500px;
   }
 
   th:nth-of-type(5) {
@@ -30,9 +30,11 @@ const StyledForm = styled.form`
   }
 
   th:nth-of-type(7) {
-    width: 80px; /* 사용 가능 여부 열 너비 축소 */
+    width: 80px; 
   }
-
+ th:nth-of-type(8) {
+  width: 80px;
+}
   td {
     text-align: center;
   }
@@ -70,7 +72,7 @@ const categoryName ={
 }
 
 const ListLoanItem = ({ item }) => {
-  const { loanName, bankName, category,limit,interestRate,repaymentYear,isOpen } = item
+  const { loanName, bankName, category,limit,interestRate,repaymentYear,isOpen, loanDescription } = item
 
   const transBankName = bankNameKo[bankName] || bankName
   const transCategoryName = categoryName[category] || category
@@ -79,6 +81,7 @@ const ListLoanItem = ({ item }) => {
       <td>{loanName}</td>
       <td>{transBankName}</td>
       <td>{transCategoryName}</td>
+      <td>{loanDescription}</td>
       <td>{limit}</td>
       <td>{interestRate}</td>
       <td>{repaymentYear}</td>
@@ -97,6 +100,7 @@ const ListItem = ({ items }) => {
             <th>대출명</th>
             <th>은행명</th>
             <th>대출 카테고리리</th>
+            <th>대출 설명</th>
             <th>최대 한도</th>
             <th>금리</th>
             <th>상환년도</th>
@@ -110,7 +114,7 @@ const ListItem = ({ items }) => {
             ))
           ) : (
             <tr>
-              <td colSpan={7} className="no-data">
+              <td colSpan={8} className="no-data">
                 알맞는 대출상품이 없습니다.
               </td>
             </tr>

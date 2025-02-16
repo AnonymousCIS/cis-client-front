@@ -37,43 +37,10 @@ const options = [
   { value: 'BANKNAME', label: '은행이름' },
   { value: 'CATEGORY', label: '카테고리' },
   { value: 'CARDTYPE', label: '카드타입별' },
+  { value: 'CARDDESCRIPTION', label: '카드 설명명' },
   { value: 'CARDMAXLIMIT', label: '최대한도' },
   { value: 'CARDMINLIMIT', label: '최소한도' },
   { value: 'CREATEDAT', label: '날짜' },
-]
-
-const categoryOptions = [
-  { value: 'SHOPPING', label: 'SHOPPING (온라인, 할인점, 백화점, 아울렛, 면세점 등)' },
-  { value: 'LIFE', label: 'LIFE (병원약국, 커피제과, 교통, 영화관, 주유, 통신 등)' },
-  { value: 'TRAVEL', label: 'TRAVEL (여행, 항공, 해외 등)' },
-  { value: 'LIVING', label: 'LIVING (편의점, 음식점, 교육, 배달앱, 보험, 생활비 등)' },
-]
-
-// 은행 목록 추가
-const bankOptions = [
-  { value: 'HANKUK', label: '한국은행' },
-  { value: 'KB', label: '국민은행' },
-  { value: 'SC', label: '제일은행' },
-  { value: 'CITY', label: '한국시티은행' },
-  { value: 'HANA', label: '하나은행' },
-  { value: 'SHINHAN', label: '신한은행' },
-  { value: 'KBANK', label: 'K-뱅크' },
-  { value: 'KAKAO', label: '카카오' },
-  { value: 'TOSS', label: '토스' },
-  { value: 'SUHYUP', label: '수협은행' },
-  { value: 'BUSAN', label: '부산은행' },
-  { value: 'KYUNGNAM', label: '경남은행' },
-  { value: 'KYANGJOO', label: '광주은행' },
-  { value: 'JUNBOK', label: '전북은행' },
-  { value: 'JEJOO', label: '제주은행' },
-  { value: 'LOTTE', label: '롯데카드' },
-  { value: 'NONGHYUP', label: '농협은행' },
-  { value: 'SAMSUNG', label: '삼성카드' },
-  { value: 'HYUNDAI', label: '현대카드' },
-  { value: 'WOORI', label: '우리은행' },
-  { value: 'SINHYUP', label: '신협은행' },
-  { value: 'SAEMAEULGEUMGO', label: '새마을금고' },
-  { value: 'WOOCAEKUK', label: '우체국' },
 ]
 
 const ListSearch = ({ form, onChange, onSubmit }) => {
@@ -100,59 +67,6 @@ const ListSearch = ({ form, onChange, onSubmit }) => {
               />
             </td>
           </tr>
-
-          {form?.sopt === 'CATEGORY' && (
-            <tr>
-              <th>카테고리</th>
-              <td>
-                <Select
-                  name="category"
-                  options={categoryOptions}
-                  selected={form?.category ?? ''}
-                  onChange={onChange}
-                />
-              </td>
-            </tr>
-          )}
-
-          {form?.sopt === 'BANKNAME' && (
-            <tr>
-              <th>은행이름</th>
-              <td>
-                <Select
-                  name="bankname"
-                  options={bankOptions}
-                  selected={form?.bankname ?? ''}
-                  onChange={onChange}
-                />
-              </td>
-            </tr>
-          )}
-
-          {(form?.sopt === 'CARDMAXLIMIT' || form?.sopt === 'CARDMINLIMIT') && (
-            <tr>
-              <th>카드 한도</th>
-              <td className="flex">
-                <Input
-                  type="number"
-                  name="cardMinLimit"
-                  value={form?.cardMinLimit ?? ''}
-                  onChange={onChange}
-                  width={120}
-                  placeholder="최소 금액"
-                />
-                ~
-                <Input
-                  type="number"
-                  name="cardMaxLimit"
-                  value={form?.cardMaxLimit ?? ''}
-                  onChange={onChange}
-                  width={120}
-                  placeholder="최대 금액"
-                />
-              </td>
-            </tr>
-          )}
         </tbody>
       </TableCols>
       <BigButton type="submit" color="primary" width={250}>
