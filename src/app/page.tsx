@@ -1,14 +1,17 @@
-// const MainPage = () => {
-//   return (
-//     <>
-//       <h1>메인 페이지</h1>
-      
-//     </>
-//   )
-// }
+import React from 'react'
+import MainContainer from './main/containers/MainContainer'
 
-// export default MainPage
+const MainPage = () => {
+  return (
+    <>
+      <MainContainer />
+    </>
+  )
+}
 
+export default React.memo(MainPage)
+
+/*
 'use client'
 
 import React, { useState, useCallback } from 'react'
@@ -38,3 +41,4 @@ const MainPage = () => {
 }
 
 export default React.memo(MainPage)
+*/

@@ -2,7 +2,7 @@
 
 import React, { useState,  useLayoutEffect } from 'react'
 import { BulletList } from 'react-content-loader'
-import { getCardView } from '../services/actions'
+import { getCard } from '../services/actions'
 import { notFound } from 'next/navigation'
 import ViewForm from '../components/ViewForm'
 
@@ -17,7 +17,7 @@ const ViewContainer = ({ seq }: { seq?: number | undefined } | undefined) => {
   useLayoutEffect(() => {
     ;(async () => {
         try {
-          const card = await getCardView(seq)
+          const card = await getCard(seq)
           console.log('card', card)
           if (!card) notFound()
           else {
