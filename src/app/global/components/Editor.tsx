@@ -127,18 +127,8 @@ const Editor = ({
     },
     [onChange],
   )
-
   return (
     <Wrapper>
-      {_files && (
-        <FileItems
-          files={_files}
-          isEditor={true}
-          onDeleteFile={onDeleteFile}
-          onInsertImage={onInsertImage}
-          className="file=items"
-        />
-      )}
       <ReactQuill
         ref={editor} // Dom 선택용
         theme="snow"
@@ -148,6 +138,15 @@ const Editor = ({
         modules={modules}
         placeholder="내용을 입력하세요"
       />
+      {_files && (
+        <FileItems
+          files={_files}
+          isEditor={true}
+          onDeleteFile={onDeleteFile}
+          onInsertImage={onInsertImage}
+          className="file=items"
+        />
+      )}
     </Wrapper>
   )
 }

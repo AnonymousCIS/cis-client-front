@@ -99,14 +99,16 @@ const WriteForm = ({
             <tr>
               <th>내용</th>
               <td>
-                <Editor
-                  onChange={onEditor}
-                  useImage={onEditorImage}
-                  gid={form?.gid}
-                  location="editor"
-                  content={form?.content || ''}
-                  files={form?.editorFiles}
-                />
+                <div>
+                  <Editor
+                    onChange={onEditor}
+                    useImage={onEditorImage}
+                    location="editor"
+                    gid={form?.gid || ''}
+                    content={form?.content || ''}
+                    files={form?.editorFiles}
+                  />
+                </div>
                 <Messages color="danger">{errors?.content}</Messages>
               </td>
             </tr>

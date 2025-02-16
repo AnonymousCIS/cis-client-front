@@ -12,13 +12,15 @@ const WriteContainer = () => {
 
   const actionState = useActionState(writeMessage, params)
 
-  const onEditor = useCallback(() => setForm(true), [])
-
-  const onEditorImage = useCallback(() => setForm(true), [])
-
   const onChange = useCallback((e) => {
     setForm((data) => ({ ...data, [e.target.name]: e.target.value }))
   }, [])
+  const onEditorChange = useCallback(
+    (content) => setForm((data) => ({ ...data, content })),
+    [],
+  )
+
+  const onEditorImage = useCallback(() => setForm(true), [])
 
   const onClick = useCallback((field, value) => {
     setForm((data) => ({ ...data, [field]: value }))
@@ -28,7 +30,7 @@ const WriteContainer = () => {
       form={form}
       onChange={onChange}
       onClick={onClick}
-      onEditor={onEditor}
+      onEditor={onEditorChange}
       onEditorImage={onEditorImage}
       actionState={actionState}
     />
