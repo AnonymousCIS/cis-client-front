@@ -129,20 +129,20 @@ const ListSearch = ({ form, onChange, onSubmit }) => {
             </tr>
           )}
 
-          {(form?.sopt === 'CARDMAXLIMIT' || form?.sopt === 'CARDMINLIMIT') && (
-            <tr>
-              <th>{form?.sopt === 'CARDMAXLIMIT' ? '최대한도' : '최소한도'}</th>
-              <td>
-                <Input
-                  type="number"
-                  name={form?.sopt.toLowerCase()}
-                  value={form?.[form?.sopt.toLowerCase()] ?? ''}
-                  onChange={onChange}
-                  placeholder={form?.sopt === 'CARDMAXLIMIT' ? '최대한도를 입력하세요' : '최소한도를 입력하세요'}
-                />
+      {(form?.sopt === 'CARDMAXLIMIT' || form?.sopt === 'CARDMINLIMIT') && (
+         <tr>
+           <th>{form?.sopt === 'CARDMAXLIMIT' ? '한도 (최대)' : '한도 (최소)'}</th>
+             <td>
+               <Input
+                type="number"
+                name={form?.sopt}
+                value={form?.[form?.sopt] ?? ''}
+                onChange={onChange}
+                placeholder={form?.sopt === 'CARDMAXLIMIT' ? '최대 한도를 입력하세요' : '최소 한도를 입력하세요'}
+                 />
               </td>
             </tr>
-          )}
+      )}
         </tbody>
       </TableCols>
       <BigButton type="submit" color="primary" width={250}>
