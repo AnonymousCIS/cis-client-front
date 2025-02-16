@@ -1,8 +1,8 @@
 'use client'
 import React, { useState, useCallback } from 'react'
-import { CardTransaction } from '../services/actions'
+import { CardTransaction, CardCreate } from '../services/actions'
+import CardForm from '../components/CardForm'
 import CardTransactionForm from '../components/CardTransactionForm'
-import CardRunForm from '../components/CardForm'
 
 const TransactionContainer = () => {
   // 1. 자신의 계좌를 통틀어서 해야함
@@ -21,8 +21,8 @@ const TransactionContainer = () => {
     setForm((form) => ({ ...form, [e.target.name]: e.target.value }))
   }, [])
 
-  // 내 카드추천목록들.
-  const [item, setItem] = useState()
+  // 내 대출추천목록들.
+  const [item, setItem] = useState<any>()
 
   const onClick = useCallback(() => {
     ;(async () => {
@@ -32,13 +32,27 @@ const TransactionContainer = () => {
       } else if (res.cardType) {
         setErrors(res)
       } else {
+        const _res = JSON.parse(res)
+        setItem(_res?.data)
         setErrors(null)
       }
-      const _res = JSON.parse(res)
-      setItem(_res)
-      console.log('_res', _res)
     })()
   }, [form])
+
+  const onCheck = useCallback((seq) => {
+    setItem((prevItems) =>
+      prevItems.map((item) =>
+        item.seq === seq ? { ...item, checked: !item.checked } : item,
+      ),
+    )
+    console.log('item', item)
+  }, [])
+
+  const onProcess = useCallback(() => {
+    ;(async () => {
+      const res = await CardCreate(item)
+    })()
+  }, [item])
 
   return (
     <>
@@ -48,7 +62,11 @@ const TransactionContainer = () => {
         onClick={onClick}
         errors={errors}
       />
-      {item !== undefined ? <CardRunForm item={item} /> : <></>}
+      {item !== undefined ? (
+        <CardForm items={item} onClick={onCheck} onProcess={onProcess} /> // 나중에 바꿔야함
+      ) : (
+        <></>
+      )}
     </>
   )
 }

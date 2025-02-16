@@ -1,6 +1,7 @@
 'use server'
 import { redirect } from 'next/navigation'
 import apiRequest from '@/app/global/libs/apiRequest'
+import { GiConsoleController } from 'react-icons/gi'
 
 export const createProcess = async (params, formData: FormData) => {
   const form: any = {}
@@ -153,8 +154,60 @@ export const LoanTransaction = async (form: any) => {
   // 서버 요청 E
 }
 
+export const LoanCreate = async (form) => {
+  const items = form.filter((item) => item?.checked)
+  console.log('items', items)
+  const _form: any = []
+
+  // 내가 필요한건 seq만. List형태로.
+  for (const key of items) {
+    for (const [k, v] of Object.entries(key)) {
+      if (k.includes('seq')) {
+        console.log('유입')
+        _form.push(v)
+      }
+    }
+  }
+  console.log('_form', _form)
+
+  if (_form && _form.length > 0) {
+    const res = await apiRequest('/loan/user/create', 'POST', _form)
+    console.log('res', res)
+    const result = await res.json()
+    console.log('result', result)
+    if (res.status !== 200) {
+      // 검증 실패시
+      console.log('검증 실패')
+    }
+    return result.data
+  }
+}
+
 export const CardCreate = async (form) => {
-  console.log('form', form)
-  // const _items = form.filter((item) => item.checked)
-  // console.log(_items)
+  const items = form.filter((item) => item?.checked)
+  console.log('items', items)
+  const _form: any = []
+
+  // 내가 필요한건 seq만. List형태로.
+  for (const key of items) {
+    for (const [k, v] of Object.entries(key)) {
+      if (k.includes('seq')) {
+        console.log('유입')
+        _form.push(v)
+      }
+    }
+  }
+  console.log('_form', _form)
+
+  if (_form && _form.length > 0) {
+    const res = await apiRequest('/card/user/create', 'POST', _form)
+    console.log('res', res)
+    const result = await res.json()
+    console.log('result', result)
+    if (res.status !== 200) {
+      // 검증 실패시
+      console.log('검증 실패')
+    }
+    return result.data
+  }
 }

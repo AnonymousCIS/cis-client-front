@@ -7,7 +7,7 @@ import sizes from '@/app/global/styles/sizes'
 import { MdCheckBoxOutlineBlank, MdCheckBox } from 'react-icons/md'
 import { BigButton } from '@/app/global/components/Buttons'
 
-const { info, dark } = colors
+const { info, dark, primary } = colors
 const { small } = sizes
 
 const StyledForm = styled.form<CommonType>`
@@ -26,7 +26,7 @@ const StyledForm = styled.form<CommonType>`
   }
 `
 
-const LoanItems = ({ item, onClick, form }) => {
+const LoanItems = ({ item, onClick }) => {
   const {
     loanName,
     bankNameStr,
@@ -36,14 +36,8 @@ const LoanItems = ({ item, onClick, form }) => {
     repaymentYear,
     seq,
     loanDescription,
+    checked,
   } = item
-  const checked = form.map((item) => {
-    if (item.seq === seq) {
-      return form?.checked
-    }
-  })
-  console.log('form', form)
-  console.log('checked', checked)
 
   return (
     <>
@@ -91,14 +85,14 @@ const LoanItems = ({ item, onClick, form }) => {
   )
 }
 
-const LoanForm = ({ items, onClick, onProcess, form }) => {
+const LoanForm = ({ items, onClick, onProcess }) => {
   return (
     <StyledForm>
       {items.map((item, i) => (
-        <LoanItems key={i} item={item} onClick={onClick} form={form} />
+        <LoanItems key={i} item={item} onClick={onClick} />
       ))}
-      <BigButton type="button" color="danger" onClick={() => onProcess(items)}>
-        삭제
+      <BigButton type="button" color="primary" onClick={() => onProcess(items)}>
+        추천 대출 저장하기
       </BigButton>
     </StyledForm>
   )

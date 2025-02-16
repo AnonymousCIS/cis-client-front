@@ -1,6 +1,6 @@
 'use client'
-import React, { useState, useCallback, useEffect } from 'react'
-import { LoanTransaction, CardCreate } from '../services/actions'
+import React, { useState, useCallback } from 'react'
+import { LoanTransaction, LoanCreate } from '../services/actions'
 import LoanForm from '../components/LoanForm'
 import LoanTransactionForm from '../components/LoanTransactionForm'
 
@@ -21,34 +21,24 @@ const TransactionContainer = () => {
     setForm((form) => ({ ...form, [e.target.name]: e.target.value }))
   }, [])
 
-  // 내 카드추천목록들.
+  // 내 대출추천목록들.
   const [item, setItem] = useState<any>()
-  const [_item, _setItem] = useState<any>([])
 
   const onClick = useCallback(() => {
     ;(async () => {
       const res = await LoanTransaction(form)
-      if (res.annualFee) {
-        setErrors(res)
-      } else if (res.cardType) {
+      if (res.category) {
         setErrors(res)
       } else {
+        const _res = JSON.parse(res)
         setErrors(null)
+        setItem(_res?.data)
       }
-      const _res = JSON.parse(res)
-      setItem(_res?.data)
     })()
   }, [form])
 
-  useEffect(() => {
-    if (item) {
-      const updatedItem = item.map((obj) => ({ seq: obj.seq }))
-      _setItem(updatedItem)
-    }
-  }, [item])
-
   const onCheck = useCallback((seq) => {
-    _setItem((prevItems) =>
+    setItem((prevItems) =>
       prevItems.map((item) =>
         item.seq === seq ? { ...item, checked: !item.checked } : item,
       ),
@@ -57,11 +47,11 @@ const TransactionContainer = () => {
 
   const onProcess = useCallback(() => {
     ;(async () => {
-      const res = await CardCreate(item)
+      const res = await LoanCreate(item)
+      // 페이지 이동으로 하기.
+      // 두가지 선택지. 내 추천목록 보기 / 해당 목록 보기.
     })()
   }, [item])
-
-  console.log('_item', _item)
 
   return (
     <>
@@ -72,12 +62,7 @@ const TransactionContainer = () => {
         errors={errors}
       />
       {item !== undefined ? (
-        <LoanForm
-          items={item}
-          onClick={onCheck}
-          onProcess={onProcess}
-          form={_item}
-        />
+        <LoanForm items={item} onClick={onCheck} onProcess={onProcess} />
       ) : (
         <></>
       )}
