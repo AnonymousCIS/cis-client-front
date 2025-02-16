@@ -25,11 +25,10 @@ const options = [
   { value: 'CorporateCredit', label: '법인신용' },
 ]
 
-const CardTransactionForm = ({ form, actionState, onChange }) => {
-  const [errors, formAction, isPending] = actionState
+const CardTransactionForm = ({ form, onChange, onClick, errors }) => {
   return (
     <>
-      <StyledForm action={formAction}>
+      <StyledForm>
         <FormWrapper>
           <Wrapper>
             <Input
@@ -51,7 +50,7 @@ const CardTransactionForm = ({ form, actionState, onChange }) => {
           </Wrapper>
           <Messages color="danger">{errors?.annualFee}</Messages>
           <Messages color="danger">{errors?.cardType}</Messages>
-          <BigButton type="submit" disabled={isPending}>
+          <BigButton type="button" onClick={() => onClick()}>
             추천받기
           </BigButton>
         </FormWrapper>

@@ -1,6 +1,7 @@
 'use client'
-import React, { useState, useActionState, useCallback } from 'react'
-import { LoanTransaction } from '../services/actions'
+import React, { useState, useCallback, useEffect } from 'react'
+import { LoanTransaction, CardCreate } from '../services/actions'
+import LoanForm from '../components/LoanForm'
 import LoanTransactionForm from '../components/LoanTransactionForm'
 
 const TransactionContainer = () => {
@@ -13,27 +14,73 @@ const TransactionContainer = () => {
    * 이렇게만 있으면 될듯...?
    * 이부분들이 계좌 연동.
    */
-  const [form, setForm] = useState({})
-
-  const actionState = useActionState(LoanTransaction, undefined)
-  // if (title === 'card') actionState
-  // // 여기에 Card action 넣어주면 될듯
-  // else actionState = useActionState(LoanTransaction, undefined)
+  const [form, setForm] = useState<any>({})
+  const [errors, setErrors] = useState<any>({})
 
   const onChange = useCallback((e) => {
     setForm((form) => ({ ...form, [e.target.name]: e.target.value }))
   }, [])
 
   // 내 카드추천목록들.
-  const [item, setItem] = useState({})
+  const [item, setItem] = useState<any>()
+  const [_item, _setItem] = useState<any>([])
+
+  const onClick = useCallback(() => {
+    ;(async () => {
+      const res = await LoanTransaction(form)
+      if (res.annualFee) {
+        setErrors(res)
+      } else if (res.cardType) {
+        setErrors(res)
+      } else {
+        setErrors(null)
+      }
+      const _res = JSON.parse(res)
+      setItem(_res?.data)
+    })()
+  }, [form])
+
+  useEffect(() => {
+    if (item) {
+      const updatedItem = item.map((obj) => ({ seq: obj.seq }))
+      _setItem(updatedItem)
+    }
+  }, [item])
+
+  const onCheck = useCallback((seq) => {
+    _setItem((prevItems) =>
+      prevItems.map((item) =>
+        item.seq === seq ? { ...item, checked: !item.checked } : item,
+      ),
+    )
+  }, [])
+
+  const onProcess = useCallback(() => {
+    ;(async () => {
+      const res = await CardCreate(item)
+    })()
+  }, [item])
+
+  console.log('_item', _item)
 
   return (
     <>
       <LoanTransactionForm
         form={form}
-        actionState={actionState}
         onChange={onChange}
+        onClick={onClick}
+        errors={errors}
       />
+      {item !== undefined ? (
+        <LoanForm
+          items={item}
+          onClick={onCheck}
+          onProcess={onProcess}
+          form={_item}
+        />
+      ) : (
+        <></>
+      )}
     </>
   )
 }
