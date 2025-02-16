@@ -46,13 +46,12 @@ export default async function apiRequest(
 
 /**
  * 로그인 회원 토큰 조회
- * 
+ *
  * SSR 방식 함수
- * 
+ *
  * @returns
  */
 export async function getToken() {
-
   const cookie = await cookies()
 
   return cookie.get('token')?.value

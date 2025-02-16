@@ -4,6 +4,9 @@ import React from 'react'
 import styled from 'styled-components'
 import { TableRows } from '@/app/global/components/Tables'
 
+// import { MainTitle } from '@/app/global/components/StyledTitle'
+
+
 const StyledForm = styled.form`
   th:nth-of-type(1) {
     width: 50px;
@@ -56,7 +59,9 @@ const ListCardItem = ({ item }) => {
 const ListItem = ({ items }) => {
   return (
     <StyledForm>
+
       <h2>카드 목록</h2>
+
       <TableRows>
         <thead>
           <tr>

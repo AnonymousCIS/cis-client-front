@@ -3,8 +3,8 @@
 import styled, { css } from 'styled-components'
 import colors from '../styles/colors'
 import sizes from '../styles/sizes'
-import type { CommonType } from '../types/StyledType'
-import { SelectType } from '../types/StyledType'
+
+import type { CommonType, SelectType } from '../types/StyledType'
 
 const { light, dark } = colors
 
@@ -84,4 +84,5 @@ export const Select = styled(Select_)<SelectProps>`
   ${({ width }) => css`
     width: ${width}px;
   `}
+
 `

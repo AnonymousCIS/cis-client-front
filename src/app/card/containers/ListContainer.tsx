@@ -44,6 +44,7 @@ const ListSearchContainer = () => {
   const onSubmit = useCallback(
     (e) => {
       e.preventDefault()
+      // Submit 했을때 Search 값을 새로운 객체로 깊은 복사해 교체하면서 Rerendering
       setSearch({ ..._search })
     },
     [_search]

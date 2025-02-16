@@ -1,6 +1,7 @@
 'use client'
 import React from 'react'
-import { BigButton } from '@/app/global/components/Buttons'
+import { BigButton, SmallButton } from '@/app/global/components/Buttons'
+import { MainTitle } from '@/app/global/components/StyledTitle'
 import { TableCols } from '@/app/global/components/Tables'
 import { CommonType } from '@/app/global/types/StyledType'
 import { FaSearch } from 'react-icons/fa'
@@ -46,7 +47,9 @@ const options = [
 const ListSearch = ({ form, onChange, onSubmit }) => {
   return (
     <StyledForm autoComplete="off" onSubmit={onSubmit}>
+
       <h2>검색</h2>
+
       <TableCols>
         <tbody>
           <tr>
