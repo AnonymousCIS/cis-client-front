@@ -10,11 +10,11 @@ import ListItem from '../components/ListForm'
 const Loading = () => <BulletList />
 
 type SearchType = {
-  sopt?: string
+
   skey?: string
   page?: number
   limit?: number
-  category?: string
+
 }
 
 const ListSearchContainer = () => {
@@ -24,6 +24,7 @@ const ListSearchContainer = () => {
   const [pagination, setPagination] = useState()
 
   const qs = toQueryString(search)
+  console.log('쿼리:', qs); 
 
   const { data, error, isLoading } = useRequest(
     `/card/api/list${qs.trim() ? '?' + qs : ''}`
@@ -34,30 +35,41 @@ const ListSearchContainer = () => {
     _setSearch((_search) => ({ ..._search, [name]: value }))
   }, [])
 
+  const onClick = useCallback((field, value) => {
+    _setSearch((_search) => ({ ..._search, [field]: value }))
+  }, [])
+
   useEffect(() => {
     if (data) {
-      setItems(data.data.items)
-      setPagination(data.data.pagination)
+      console.log('데이터:', data);
+      if (data.data) {
+        setItems(data.data.data || []);
+        setPagination(data.data.pagination || {});
+      }
     }
   }, [data])
 
   const onSubmit = useCallback(
     (e) => {
       e.preventDefault()
-      // Submit 했을때 Search 값을 새로운 객체로 깊은 복사해 교체하면서 Rerendering
       setSearch({ ..._search })
     },
     [_search]
   )
 
   const onPageClick = useCallback((page) => {
+    console.log('페이지:', page);  
     page = page ?? 1
     setSearch((search) => ({ ...search, page }))
   }, [])
 
   return (
     <>
-      <ListSearch form={_search} onChange={onChange} onSubmit={onSubmit} />
+      <ListSearch     
+        form={_search}
+        onChange={onChange}
+        onSubmit={onSubmit}
+        onClick={onClick} />
       {isLoading ? <Loading /> : <ListItem items={items} />}
       {pagination && (
         <Pagination pagination={pagination} onClick={onPageClick} />

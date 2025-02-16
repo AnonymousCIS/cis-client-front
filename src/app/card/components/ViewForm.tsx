@@ -75,32 +75,6 @@ const LogViewItem = ({ form }) => {
                 <span>{form?.cardDescription ?? ''}</span>
               </td>
             </tr>
-
-            <tr>
-              <th>최대한도</th>
-              <td>
-                <span>{form?.cardLimitMax ?? ''}</span>
-              </td>
-            </tr>
-
-            <tr>
-              <th>최소한도</th>
-              <td>
-                <span>{form?.cardLimitMin ?? ''}</span>
-              </td>
-            </tr>
-            <tr>
-              <th>시작날짜</th>
-              <td>
-                <span>{form?.sDate ?? ''}</span>
-              </td>
-            </tr>
-            <tr>
-              <th>만료일자</th>
-              <td>
-                <span>{form?.dDate ?? ''}</span>
-              </td>
-            </tr>
             <tr>
               <th>카테고리</th>
               <td>

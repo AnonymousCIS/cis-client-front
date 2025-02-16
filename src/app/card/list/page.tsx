@@ -1,19 +1,20 @@
 'use client'
+
+import React from 'react'
 import { MainTitle } from '@/app/global/components/StyledTitle'
-import { MainContentBox } from '@/app/global/components/ContentBox'
 import loadable from '@loadable/component'
+import WithUserContainer from '@/app/global/containers/WithUserContainer'
 
 const ListContainer = loadable(() => import('../containers/ListContainer'))
 
 const ListPage = () => {
-  return (
+  return WithUserContainer (
     <>
-      <MainContentBox max={2000} min={650}>
         <MainTitle>카드 목록</MainTitle>
         <ListContainer />
-      </MainContentBox>
     </>
   )
 }
 
-export default ListPage
+export default React.memo(ListPage)
+

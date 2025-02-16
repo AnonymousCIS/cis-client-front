@@ -3,6 +3,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { TableRows } from '@/app/global/components/Tables'
+import { SmallButton } from '@/app/global/components/Buttons'
 
 const StyledForm = styled.form`
   th:nth-of-type(1) {
@@ -33,6 +34,9 @@ const StyledForm = styled.form`
     width: 80px; 
   }
  th:nth-of-type(8) {
+  width: 80px;
+}
+   th:nth-of-type(9) {
   width: 80px;
 }
   td {
@@ -72,7 +76,7 @@ const categoryName ={
 }
 
 const ListLoanItem = ({ item }) => {
-  const { loanName, bankName, category,limit,interestRate,repaymentYear,isOpen, loanDescription } = item
+  const { seq,loanName, bankName, category,limit,interestRate,repaymentYear,isOpen, loanDescription } = item
 
   const transBankName = bankNameKo[bankName] || bankName
   const transCategoryName = categoryName[category] || category
@@ -86,6 +90,13 @@ const ListLoanItem = ({ item }) => {
       <td>{interestRate}</td>
       <td>{repaymentYear}</td>
       <td>{isOpen}</td>
+      <td>
+        <a href={`lview/${seq}`}>
+        <SmallButton type="button" color="primary" width={120}>
+        자세히 보기
+       </SmallButton>
+        </a>
+       </td>
     </tr>
   )
 }
@@ -105,6 +116,7 @@ const ListItem = ({ items }) => {
             <th>금리</th>
             <th>상환년도</th>
             <th>사용 가능 여부</th>
+            <th>미리보기</th>
           </tr>
         </thead>
         <tbody>
@@ -114,7 +126,7 @@ const ListItem = ({ items }) => {
             ))
           ) : (
             <tr>
-              <td colSpan={8} className="no-data">
+              <td colSpan={9} className="no-data">
                 알맞는 대출상품이 없습니다.
               </td>
             </tr>
