@@ -39,14 +39,17 @@ const TransactionContainer = () => {
     })()
   }, [form])
 
-  const onCheck = useCallback((seq) => {
-    setItem((prevItems) =>
-      prevItems.map((item) =>
-        item.seq === seq ? { ...item, checked: !item.checked } : item,
-      ),
-    )
-    console.log('item', item)
-  }, [])
+  const onCheck = useCallback(
+    (seq) => {
+      setItem((prevItems) =>
+        prevItems.map((item) =>
+          item.seq === seq ? { ...item, checked: !item.checked } : item,
+        ),
+      )
+      console.log('item', item)
+    },
+    [item],
+  )
 
   const onProcess = useCallback(() => {
     ;(async () => {
