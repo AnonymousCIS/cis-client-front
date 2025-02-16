@@ -4,10 +4,9 @@ import React from 'react'
 import styled from 'styled-components'
 import { TableRows } from '@/app/global/components/Tables'
 
-
 const StyledForm = styled.form`
   th:nth-of-type(1) {
-    width: 50px;
+    width: 100px; /* 대출명 열 너비 증가 */
   }
 
   th:nth-of-type(2) {
@@ -24,6 +23,14 @@ const StyledForm = styled.form`
 
   th:nth-of-type(5) {
     width: 150px;
+  }
+
+  th:nth-of-type(6) {
+    width: 100px;
+  }
+
+  th:nth-of-type(7) {
+    width: 80px; /* 사용 가능 여부 열 너비 축소 */
   }
 
   td {
@@ -60,13 +67,11 @@ const bankNameKo = {
 const categoryName ={
     CREDITLOAN: "신용대출",
     MORTGAGELOAN: "담보대출" // 담보대출
-
 }
 
 const ListLoanItem = ({ item }) => {
-  const { loanName, bankName, category } = item
+  const { loanName, bankName, category,limit,interestRate,repaymentYear,isOpen } = item
 
- 
   const transBankName = bankNameKo[bankName] || bankName
   const transCategoryName = categoryName[category] || category
   return (
@@ -74,6 +79,10 @@ const ListLoanItem = ({ item }) => {
       <td>{loanName}</td>
       <td>{transBankName}</td>
       <td>{transCategoryName}</td>
+      <td>{limit}</td>
+      <td>{interestRate}</td>
+      <td>{repaymentYear}</td>
+      <td>{isOpen}</td>
     </tr>
   )
 }
@@ -87,7 +96,11 @@ const ListItem = ({ items }) => {
           <tr>
             <th>대출명</th>
             <th>은행명</th>
-            <th>종류</th>
+            <th>대출 카테고리리</th>
+            <th>최대 한도</th>
+            <th>금리</th>
+            <th>상환년도</th>
+            <th>사용 가능 여부</th>
           </tr>
         </thead>
         <tbody>
@@ -97,7 +110,7 @@ const ListItem = ({ items }) => {
             ))
           ) : (
             <tr>
-              <td colSpan={3} className="no-data">
+              <td colSpan={7} className="no-data">
                 알맞는 대출상품이 없습니다.
               </td>
             </tr>

@@ -8,7 +8,7 @@ const ListContainer = loadable(() => import('../containers/ListContainer'))
 const ListPage = () => {
   return (
     <>
-      <MainContentBox max={1000} min={650}>
+      <MainContentBox max={2000} min={650}>
         <MainTitle>대출 목록</MainTitle>
         <ListContainer />
       </MainContentBox>

@@ -27,11 +27,11 @@ const StyledForm = styled.form<CommonType>`
 
   .flex {
     display: flex;
-    gap: 10px; /* 선택 요소 간의 간격 추가 */
+    gap: 10px;
 
     select {
       margin-right: 5px;
-      width: 180px; /* Select 요소의 고정 폭 */
+      width: 180px;
     }
 
     input {
@@ -39,51 +39,27 @@ const StyledForm = styled.form<CommonType>`
     }
   }
 
-  /* 반응형 디자인 */
   @media (max-width: 768px) {
     .flex {
       flex-direction: column;
       gap: 10px;
     }
   }
-
 `
 const options = [
   { value: 'ALL', label: '통합 검색' },
   { value: 'CARDNAME', label: '대출이름' },
   { value: 'BANKNAME', label: '은행이름' },
-  { value: 'CATEGORY', label: '카테고리' },
+  { value: 'CATEGORY', label: '대출 카테고리' },
+  { value: 'LIMIT', label: '최대 한도' },
+  { value: 'interestRate', label: '금리' },
+  { value: 'repaymentYear', label: '상환년도' },
+  { value: 'isOpen', label: '사용 가능 여부' },
 ]
 
 const categoryOptions = [
   { value: 'CREDITLOAN', label: '신용대출' },
   { value: 'MORTGAGELOAN', label: '담보대출' }
-]
-
-const bankOptions = [
-  { value: 'HANKUK', label: '한국은행' },
-  { value: 'KB', label: '국민은행' },
-  { value: 'SC', label: '제일은행' },
-  { value: 'CITY', label: '한국시티은행' },
-  { value: 'HANA', label: '하나은행' },
-  { value: 'SHINHAN', label: '신한은행' },
-  { value: 'KBANK', label: 'K-뱅크' },
-  { value: 'KAKAO', label: '카카오은행' },
-  { value: 'TOSS', label: '토스' },
-  { value: 'SUHYUP', label: '수협은행' },
-  { value: 'BUSAN', label: '부산은행' },
-  { value: 'KYUNGNAM', label: '경남은행' },
-  { value: 'KYANGJOO', label: '광주은행' },
-  { value: 'JUNBOK', label: '전북은행' },
-  { value: 'JEJOO', label: '제주은행' },
-  { value: 'LOTTE', label: '롯데카드' },
-  { value: 'NONGHYUP', label: '농협은행' },
-  { value: 'SAMSUNG', label: '삼성카드' },
-  { value: 'HYUNDAI', label: '현대카드' },
-  { value: 'WOORI', label: '우리은행' },
-  { value: 'SINHYUP', label: '신협은행' },
-  { value: 'SAEMAEULGEUMGO', label: '새마을금고' },
-  { value: 'WOOCAEKUK', label: '우체국' }
 ]
 
 const ListSearch = ({ form, onChange, onSubmit }) => {
@@ -122,15 +98,56 @@ const ListSearch = ({ form, onChange, onSubmit }) => {
               </td>
             </tr>
           )}
-
-          {form?.sopt === 'BANKNAME' && (
+          {form?.sopt === 'LIMIT' && (
             <tr>
-              <th>은행 선택</th>
+              <th>최대 한도</th>
+              <td>
+                <Input
+                  type="number"
+                  name="limit"
+                  value={form?.limit ?? ''}
+                  onChange={onChange}
+                  placeholder="최대 한도를 입력하세요"
+                />
+              </td>
+            </tr>
+          )}
+          {form?.sopt === 'interestRate' && (
+            <tr>
+              <th>금리</th>
+              <td>
+                <Input
+                  type="number"
+                  name="interestRate"
+                  value={form?.interestRate ?? ''}
+                  onChange={onChange}
+                  placeholder="금리를 입력하세요"
+                />
+              </td>
+            </tr>
+          )}
+          {form?.sopt === 'repaymentYear' && (
+            <tr>
+              <th>상환년도</th>
+              <td>
+                <Input
+                  type="number"
+                  name="repaymentYear"
+                  value={form?.repaymentYear ?? ''}
+                  onChange={onChange}
+                  placeholder="상환년도를 입력하세요"
+                />
+              </td>
+            </tr>
+          )}
+          {form?.sopt === 'isOpen' && (
+            <tr>
+              <th>사용 가능 여부</th>
               <td>
                 <Select
-                  name="bank"
-                  options={bankOptions}
-                  selected={form?.bank ?? ''}
+                  name="isOpen"
+                  options={[{ value: 'true', label: '가능' }, { value: 'false', label: '불가능' }]}
+                  selected={form?.isOpen ?? ''}
                   onChange={onChange}
                 />
               </td>
