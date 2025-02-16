@@ -1,4 +1,3 @@
-'use client'
 import React, { useState, useCallback, useEffect } from 'react'
 import ListSearch from '../components/ListSearch'
 import { toQueryString } from '@/app/global/libs/utils'
@@ -14,13 +13,14 @@ type SearchType = {
   skey?: string
   page?: number
   limit?: number
+
 }
 
 const ListSearchContainer = () => {
   const [search, setSearch] = useState<SearchType>({})
   const [_search, _setSearch] = useState<SearchType>({})
-  const [items, setItems] = useState([])
-  const [pagination, setPagination] = useState()
+  const [items, setItems] = useState([])  
+  const [pagination, setPagination] = useState<any>(null)
 
   const qs = toQueryString(search)
 
@@ -34,13 +34,16 @@ const ListSearchContainer = () => {
   }, [])
 
   useEffect(() => {
-    if (data) {
+    if (data && data.data) {
+      setItems(data.data.items || [])  // items가 없으면 빈 배열을 설정
+      setPagination(data.data.pagination)
     }
   }, [data])
 
   const onSubmit = useCallback(
     (e) => {
       e.preventDefault()
+
       setSearch({ ..._search })
     },
     [_search]

@@ -15,7 +15,6 @@ type SearchType = {
   page?: number
   limit?: number
   category?: string
-  bankname?: string 
 }
 
 const ListSearchContainer = () => {
@@ -36,8 +35,8 @@ const ListSearchContainer = () => {
   }, [])
 
   useEffect(() => {
-    if (data && data.data) {
-      setItems(data.data.items) 
+    if (data) {
+      setItems(data.data.items)
       setPagination(data.data.pagination)
     }
   }, [data])

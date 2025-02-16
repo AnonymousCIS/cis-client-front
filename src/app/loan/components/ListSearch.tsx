@@ -46,8 +46,8 @@ const StyledForm = styled.form<CommonType>`
       gap: 10px;
     }
   }
-`
 
+`
 const options = [
   { value: 'ALL', label: '통합 검색' },
   { value: 'CARDNAME', label: '대출이름' },
@@ -109,7 +109,6 @@ const ListSearch = ({ form, onChange, onSubmit }) => {
               />
             </td>
           </tr>
-
           {form?.sopt === 'CATEGORY' && (
             <tr>
               <th>카테고리</th>
