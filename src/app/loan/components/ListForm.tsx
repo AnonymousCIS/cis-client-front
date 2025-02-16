@@ -99,7 +99,7 @@ const ListItem = ({ items }) => {
           <tr>
             <th>대출명</th>
             <th>은행명</th>
-            <th>대출 카테고리리</th>
+            <th>대출 카테고리</th>
             <th>대출 설명</th>
             <th>최대 한도</th>
             <th>금리</th>

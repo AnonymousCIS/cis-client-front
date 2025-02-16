@@ -67,6 +67,7 @@ const ListItem = ({ items }) => {
             <th>최소한도</th>
             <th>시작날짜</th>
             <th>만료일자</th>
+            <th>카테고리</th>
           </tr>
         </thead>
         <tbody>
