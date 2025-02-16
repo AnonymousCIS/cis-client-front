@@ -223,6 +223,8 @@ export const getUserInfo = async () => {
       const result = await res.json()
 
       return result.success && result.data
+    } else {
+      cookie.delete('token')
     }
   } catch (err) {
     console.error(err)

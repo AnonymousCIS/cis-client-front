@@ -26,7 +26,7 @@ const StyledForm = styled.form<CommonType>`
   }
 `
 
-const LoanItems = ({ item, form, onClick }) => {
+const LoanItems = ({ item, onClick, form }) => {
   const {
     loanName,
     bankNameStr,
@@ -37,12 +37,13 @@ const LoanItems = ({ item, form, onClick }) => {
     seq,
     loanDescription,
   } = item
-
-  const isChecked = form?.[seq]?.check || false
-
-  const handleCheckboxClick = () => {
-    onClick(seq, !isChecked) // seq와 체크 상태를 넘겨줌
-  }
+  const checked = form.map((item) => {
+    if (item.seq === seq) {
+      return form?.checked
+    }
+  })
+  console.log('form', form)
+  console.log('checked', checked)
 
   return (
     <>
@@ -67,8 +68,8 @@ const LoanItems = ({ item, form, onClick }) => {
             <td>{limit.toLocaleString()}원</td>
             <td>{repaymentYear}년</td>
             <td>
-              <div onClick={handleCheckboxClick}>
-                {isChecked ? <MdCheckBox /> : <MdCheckBoxOutlineBlank />}
+              <div onClick={() => onClick(seq)}>
+                {checked ? <MdCheckBox /> : <MdCheckBoxOutlineBlank />}
               </div>
             </td>
           </tr>
@@ -90,13 +91,13 @@ const LoanItems = ({ item, form, onClick }) => {
   )
 }
 
-const LoanForm = ({ items, form, onClick, onProcess }) => {
+const LoanForm = ({ items, onClick, onProcess, form }) => {
   return (
     <StyledForm>
       {items.map((item, i) => (
-        <LoanItems key={i} item={item} form={form} onClick={onClick} />
+        <LoanItems key={i} item={item} onClick={onClick} form={form} />
       ))}
-      <BigButton type="button" color="danger" onClick={() => onProcess(form)}>
+      <BigButton type="button" color="danger" onClick={() => onProcess(items)}>
         삭제
       </BigButton>
     </StyledForm>

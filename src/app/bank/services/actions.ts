@@ -155,4 +155,6 @@ export const LoanTransaction = async (form: any) => {
 
 export const CardCreate = async (form) => {
   console.log('form', form)
+  // const _items = form.filter((item) => item.checked)
+  // console.log(_items)
 }

@@ -1,13 +1,8 @@
 'use client'
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback, useEffect } from 'react'
 import { LoanTransaction, CardCreate } from '../services/actions'
 import LoanForm from '../components/LoanForm'
 import LoanTransactionForm from '../components/LoanTransactionForm'
-
-type Props = {
-  seq?: number
-  bankName?: boolean
-}
 
 const TransactionContainer = () => {
   // 1. 자신의 계좌를 통틀어서 해야함
@@ -20,7 +15,6 @@ const TransactionContainer = () => {
    * 이부분들이 계좌 연동.
    */
   const [form, setForm] = useState<any>({})
-  const [_form, _setForm] = useState<Props>({})
   const [errors, setErrors] = useState<any>({})
 
   const onChange = useCallback((e) => {
@@ -28,7 +22,8 @@ const TransactionContainer = () => {
   }, [])
 
   // 내 카드추천목록들.
-  const [item, setItem] = useState()
+  const [item, setItem] = useState<any>()
+  const [_item, _setItem] = useState<any>([])
 
   const onClick = useCallback(() => {
     ;(async () => {
@@ -45,18 +40,28 @@ const TransactionContainer = () => {
     })()
   }, [form])
 
-  const onCheck = useCallback((seq, check) => {
-    _setForm((_form) => ({
-      ..._form,
-      [seq]: { check },
-    }))
+  useEffect(() => {
+    if (item) {
+      const updatedItem = item.map((obj) => ({ seq: obj.seq }))
+      _setItem(updatedItem)
+    }
+  }, [item])
+
+  const onCheck = useCallback((seq) => {
+    _setItem((prevItems) =>
+      prevItems.map((item) =>
+        item.seq === seq ? { ...item, checked: !item.checked } : item,
+      ),
+    )
   }, [])
 
   const onProcess = useCallback(() => {
     ;(async () => {
-      const res = await CardCreate(_form)
+      const res = await CardCreate(item)
     })()
-  }, [_form])
+  }, [item])
+
+  console.log('_item', _item)
 
   return (
     <>
@@ -69,9 +74,9 @@ const TransactionContainer = () => {
       {item !== undefined ? (
         <LoanForm
           items={item}
-          form={_form}
           onClick={onCheck}
           onProcess={onProcess}
+          form={_item}
         />
       ) : (
         <></>
