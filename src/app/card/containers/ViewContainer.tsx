@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useCallback, useLayoutEffect } from 'react'
+import React, { useState,  useLayoutEffect } from 'react'
 import { BulletList } from 'react-content-loader'
 import { getCardView } from '../services/actions'
 import { notFound } from 'next/navigation'
