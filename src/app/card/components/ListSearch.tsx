@@ -7,6 +7,7 @@ import { CommonType } from '@/app/global/types/StyledType'
 import { FaSearch } from 'react-icons/fa'
 import { Input, Select } from '@/app/global/components/FormComponents'
 import styled from 'styled-components'
+import { MdCheckBoxOutlineBlank, MdOutlineCheckBox } from 'react-icons/md'
 
 const StyledForm = styled.form<CommonType>`
   margin-bottom: 35px;
@@ -32,42 +33,242 @@ const StyledForm = styled.form<CommonType>`
   }
 `
 
-const options = [
-  { value: 'ALL', label: '통합 검색' },
-  { value: 'CARDNAME', label: '카드이름' },
-  { value: 'BANKNAME', label: '은행이름' },
-  { value: 'CATEGORY', label: '카테고리' },
-  { value: 'CARDTYPE', label: '카드타입별' },
-  { value: 'CARDDESCRIPTION', label: '카드 설명명' },
-  { value: 'CARDMAXLIMIT', label: '최대한도' },
-  { value: 'CARDMINLIMIT', label: '최소한도' },
-  { value: 'CREATEDAT', label: '날짜' },
-]
-
-const ListSearch = ({ form, onChange, onSubmit }) => {
+const ListSearch = ({ form, onChange, onSubmit,onClick }) => {
   return (
-    <StyledForm autoComplete="off" onSubmit={onSubmit}>
-
-      <h2>검색</h2>
-
+    <StyledForm onSubmit={onSubmit} autoComplete="off">
       <TableCols>
         <tbody>
           <tr>
-            <th>검색어</th>
+            <th>통합 검색</th>
             <td className="flex">
-              <Select
-                name="sopt"
-                options={options}
-                selected={form?.sopt ?? 'ALL'}
-                onChange={onChange}
-                width={180}
-              />
               <Input
                 type="text"
                 name="skey"
                 value={form?.skey ?? ''}
                 onChange={onChange}
+                placeholder='검색어를 입력해주세요'
               />
+            </td>
+          </tr>
+          <tr>
+            <th>카드 종류</th>
+            <td
+              onClick={() => onClick('', !Boolean(form?.skey))}
+              className="table-check"
+            >
+              {form?.skey === 'PersonalCheck' ? (
+                <MdOutlineCheckBox />
+              ) : (
+                <MdCheckBoxOutlineBlank />
+              )}
+              개인 체크
+              {form?.skey === 'PersonalCheck' ? (
+                <MdOutlineCheckBox />
+              ) : (
+                <MdCheckBoxOutlineBlank />
+              )}
+              개인 신용
+              {form?.skey === 'PersonalCheck' ? (
+                <MdOutlineCheckBox />
+              ) : (
+                <MdCheckBoxOutlineBlank />
+              )}
+              법인 체크
+              {form?.skey === 'PersonalCheck' ? (
+                <MdOutlineCheckBox />
+              ) : (
+                <MdCheckBoxOutlineBlank />
+              )}
+              법인 신용
+            </td>
+          </tr>
+
+          <tr>
+            <th>카테고리</th>
+            <td
+              onClick={() => onClick('', !Boolean(form?.skey))}
+              className="table-check"
+            >
+              {form?.skey === 'PersonalCheck' ? (
+                <MdOutlineCheckBox />
+              ) : (
+                <MdCheckBoxOutlineBlank />
+              )}
+              SHOPPING
+              {form?.skey === 'PersonalCheck' ? (
+                <MdOutlineCheckBox />
+              ) : (
+                <MdCheckBoxOutlineBlank />
+              )}
+              LIFE
+              {form?.skey === 'PersonalCheck' ? (
+                <MdOutlineCheckBox />
+              ) : (
+                <MdCheckBoxOutlineBlank />
+              )}
+              TRAVEL
+              {form?.skey === 'PersonalCheck' ? (
+                <MdOutlineCheckBox />
+              ) : (
+                <MdCheckBoxOutlineBlank />
+              )}
+              LIVING
+            </td>
+          </tr>
+
+          <tr>
+            <th>은행명</th>
+            <td
+              onClick={() => onClick('', !Boolean(form?.skey))}
+              className="table-check"
+            >
+              {form?.skey === 'PersonalCheck' ? (
+                <MdOutlineCheckBox />
+              ) : (
+                <MdCheckBoxOutlineBlank />
+              )}
+              한국은행
+              {form?.skey === 'PersonalCheck' ? (
+                <MdOutlineCheckBox />
+              ) : (
+                <MdCheckBoxOutlineBlank />
+              )}
+              국민은행
+              {form?.skey === 'PersonalCheck' ? (
+                <MdOutlineCheckBox />
+              ) : (
+                <MdCheckBoxOutlineBlank />
+              )}
+              제일은행
+              {form?.skey === 'PersonalCheck' ? (
+                <MdOutlineCheckBox />
+              ) : (
+                <MdCheckBoxOutlineBlank />
+              )}
+              한국시티은행
+              {form?.skey === 'PersonalCheck' ? (
+                <MdOutlineCheckBox />
+              ) : (
+                <MdCheckBoxOutlineBlank />
+              )}
+              하나은행
+              {form?.skey === 'PersonalCheck' ? (
+                <MdOutlineCheckBox />
+              ) : (
+                <MdCheckBoxOutlineBlank />
+              )}
+              신한은행
+              {form?.skey === 'PersonalCheck' ? (
+                <MdOutlineCheckBox />
+              ) : (
+                <MdCheckBoxOutlineBlank />
+              )}
+              K-뱅크
+              {form?.skey === 'PersonalCheck' ? (
+                <MdOutlineCheckBox />
+              ) : (
+                <MdCheckBoxOutlineBlank />
+              )}
+              카카오
+              {form?.skey === 'PersonalCheck' ? (
+                <MdOutlineCheckBox />
+              ) : (
+                <MdCheckBoxOutlineBlank />
+              )}
+              토스
+              {form?.skey === 'PersonalCheck' ? (
+                <MdOutlineCheckBox />
+              ) : (
+                <MdCheckBoxOutlineBlank />
+              )}
+              수협은행
+              {form?.skey === 'PersonalCheck' ? (
+                <MdOutlineCheckBox />
+              ) : (
+                <MdCheckBoxOutlineBlank />
+              )}
+              부산은행
+              {form?.skey === 'PersonalCheck' ? (
+                <MdOutlineCheckBox />
+              ) : (
+                <MdCheckBoxOutlineBlank />
+              )}
+              경남은행
+              {form?.skey === 'PersonalCheck' ? (
+                <MdOutlineCheckBox />
+              ) : (
+                <MdCheckBoxOutlineBlank />
+              )}
+              광주은행
+              {form?.skey === 'PersonalCheck' ? (
+                <MdOutlineCheckBox />
+              ) : (
+                <MdCheckBoxOutlineBlank />
+              )}
+              전북은행
+              {form?.skey === 'PersonalCheck' ? (
+                <MdOutlineCheckBox />
+              ) : (
+                <MdCheckBoxOutlineBlank />
+              )}
+              제주은행
+              {form?.skey === 'PersonalCheck' ? (
+                <MdOutlineCheckBox />
+              ) : (
+                <MdCheckBoxOutlineBlank />
+              )}
+              롯데카드
+              {form?.skey === 'PersonalCheck' ? (
+                <MdOutlineCheckBox />
+              ) : (
+                <MdCheckBoxOutlineBlank />
+              )}
+              농협은행
+              {form?.skey === 'PersonalCheck' ? (
+                <MdOutlineCheckBox />
+              ) : (
+                <MdCheckBoxOutlineBlank />
+              )}
+              삼성카드
+              {form?.skey === 'PersonalCheck' ? (
+                <MdOutlineCheckBox />
+              ) : (
+                <MdCheckBoxOutlineBlank />
+              )}
+              현대카드
+              {form?.skey === 'PersonalCheck' ? (
+                <MdOutlineCheckBox />
+              ) : (
+                <MdCheckBoxOutlineBlank />
+              )}
+              우리은행
+              {form?.skey === 'PersonalCheck' ? (
+                <MdOutlineCheckBox />
+              ) : (
+                <MdCheckBoxOutlineBlank />
+              )}
+              신협은행
+              {form?.skey === 'PersonalCheck' ? (
+                <MdOutlineCheckBox />
+              ) : (
+                <MdCheckBoxOutlineBlank />
+              )}
+              새마을금고
+              {form?.skey === 'PersonalCheck' ? (
+                <MdOutlineCheckBox />
+              ) : (
+                <MdCheckBoxOutlineBlank />
+              )}
+              우체국
+            </td>
+          </tr>
+
+          <tr>
+            <th>카드 한도</th>
+            <td>
+              <Input type="number" width={250} placeholder="최소 금액" />
+              ~
+              <Input type="number" width={250} placeholder="최대 금액" />
             </td>
           </tr>
         </tbody>
@@ -79,5 +280,4 @@ const ListSearch = ({ form, onChange, onSubmit }) => {
     </StyledForm>
   )
 }
-
 export default React.memo(ListSearch)

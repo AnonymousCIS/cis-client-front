@@ -1,6 +1,8 @@
+'use client'
 import { MainTitle } from '@/app/global/components/StyledTitle'
-import loadable from '@loadable/component'
 import { MainContentBox } from '@/app/global/components/ContentBox'
+import React from 'react'
+import loadable from '@loadable/component'
 
 const ViewContainer = loadable(() => import('../../containers/ViewContainer'))
 
