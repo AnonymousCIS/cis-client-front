@@ -66,5 +66,5 @@ const FileItems = ({ files, isEditor, onInsertImage, onDeleteFile }: Props) => {
 export default React.memo(FileItems)
 
 function toHttps(url) {
-  return url.replace('http:', 'https:'.replace(':80', ''))
+  return url.replace('http:', 'https:').replace(':80', '')
 }
