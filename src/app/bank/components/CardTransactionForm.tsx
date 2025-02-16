@@ -25,7 +25,7 @@ const options = [
   { value: 'CorporateCredit', label: '법인신용' },
 ]
 
-const CardTransactionForm = ({ form, actionState, onChange, title }) => {
+const CardTransactionForm = ({ form, actionState, onChange }) => {
   const [errors, formAction, isPending] = actionState
   return (
     <>

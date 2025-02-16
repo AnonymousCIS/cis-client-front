@@ -4,18 +4,16 @@ import { MainTitle } from '@/app/global/components/StyledTitle'
 import { MainContentBox } from '@/app/global/components/ContentBox'
 import WithUserContainer from '@/app/global/containers/WithUserContainer'
 import loadable from '@loadable/component'
-const TransactionContainer = loadable(
-  () => import('../../containers/TransactionContainer'),
+const LoanTransactionContainer = loadable(
+  () => import('../../containers/LoanTransactionContainer'),
 )
 
-const CardPage = ({ params }) => {
-  const { title } = React.use<{ title: any }>(params)
-  const name = title === 'card' ? '카드추천' : '대출추천'
+const CardPage = () => {
   return WithUserContainer(
     <>
       <MainContentBox max={750} min={650}>
-        <MainTitle>{name}</MainTitle>
-        <TransactionContainer title={title} />
+        <MainTitle>대출 추천</MainTitle>
+        <LoanTransactionContainer />
       </MainContentBox>
     </>,
   )
