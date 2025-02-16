@@ -3,6 +3,7 @@
 import styled, { css } from 'styled-components'
 import colors from '../styles/colors'
 import sizes from '../styles/sizes'
+
 import type { CommonType, SelectType } from '../types/StyledType'
 
 const { light, dark } = colors
@@ -44,7 +45,6 @@ export const Textarea = styled.textarea<CommonType>`
     height: ${height}px;
   `}
 `
-
 type SelectProps = SelectType & {
   selected: any
   onChange: (value: any) => void
@@ -84,4 +84,5 @@ export const Select = styled(Select_)<SelectProps>`
   ${({ width }) => css`
     width: ${width}px;
   `}
+
 `

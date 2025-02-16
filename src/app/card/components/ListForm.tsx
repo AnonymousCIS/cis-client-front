@@ -3,7 +3,9 @@
 import React from 'react'
 import styled from 'styled-components'
 import { TableRows } from '@/app/global/components/Tables'
-import { MainTitle } from '@/app/global/components/StyledTitle'
+
+// import { MainTitle } from '@/app/global/components/StyledTitle'
+
 
 const StyledForm = styled.form`
   th:nth-of-type(1) {
@@ -15,15 +17,21 @@ const StyledForm = styled.form`
   }
 
   th:nth-of-type(3) {
-    width: 200px;
+    width: 300px;
   }
 
   th:nth-of-type(4) {
-    width: 300px;
+    width: 150px;
   }
 
   th:nth-of-type(5) {
     width: 150px;
+  }
+  th:nth-of-type(6) {
+    width: 200px;
+  }
+   th:nth-of-type(7) {
+    width: 200px;
   }
 
   td {
@@ -31,17 +39,19 @@ const StyledForm = styled.form`
   }
 `
 
-const ListLogItem = ({ item }) => {
-  const { cardName, bankNale, cardLimitMax, cardLimitMin, sDate, dDate } = item
+const ListCardItem = ({ item }) => {
+  const { cardName, bankName, cardLimitMax, cardLimitMin, sDate, dDate, category, cardDescription } = item
 
   return (
     <tr>
       <td>{cardName}</td>
-      <td>{bankNale}</td>
+      <td>{bankName}</td>
+      <td>{cardDescription}</td>
       <td>{cardLimitMax}</td>
       <td>{cardLimitMin}</td>
       <td>{sDate}</td>
       <td>{dDate}</td>
+      <td>{category}</td>
     </tr>
   )
 }
@@ -49,12 +59,15 @@ const ListLogItem = ({ item }) => {
 const ListItem = ({ items }) => {
   return (
     <StyledForm>
-      <MainTitle>카드 목록</MainTitle>
+
+      <h2>카드 목록</h2>
+
       <TableRows>
         <thead>
           <tr>
             <th>카드명</th>
             <th>은행명</th>
+            <th>카드 설명</th>
             <th>최대한도</th>
             <th>최소한도</th>
             <th>시작날짜</th>
@@ -64,7 +77,7 @@ const ListItem = ({ items }) => {
         <tbody>
           {items && items.length > 0 ? (
             items.map((card) => (
-              <ListLogItem key={'cards_' + card.seq} item={card} />
+              <ListCardItem key={'cards_' + card.seq} item={card} />
             ))
           ) : (
             <tr>

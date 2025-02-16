@@ -1,4 +1,3 @@
-'use client'
 import React, { useState, useCallback, useEffect } from 'react'
 import ListSearch from '../components/ListSearch'
 import { toQueryString } from '@/app/global/libs/utils'
@@ -14,19 +13,19 @@ type SearchType = {
   skey?: string
   page?: number
   limit?: number
-  category?: string
+
 }
 
 const ListSearchContainer = () => {
   const [search, setSearch] = useState<SearchType>({})
   const [_search, _setSearch] = useState<SearchType>({})
-  const [items, setItems] = useState([])
-  const [pagination, setPagination] = useState()
+  const [items, setItems] = useState([])  
+  const [pagination, setPagination] = useState<any>(null)
 
   const qs = toQueryString(search)
 
   const { data, error, isLoading } = useRequest(
-    `/card/api/list${qs.trim() ? '?' + qs : ''}`
+    `/loan/api/list${qs.trim() ? '?' + qs : ''}`
   )
 
   const onChange = useCallback((e) => {
@@ -35,8 +34,8 @@ const ListSearchContainer = () => {
   }, [])
 
   useEffect(() => {
-    if (data) {
-      setItems(data.data.items)
+    if (data && data.data) {
+      setItems(data.data.items || [])  // items가 없으면 빈 배열을 설정
       setPagination(data.data.pagination)
     }
   }, [data])
@@ -44,7 +43,7 @@ const ListSearchContainer = () => {
   const onSubmit = useCallback(
     (e) => {
       e.preventDefault()
-      // Submit 했을때 Search 값을 새로운 객체로 깊은 복사해 교체하면서 Rerendering
+
       setSearch({ ..._search })
     },
     [_search]

@@ -1,6 +1,6 @@
 // useSWR 용
 
-'use client'
+// 'use client'
 
 import { fetcher } from '../libs/utils'
 import useSWR from 'swr'
