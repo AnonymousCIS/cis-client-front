@@ -178,9 +178,12 @@ const Header = () => {
       {/* logo-search */}
       <StyledMenu>
         <div className="layout-width">
-          <a href="#">메뉴1</a>
-          <a href="#">메뉴2</a>
-          <a href="#">메뉴3</a>
+          <Link href="/info">Info</Link>
+          <Link href="/board/list/notice">공지사항</Link>
+          <Link href="/card/list">카드</Link>
+          <Link href="/loan/list">대출</Link>
+          <Link href="/board/list/qna">Q&A</Link>
+          <Link href="/board/list/freetalk">자유게시판</Link>
         </div>
       </StyledMenu>
     </StyledHeader>

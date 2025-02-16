@@ -10,7 +10,7 @@ import type { CommonType } from '../types/StyledType'
 
 const { medium, big } = sizes
 
-const { dark } = colors
+const { dark, info } = colors
 
 // children = 사이트 제목
 const _MainTitle = ({
@@ -32,11 +32,14 @@ const _MainTitle = ({
 }
 
 export const MainTitle = styled(_MainTitle)<CommonType>`
-  padding: 0 10px 15px;
-  margin: 0 0 25px;
+  padding: 15px 10px 15px;
+  // margin: 0 0 25px;
   font-size: ${big};
-  border-bottom: 2px solid ${dark};
+  border-bottom: 2px solid ${info};
   color: ${dark};
+  max-width: 1300px;
+  min-width: 1000px;
+  margin: 0 auto 25px;
 `
 
 export default _MainTitle
