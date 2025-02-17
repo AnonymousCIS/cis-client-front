@@ -168,9 +168,11 @@ const Footer = () => {
         <div className="bot">
           <div className="left">
             <li className="board">
-              <a href="">QnA ( 1:1 문의 )</a>
+              <a href="http://localhost:3000/board/list/qna">
+                QnA ( 1:1 문의 )
+              </a>
               <span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
-              <a href="">공지사항</a>
+              <a href="http://localhost:3000/board/list/notice">공지사항</a>
             </li>
             <br />
             <span>보이스피싱 금융사고: 080-123-1234(수신자 부담)</span>
