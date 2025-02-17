@@ -12,6 +12,7 @@ import colors from '../../styles/colors'
 import sizes from '../../styles/sizes'
 import logo from '../../assets/images/logo2.png'
 import useUser from '../../hooks/useUser'
+import { useSearchParams } from 'next/navigation'
 
 const { white, primary, secondary, info, lightgreen, light, dark } = colors
 const { medium, big, normal } = sizes
@@ -132,7 +133,11 @@ const Header = () => {
 
   const adminUrl = 'http://localhost:3100'
 
-  return (
+  const searchParams = useSearchParams()
+
+  return searchParams.get('popup') === 'true' ? (
+    <></>
+  ) : (
     <StyledHeader>
       <div className="site-top">
         <div className="layout-width">

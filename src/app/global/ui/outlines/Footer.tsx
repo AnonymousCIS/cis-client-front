@@ -5,6 +5,8 @@ import Image from 'next/image'
 import { styled } from 'styled-components'
 import colors from '../../styles/colors'
 import sizes from '../../styles/sizes'
+
+import { useSearchParams } from 'next/navigation'
 import icon1 from './images/github-white-icon.png'
 import icon2 from './images/logo.png'
 const { dark, light, info, secondary, white } = colors
@@ -107,7 +109,11 @@ const StyledFooter = styled.footer`
 `
 
 const Footer = () => {
-  return (
+  const searchParams = useSearchParams()
+
+  return searchParams.get('popup') === 'true' ? (
+    <></>
+  ) : (
     <StyledFooter>
       <div className="layout-width">
         <div className="top">
