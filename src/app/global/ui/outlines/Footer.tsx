@@ -6,6 +6,7 @@ import { styled } from 'styled-components'
 import colors from '../../styles/colors'
 import sizes from '../../styles/sizes'
 import icon1 from './images/github-white-icon.png'
+import icon2 from './images/logo.png'
 const { dark, light, info, secondary, white } = colors
 const { big } = sizes
 
@@ -51,8 +52,16 @@ const StyledFooter = styled.footer`
 
   .nameSub {
     color: ${white};
-    font-size: 14px;
+    font-size: 15.5px;
   }
+
+  .logoName {
+    display: flex;
+    flex-direction: row;
+    color: ${white};
+    align-items: center;
+  }
+
   .call {
     font-size: 26px;
     color: ${white};
@@ -66,6 +75,13 @@ const StyledFooter = styled.footer`
   a {
     color: #fff;
   }
+
+  .github {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+  }
+
   li {
     display: flex;
     flex-direction: row;
@@ -96,32 +112,38 @@ const Footer = () => {
       <div className="layout-width">
         <div className="top">
           <div className="left">
-            <span className="name">©Team CIS-Anonymous</span>
-            <br />
+            <div className="logoName">
+              <a className="git" href="../">
+                <Image src={icon2} alt="아이콘" width={100} height={100} />
+              </a>
+              <span>©Team CIS-Anonymous</span>
+            </div>
           </div>
           <div className="center">
             <span className="nameSub">
               곽경섭 김시원 오준학 차태일 우현수 박진주
             </span>
             <br />
-            <a className="git" href="">
-              <Image src={icon1} alt="아이콘" width={40} height={40} />
-            </a>
-            <a className="git" href="https://github.com/pab1010">
-              <Image src={icon1} alt="아이콘" width={40} height={40} />
-            </a>
-            <a className="git" href="">
-              <Image src={icon1} alt="아이콘" width={40} height={40} />
-            </a>
-            <a className="git" href="https://github.com/chataeil">
-              <Image src={icon1} alt="아이콘" width={40} height={40} />
-            </a>
-            <a className="git" href="https://github.com/BDloverHS">
-              <Image src={icon1} alt="아이콘" width={40} height={40} />
-            </a>
-            <a className="git" href="https://github.com/JINI-PeachFuzz">
-              <Image src={icon1} alt="아이콘" width={40} height={40} />
-            </a>
+            <div className="github">
+              <a className="git" href="">
+                <Image src={icon1} alt="아이콘" width={40} height={40} />
+              </a>
+              <a className="git" href="https://github.com/pab1010">
+                <Image src={icon1} alt="아이콘" width={40} height={40} />
+              </a>
+              <a className="git" href="">
+                <Image src={icon1} alt="아이콘" width={40} height={40} />
+              </a>
+              <a className="git" href="https://github.com/chataeil">
+                <Image src={icon1} alt="아이콘" width={40} height={40} />
+              </a>
+              <a className="git" href="https://github.com/BDloverHS">
+                <Image src={icon1} alt="아이콘" width={40} height={40} />
+              </a>
+              <a className="git" href="https://github.com/JINI-PeachFuzz">
+                <Image src={icon1} alt="아이콘" width={40} height={40} />
+              </a>
+            </div>
           </div>
           {/* <div className="right"></div> */}
         </div>
@@ -145,7 +167,7 @@ const Footer = () => {
           </div>
           {/* <div className="center">.bot.center 영역</div> */}
           <div className="right">
-            <span className="call">고객센터 1982-1125</span>
+            <span className="call">고객센터 1981-1125</span>
             <br />
             <span className="callSubs">
               평일 : 09:30 ~ 18:30 <br />
