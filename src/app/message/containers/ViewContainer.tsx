@@ -1,3 +1,4 @@
+'use client'
 import React, { useCallback, useLayoutEffect, useState } from 'react'
 import { deleteMessage, getMessage } from '../services/actions'
 import ViewForm from '../components/ViewForm'
