@@ -40,7 +40,7 @@ export default async function apiRequest(
   }
 
   if (headers) options.headers = headers
-
+  // console.log('options', options)
   return fetch(apiUrl, options)
 }
 

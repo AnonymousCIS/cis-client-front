@@ -4,6 +4,7 @@ import React from 'react'
 import { styled } from 'styled-components'
 import colors from '../../styles/colors'
 import sizes from '../../styles/sizes'
+import { useSearchParams } from 'next/navigation'
 
 const { dark, light, info, secondary } = colors
 const { big } = sizes
@@ -45,7 +46,11 @@ const StyledFooter = styled.footer`
 `
 
 const Footer = () => {
-  return (
+  const searchParams = useSearchParams()
+
+  return searchParams.get('popup') === 'true' ? (
+    <></>
+  ) : (
     <StyledFooter>
       <div className="layout-width">
         <div className="top">
