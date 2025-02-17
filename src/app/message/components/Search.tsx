@@ -6,7 +6,8 @@ import React from 'react'
 import { FaSearch } from 'react-icons/fa'
 import styled from 'styled-components'
 import colors from '@/app/global/styles/colors'
-const { info, dark, white } = colors
+import { MdCheckBoxOutlineBlank, MdOutlineCheckBox } from 'react-icons/md'
+const { white, info, dark } = colors
 
 const StyledForm = styled.form<CommonType>`
   margin-bottom: 35px;
@@ -40,7 +41,12 @@ const options = [
   { value: 'SUBJECT', label: '제목' },
 ]
 
-const Search = ({ form, onChange, onSubmit }) => {
+const mode = [
+  { value: 'RECEIVE', label: '받은 사람 이메일' },
+  { value: 'SEND', label: '보낸 사람 이메일' },
+]
+const Search = ({ form, onChange, onSubmit, onClick }) => {
+  console.log("form", form)
   return (
     <StyledForm onSubmit={onSubmit} autoComplete="off">
       <TableCols>
@@ -59,6 +65,45 @@ const Search = ({ form, onChange, onSubmit }) => {
                 type="text"
                 name="skey"
                 value={form?.skey ?? ''}
+                onChange={onChange}
+              />
+            </td>
+          </tr>
+          <tr>
+            <th>열람/미열람</th>
+            <td>
+              <span onClick={() => onClick('status', 'UNREAD')}>
+                {form?.status === 'UNREAD' ? (
+                  <MdOutlineCheckBox />
+                ) : (
+                  <MdCheckBoxOutlineBlank />
+                )}
+                미열람
+              </span>
+              <span onClick={() => onClick('status', 'READ')}>
+                {form?.status === 'READ' ? (
+                  <MdOutlineCheckBox />
+                ) : (
+                  <MdCheckBoxOutlineBlank />
+                )}
+                열람
+              </span>
+            </td>
+          </tr>
+          <tr>
+            <th>발신/수신</th>
+            <td className="flex">
+              <Select
+                name="mode"
+                options={mode}
+                selected={form?.mode ?? ''}
+                onChange={onChange}
+                width={180}
+              />
+              <Input
+                type="text"
+                name="sendRecevie"
+                value={form?.sendRecevie ?? ''}
                 onChange={onChange}
               />
             </td>

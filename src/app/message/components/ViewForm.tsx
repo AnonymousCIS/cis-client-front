@@ -1,10 +1,34 @@
 import { SmallButton } from '@/app/global/components/Buttons'
 import { TableCols } from '@/app/global/components/Tables'
+import colors from '@/app/global/styles/colors'
 import { CommonType } from '@/app/global/types/StyledType'
 import React from 'react'
 import styled from 'styled-components'
+const {primary, white} = colors
+const StyledForm = styled.form<CommonType>`
+table {
+    margin-bottom: 30px;
 
-const StyledForm = styled.form<CommonType>``
+    th {
+      width: 130px;
+      background: ${primary};
+      color: ${white};
+    }
+
+    td {
+      & > * + * {
+        margin-left: 20px;
+      }
+    }
+
+    &:last-of-type {
+      margin-bottom: 30px;
+    }
+
+    .content {
+      height: 500px;
+    }
+  }`
 
 const ViewForm = ({ data, onDelete }) => {
   const { subject, content, senderEmail } = data
