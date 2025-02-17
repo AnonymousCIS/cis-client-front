@@ -27,12 +27,9 @@ const StyledForm = styled.form<CommonType>`
     width: 60px;
   }
 
-  th:nth-of-type(6) {
-    width: 60px;
-  }
 
-  th:nth-of-type(8) {
-    width: 260px;
+  th:nth-of-type(7) {
+    width: 261px;
   }
 `
 const status = [
@@ -57,7 +54,6 @@ const ListItem = ({ item, onModal }) => {
       <td>{subject}</td>
       <td>{senderEmail}</td>
       <td>{receiverEmail}</td>
-      <td>{mode==='RECEIVE' ? receiverEmail : senderEmail}</td>
       <td>{status === 'UNREAD' ? 'UNREAD' : 'READ'}</td>
       <td>
         <div
@@ -99,22 +95,7 @@ const ListForm = ({ form, onChange, onModal, items }) => {
               <th>보낸 사람 이메일</th>
               <th>받은 사람 이메일</th>
               <th>
-                <Select
-                  name="mode"
-                  options={mode}
-                  selected={form?.mode ?? 'SEND'}
-                  onChange={onChange}
-                  width={150}
-                />
-              </th>
-              <th>
-                <Select
-                  name="status"
-                  options={status}
-                  selected={form?.status ?? 'UNREAD'}
-                  onChange={onChange}
-                  width={150}
-                />
+                열람 여부
               </th>
               <th>내용</th>
               <th></th>

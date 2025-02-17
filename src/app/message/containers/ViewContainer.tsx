@@ -23,8 +23,9 @@ const ViewContainer = ({ seq }) => {
   }, [seq])
 
   return (
-    <div className="layout-width">
+    <div>
       <ViewForm data={data} onDelete={onDelete} />
+      dadas
     </div>
   )
 }
