@@ -1,0 +1,12 @@
+.mypage-layout {
+  display: flex;
+}
+
+.mypage-layout > aside {
+  width: 200px;
+  margin-right: 10px;
+}
+
+.mypage-layout > .mypage-content {
+  flex-grow: 1;
+}
