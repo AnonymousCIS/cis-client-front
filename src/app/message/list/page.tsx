@@ -1,13 +1,16 @@
+'use client'
 import { MainTitle } from '@/app/global/components/StyledTitle'
-import { MainContentBox } from '@/app/global/components/ContentBox'
+import loadable from '@loadable/component'
+import WithUserContainer from '@/app/global/containers/WithUserContainer'
+
+const ListContainer = loadable(() => import('../containers/ListContainer'))
 
 const ListPage = () => {
-  return (
+  return WithUserContainer(
     <>
-      <MainContentBox max={750} min={650}>
-        <MainTitle></MainTitle>
-      </MainContentBox>
-    </>
+      <MainTitle>쪽지목록</MainTitle>
+      <ListContainer />
+    </>,
   )
 }
 

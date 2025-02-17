@@ -2,7 +2,13 @@
 
 import { redirect } from 'next/navigation'
 import apiRequest from '@/app/global/libs/apiRequest'
+import { toQueryString } from '@/app/global/libs/utils'
 
+/**
+ * 쪽지 조회
+ * @param seq 
+ * @returns 
+ */
 export const getMessage = async (seq) => {
   try {
     const res = await apiRequest(`/message/view/${seq}`)
@@ -15,8 +21,14 @@ export const getMessage = async (seq) => {
   }
 }
 
+/**
+ * 쪽지 작성
+ * @param params 
+ * @param formData 
+ * @returns 
+ */
 export const writeMessage = async (params, formData: FormData) => {
-  const redirectUrl = params?.redirectUrl ?? '/message/list'
+  // const redirectUrl = params?.redirectUrl ?? '/message/list'
 
   const form: any = {}
   let errors: any = {}
@@ -64,5 +76,25 @@ export const writeMessage = async (params, formData: FormData) => {
 
   if (hasErrors) return errors
 
+  const url = `/message/list${form.popup === 'true' ? '?popup=true' : ''}`
+  
+  console.log('url', url)
+  redirect(url)
+}
+
+export const deleteMessage = async(seq) => {
+  const qs = toQueryString({seq: [seq]})
+
+  try{
+    const res = await apiRequest(`/message/deletes?${qs}`, 'PATCH')
+
+    if(res.status === 200) {
+      const result = await res.json()
+    } else {
+      return
+    }
+  } catch (err) {
+    console.error(err)
+  }
   redirect('/message/list')
 }

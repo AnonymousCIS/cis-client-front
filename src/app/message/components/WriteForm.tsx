@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import useUser from '@/app/global/hooks/useUser'
 import type { CommonType } from '@/app/global/types/StyledType'
-import { Input, Textarea } from '@/app/global/components/FormComponents'
+import { Input } from '@/app/global/components/FormComponents'
 import { TableCols } from '@/app/global/components/Tables'
 import colors from '@/app/global/styles/colors'
 import { MdCheckBox, MdCheckBoxOutlineBlank } from 'react-icons/md'
@@ -10,6 +10,7 @@ import Messages from '@/app/global/components/Messages'
 import { BigButton } from '@/app/global/components/Buttons'
 import Editor from '@/app/global/components/Editor'
 import FileUpload from '@/app/global/components/FileUpload'
+import { useSearchParams } from 'next/navigation'
 
 const { primary, white } = colors
 
@@ -54,16 +55,20 @@ const WriteForm = ({
 }) => {
   console.log('form', form)
   const [errors, formAction, isPending] = actionState
-
+  const searchParams = useSearchParams()
   const { isAdmin } = useUser()
+  const isPopup = searchParams.get('popup') === 'true'
 
   return (
     <>
       <StyledForm action={formAction} autoComplete="off">
+        <input type="hidden" name="gid" value={form?.gid ?? ''} />
+        <input type="hidden" name="content" value={form?.content ?? ''} />
+        {isPopup && <input type="hidden" name="popup" value="true" />}
         <TableCols>
           <tbody>
             <tr>
-              <th>받는 사람 이메일</th>
+              {!isPopup && <th>받는 사람 이메일</th>}
               <td>
                 <Input
                   type="text"
@@ -76,7 +81,7 @@ const WriteForm = ({
               </td>
             </tr>
             <tr>
-              <th>제목</th>
+              {!isPopup && <th>제목</th>}
               <td>
                 <Input
                   type="text"
@@ -97,7 +102,7 @@ const WriteForm = ({
               </td>
             </tr>
             <tr>
-              <th>내용</th>
+              {!isPopup && <th>내용</th>}
               <td>
                 <div>
                   <Editor
@@ -105,7 +110,7 @@ const WriteForm = ({
                     useImage={onEditorImage}
                     location="editor"
                     gid={form?.gid || ''}
-                    content={form?.content || ''}
+                    content={form?.content ?? ''}
                     files={form?.editorFiles}
                   />
                 </div>
@@ -113,7 +118,7 @@ const WriteForm = ({
               </td>
             </tr>
             <tr>
-              <th>첨부 파일</th>
+              {!isPopup && <th>첨부 파일</th>}
               <td>
                 <div className="row">
                   <FileUpload

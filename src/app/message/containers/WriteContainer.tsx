@@ -5,10 +5,10 @@ import WriteForm from '../components/WriteForm'
 import { useSearchParams } from 'next/navigation'
 
 const WriteContainer = () => {
-  const [form, setForm] = useState({})
-
   const searchParams = useSearchParams()
   const params = { redirectUrl: searchParams.get('redirectUrl') }
+
+  const [form, setForm] = useState({ receiverEmail: searchParams.get('email') })
 
   const actionState = useActionState(writeMessage, params)
 
@@ -20,12 +20,15 @@ const WriteContainer = () => {
     [],
   )
 
-  const onEditorImage = useCallback(() => setForm(true), [])
+  const onEditorImage = useCallback(
+    () => setForm({ receiverEmail: searchParams.get('email') }),
+    [searchParams],
+  )
 
   const onClick = useCallback((field, value) => {
     setForm((data) => ({ ...data, [field]: value }))
   }, [])
-  return (
+  const Form = (
     <WriteForm
       form={form}
       onChange={onChange}
@@ -35,6 +38,14 @@ const WriteContainer = () => {
       actionState={actionState}
     />
   )
+
+  const _Form =
+    searchParams.get('popup') === 'true' ? (
+      Form
+    ) : (
+      <div className="layout-width">{Form}</div>
+    )
+  return _Form
 }
 
 export default React.memo(WriteContainer)
