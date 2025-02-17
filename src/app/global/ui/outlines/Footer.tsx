@@ -1,10 +1,11 @@
 'use client'
 
 import React from 'react'
+import Image from 'next/image'
 import { styled } from 'styled-components'
 import colors from '../../styles/colors'
 import sizes from '../../styles/sizes'
-
+import icon1 from './images/github-white-icon.png'
 const { dark, light, info, secondary } = colors
 const { big } = sizes
 
@@ -28,19 +29,23 @@ const StyledFooter = styled.footer`
     }
 
     .left {
-      background: ${info};
-      color: ${dark};
+      //background: ${info};
+      color: ${info};
     }
 
     .center {
-      background: ${info};
-      color: ${dark};
+      //background: ${info};
+      color: ${info};
     }
 
     .right {
-      background: ${info};
-      color: ${dark};
+      //background: ${info};
+      color: ${info};
     }
+  }
+
+  .name {
+    font-size: 33px;
   }
 `
 
@@ -49,12 +54,46 @@ const Footer = () => {
     <StyledFooter>
       <div className="layout-width">
         <div className="top">
-          <div className="left">EX)Team CIS-Anonymous 등 🥕.top.left 영역 </div>
-          <div className="center">.top.center 영역</div>
-          <div className="right">.top.right 영역</div>
+          <div className="left">
+            <span className="name">©Team CIS-Anonymous</span>
+            <br />
+            <span>곽경섭 김시원 오준학 차태일 우현수 박진주</span>
+          </div>
+          <div className="center">
+            <a className="git" href="">
+              <Image src={icon1} alt="아이콘" width={40} height={40} />
+            </a>
+            <a className="git" href="https://github.com/pab1010">
+              <Image src={icon1} alt="아이콘" width={40} height={40} />
+            </a>
+            <a className="git" href="">
+              <Image src={icon1} alt="아이콘" width={40} height={40} />
+            </a>
+            <a className="git" href="https://github.com/chataeil">
+              <Image src={icon1} alt="아이콘" width={40} height={40} />
+            </a>
+            <a className="git" href="https://github.com/BDloverHS">
+              <Image src={icon1} alt="아이콘" width={40} height={40} />
+            </a>
+            <a className="git" href="https://github.com/JINI-PeachFuzz">
+              <Image src={icon1} alt="아이콘" width={40} height={40} />
+            </a>
+          </div>
+          <div className="right">
+            <span>고객센터 1982-1125</span>
+            <br />
+            <span>
+              평일 : 09:30 ~ 18:30 <br />
+              점심시간 : 오후 01:30 ~ 02:30 <br />
+              주말 및 공휴일은 휴무입니다.
+            </span>
+          </div>
         </div>
         <div className="mid">
-          <div className="left">.mid.left 영역</div>
+          <div className="left">
+            CIS-Anonymous 의 콘텐츠를 사전 허가 없이 무단으로 크롤링 및 복제,
+            배포할 경우 책임을 물을 수 있습니다.
+          </div>
           <div className="center">.mid.center 영역</div>
           <div className="right">.mid.right 영역</div>
         </div>
