@@ -42,8 +42,8 @@ const MypageSide = () => {
       <a href="http://localhost:3000/bank/list">My Bank 조회</a>
       <a href="http://localhost:3000/card/recommend/list">추천 Card 조회</a>
       <a href="#">추천 Loan 조회</a>
-      <a href="#">메세지 쓰기</a>
-      <a href="#">메세지 보관함</a>
+      <a href="http://localhost:3000/message/write">메세지 쓰기</a>
+      <a href="http://localhost:3000/message/list">메세지 보관함</a>
     </StyledAside>
   )
 }
