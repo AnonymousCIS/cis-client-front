@@ -6,7 +6,7 @@ import { styled } from 'styled-components'
 import colors from '../../styles/colors'
 import sizes from '../../styles/sizes'
 import icon1 from './images/github-white-icon.png'
-const { dark, light, info, secondary } = colors
+const { dark, light, info, secondary, white } = colors
 const { big } = sizes
 
 const StyledFooter = styled.footer`
@@ -20,7 +20,7 @@ const StyledFooter = styled.footer`
   .bot {
     height: 100px;
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-around;
     align-items: center;
     flex-grow: 1;
 
@@ -45,7 +45,48 @@ const StyledFooter = styled.footer`
   }
 
   .name {
-    font-size: 33px;
+    font-size: 40px;
+    color: ${white};
+  }
+
+  .nameSub {
+    color: ${white};
+    font-size: 14px;
+  }
+  .call {
+    font-size: 26px;
+    color: ${white};
+  }
+
+  .callSubs {
+    font-size: 15px;
+    color: ${white};
+  }
+
+  a {
+    color: #fff;
+  }
+  li {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    padding: 0px 0px 0px 18px; /* 텍스트와 바 간격 */
+    align-items: center;
+  }
+
+  // li::before {
+  //   content: ''; /* 커스텀 요소 삽입 */
+  //   position: absolute;
+  //   left: 0; /* 수직선 위치 */
+  //   top: 5px;
+  //   bottom: 0;
+  //   width: 0.1px; /* 수직선 두께 */
+  //   height: 13px;
+  //   background-color: gray; /* 수직선 색상 */
+  // }
+
+  .board {
+    color: ${white};
   }
 `
 
@@ -57,9 +98,12 @@ const Footer = () => {
           <div className="left">
             <span className="name">©Team CIS-Anonymous</span>
             <br />
-            <span>곽경섭 김시원 오준학 차태일 우현수 박진주</span>
           </div>
           <div className="center">
+            <span className="nameSub">
+              곽경섭 김시원 오준학 차태일 우현수 박진주
+            </span>
+            <br />
             <a className="git" href="">
               <Image src={icon1} alt="아이콘" width={40} height={40} />
             </a>
@@ -79,28 +123,36 @@ const Footer = () => {
               <Image src={icon1} alt="아이콘" width={40} height={40} />
             </a>
           </div>
-          <div className="right">
-            <span>고객센터 1982-1125</span>
+          {/* <div className="right"></div> */}
+        </div>
+        <div className="mid">
+          <div className="left">
+            본 사이트의 콘텐츠에 대한 무단 복제 및 도용을 금하며 이를 어길 시
+            법적 조치를 받을 수 있습니다.
+          </div>
+          {/* <div className="center">.mid.center 영역</div>
+          <div className="right">.mid.right 영역</div> */}
+        </div>
+        <div className="bot">
+          <div className="left">
+            <li className="board">
+              <a href="">QnA ( 1:1 문의 )</a>
+              <span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+              <a href="">공지사항</a>
+            </li>
             <br />
-            <span>
+            <span>보이스피싱 금융사고: 080-123-1234(수신자 부담)</span>
+          </div>
+          {/* <div className="center">.bot.center 영역</div> */}
+          <div className="right">
+            <span className="call">고객센터 1982-1125</span>
+            <br />
+            <span className="callSubs">
               평일 : 09:30 ~ 18:30 <br />
               점심시간 : 오후 01:30 ~ 02:30 <br />
               주말 및 공휴일은 휴무입니다.
             </span>
           </div>
-        </div>
-        <div className="mid">
-          <div className="left">
-            CIS-Anonymous 의 콘텐츠를 사전 허가 없이 무단으로 크롤링 및 복제,
-            배포할 경우 책임을 물을 수 있습니다.
-          </div>
-          <div className="center">.mid.center 영역</div>
-          <div className="right">.mid.right 영역</div>
-        </div>
-        <div className="bot">
-          <div className="left">.bot.left 영역</div>
-          <div className="center">.bot.center 영역</div>
-          <div className="right">.bot.right 영역</div>
         </div>
       </div>
     </StyledFooter>
