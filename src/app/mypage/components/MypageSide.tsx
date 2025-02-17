@@ -37,10 +37,10 @@ const StyledAside = styled.aside<CommonType>`
 const MypageSide = () => {
   return (
     <StyledAside>
-      <a href="#">회원정보 수정</a>
+      <a href="http://localhost:3000/member/edit">회원정보 수정</a>
       <a href="#">찜한 목록</a>
-      <a href="#">My Bank 조회</a>
-      <a href="#">추천 Card 조회</a>
+      <a href="http://localhost:3000/bank/list">My Bank 조회</a>
+      <a href="http://localhost:3000/card/recommend/list">추천 Card 조회</a>
       <a href="#">추천 Loan 조회</a>
       <a href="#">메세지 쓰기</a>
       <a href="#">메세지 보관함</a>
