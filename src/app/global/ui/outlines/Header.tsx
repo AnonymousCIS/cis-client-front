@@ -14,7 +14,7 @@ import logo from '../../assets/images/logo2.png'
 import useUser from '../../hooks/useUser'
 
 const { white, primary, secondary, light, dark } = colors
-const { medium, big } = sizes
+const { medium, big, normal } = sizes
 
 // scss 문법
 const StyledHeader = styled.header`
@@ -95,11 +95,30 @@ const StyledMenu = styled.nav`
       padding: 0 40px;
       line-height: 50px;
       transition: all 0.4s;
+      display: block;
 
       &:hover,
       &.on {
         color: ${primary};
         background: ${light};
+      }
+    }
+
+    .subMenu {
+      display: none;
+      position: absolute;
+      background: #fff;
+      padding: 10px;
+
+      a {
+        color: ${dark};
+        font-size: ${normal};
+      }
+    }
+      
+    li:hover {
+      .subMenu {
+        display: block;
       }
     }
   }
@@ -177,14 +196,29 @@ const Header = () => {
       </div>
       {/* logo-search */}
       <StyledMenu>
-        <div className="layout-width">
-          <Link href="/info">Info</Link>
-          <Link href="/board/list/notice">공지사항</Link>
-          <Link href="/card/list">카드</Link>
-          <Link href="/loan/list">대출</Link>
-          <Link href="/board/list/qna">Q&A</Link>
-          <Link href="/board/list/freetalk">자유게시판</Link>
-        </div>
+        <ul className="layout-width">
+          <li>
+            <a href="/info">Info</a>
+            <div className="subMenu">
+              <a href="#서브">서브</a>
+            </div>
+          </li>
+          <li>
+            <a href="/board/list/notice">공지사항</a>
+          </li>
+          <li>
+            <a href="/card/list">카드</a>
+          </li>
+          <li>
+            <a href="/loan/list">대출</a>
+          </li>
+          <li>
+            <a href="/board/list/qna">Q&A</a>
+          </li>
+          <li>
+            <a href="/board/list/freetalk">자유게시판</a>
+          </li>
+        </ul>
       </StyledMenu>
     </StyledHeader>
   )

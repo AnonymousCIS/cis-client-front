@@ -138,7 +138,6 @@ const ListContainer = () => {
         {isLoading ? (
           <Loading />
         ) : (
-          // <ModalViewForm form={form} closeModal={closeModal} />
           <LayerPopup
             isOpen={isOpen}
             onClose={closeModal}
