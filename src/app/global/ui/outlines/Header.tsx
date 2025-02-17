@@ -205,7 +205,7 @@ const Header = () => {
             </div>
           </li>
           <li>
-            <a href="/board/list/notice">공지사항</a>
+            <Link href="/board/list/notice">공지사항</Link>
           </li>
           <li>
             <a href="#">카드</a>
@@ -222,12 +222,12 @@ const Header = () => {
             </div>
           </li>
           <li>
-            <a href="/board/list/qna">Q&A</a>
+            <Link href="/board/list/qna">Q&A</Link>
           </li>
           <li>
             <a href="#">커뮤니티</a>
             <div className="subMenu">
-              <a href="/board/list/freetalk">자유게시판</a>
+              <Link href="/board/list/freetalk">자유게시판</Link>
             </div>
           </li>
         </ul>
