@@ -81,7 +81,7 @@ const StyledFooter = styled.footer`
   .github {
     display: flex;
     flex-direction: row;
-    gap: 5px;
+    gap: 4.2px;
   }
 
   li {
@@ -119,7 +119,11 @@ const Footer = () => {
         <div className="top">
           <div className="left">
             <div className="logoName">
-              <a className="git" href="../">
+              <a
+                className="git"
+                href="#"
+                onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+              >
                 <Image src={icon2} alt="아이콘" width={100} height={100} />
               </a>
               <span>©Team CIS-Anonymous</span>
