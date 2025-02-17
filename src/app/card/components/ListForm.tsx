@@ -56,7 +56,7 @@ const StyledForm = styled.form`
   }
 `
 
-const ListCardItem = ({ item, onModal }) => {
+const ListCardItem = ({ item, onModal, onClick }) => {
   const {
     cardName,
     bankNameStr,

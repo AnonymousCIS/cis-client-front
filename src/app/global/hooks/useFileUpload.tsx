@@ -50,6 +50,6 @@ export default function useFileUpload(
         }
       })()
     },
-    [setFiles, editor],
+    [setFiles, callback, editor],
   )
 }
