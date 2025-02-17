@@ -13,7 +13,7 @@ import sizes from '../../styles/sizes'
 import logo from '../../assets/images/logo2.png'
 import useUser from '../../hooks/useUser'
 
-const { white, primary, secondary, light, dark } = colors
+const { white, primary, secondary, info, lightgreen, light, dark } = colors
 const { medium, big, normal } = sizes
 
 // scss 문법
@@ -107,7 +107,7 @@ const StyledMenu = styled.nav`
     .subMenu {
       display: none;
       position: absolute;
-      background: #fff;
+      background: ${info};
       padding: 10px;
 
       a {
@@ -115,7 +115,7 @@ const StyledMenu = styled.nav`
         font-size: ${normal};
       }
     }
-      
+
     li:hover {
       .subMenu {
         display: block;
@@ -200,23 +200,35 @@ const Header = () => {
           <li>
             <a href="/info">Info</a>
             <div className="subMenu">
-              <a href="#서브">서브</a>
+              <a href="#서브">사이트 소개</a>
+              <a href="#서브">CIS-Anonymous 소개</a>
             </div>
           </li>
           <li>
             <a href="/board/list/notice">공지사항</a>
           </li>
           <li>
-            <a href="/card/list">카드</a>
+            <a href="#">카드</a>
+            <div className="subMenu">
+              <a href="/card/list">전체 목록</a>
+              <a href="/bank/transaction/card">추천 받기</a>
+            </div>
           </li>
           <li>
-            <a href="/loan/list">대출</a>
+            <a href="#">대출</a>
+            <div className="subMenu">
+              <a href="/loan/list">전체 목록</a>
+              <a href="/bank/transaction/loan">추천 받기</a>
+            </div>
           </li>
           <li>
             <a href="/board/list/qna">Q&A</a>
           </li>
           <li>
-            <a href="/board/list/freetalk">자유게시판</a>
+            <a href="#">커뮤니티</a>
+            <div className="subMenu">
+              <a href="/board/list/freetalk">자유게시판</a>
+            </div>
           </li>
         </ul>
       </StyledMenu>

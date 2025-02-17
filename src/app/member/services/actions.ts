@@ -224,7 +224,7 @@ export const getUserInfo = async () => {
 
       return result.success && result.data
     } else {
-      cookie.set('token', '')
+      // cookie.set('token', '')
     }
   } catch (err) {
     console.error(err)
