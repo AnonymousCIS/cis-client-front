@@ -31,52 +31,62 @@ const StyledForm = styled.form`
   }
 
   th:nth-of-type(7) {
-    width: 80px; 
+    width: 80px;
   }
- th:nth-of-type(8) {
-  width: 80px;
-}
-   th:nth-of-type(9) {
-  width: 80px;
-}
+  th:nth-of-type(8) {
+    width: 80px;
+  }
+  th:nth-of-type(9) {
+    width: 80px;
+  }
   td {
     text-align: center;
   }
 `
 
 const bankNameKo = {
-    HANKUK: '한국은행',
-    KB: '국민은행',
-    SC: '제일은행',
-    CITY: '한국시티은행',
-    HANA: '하나은행',
-    SHINHAN: '신한은행',
-    KBANK: 'K-뱅크',
-    KAKAO: '카카오은행',
-    TOSS: '토스',
-    SUHYUP: '수협은행',
-    BUSAN: '부산은행',
-    KYUNGNAM: '경남은행',
-    KYANGJOO: '광주은행',
-    JUNBOK: '전북은행',
-    JEJOO: '제주은행',
-    LOTTE: '롯데카드',
-    NONGHYUP: '농협은행',
-    SAMSUNG: '삼성카드',
-    HYUNDAI: '현대카드',
-    WOORI: '우리은행',
-    SINHYUP: '신협은행',
-    SAEMAEULGEUMGO: '새마을금고',
-    WOOCAEKUK: '우체국',
-  }
-  
-const categoryName ={
-    CREDITLOAN: "신용대출",
-    MORTGAGELOAN: "담보대출" // 담보대출
+  HANKUK: '한국은행',
+  KB: '국민은행',
+  SC: '제일은행',
+  CITY: '한국시티은행',
+  HANA: '하나은행',
+  SHINHAN: '신한은행',
+  KBANK: 'K-뱅크',
+  KAKAO: '카카오은행',
+  TOSS: '토스',
+  SUHYUP: '수협은행',
+  BUSAN: '부산은행',
+  KYUNGNAM: '경남은행',
+  KYANGJOO: '광주은행',
+  JUNBOK: '전북은행',
+  JEJOO: '제주은행',
+  LOTTE: '롯데카드',
+  NONGHYUP: '농협은행',
+  SAMSUNG: '삼성카드',
+  HYUNDAI: '현대카드',
+  WOORI: '우리은행',
+  SINHYUP: '신협은행',
+  SAEMAEULGEUMGO: '새마을금고',
+  WOOCAEKUK: '우체국',
+}
+
+const categoryName = {
+  CREDITLOAN: '신용대출',
+  MORTGAGELOAN: '담보대출', // 담보대출
 }
 
 const ListLoanItem = ({ item }) => {
-  const { seq,loanName, bankName, category,limit,interestRate,repaymentYear,isOpen, loanDescription } = item
+  const {
+    seq,
+    loanName,
+    bankName,
+    category,
+    limit,
+    interestRate,
+    repaymentYear,
+    isOpen,
+    loanDescription,
+  } = item
 
   const transBankName = bankNameKo[bankName] || bankName
   const transCategoryName = categoryName[category] || category
@@ -91,12 +101,12 @@ const ListLoanItem = ({ item }) => {
       <td>{repaymentYear}</td>
       <td>{isOpen}</td>
       <td>
-        <a href={`lview/${seq}`}>
-        <SmallButton type="button" color="primary" width={120}>
-        자세히 보기
-       </SmallButton>
+        <a href={`view/${seq}`}>
+          <SmallButton type="button" color="primary" width={120}>
+            자세히 보기
+          </SmallButton>
         </a>
-       </td>
+      </td>
     </tr>
   )
 }
